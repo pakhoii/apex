@@ -1,0 +1,14 @@
+services:
+  mysql:
+    image: mysql/mysql-server:latest
+    container_name: apex_database
+    environment:
+      MYSQL_DATABASE: apex
+      MYSQL_USER: root
+      MYSQL_PASSWORD: iloveanime
+      MYSQL_ROOT_PASSWORD: iloveanime
+    
+    ports:
+    - '3307:3306/tcp'
+    
+    restart: unless-stopped
