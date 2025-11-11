@@ -1,55 +1,76 @@
-from dotenv import load_dotenv
-from datetime import datetime, timedelta
-from app.schemas.token import TokenDataUser
+from datetime import datetime, timedelta, timezone
+from typing import Optional, Dict, Any
 
-import os
 import jwt
+from app.core.config import settings
 
-load_dotenv()
-# Missing .env file check
-# Cd to env
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
-env_path = os.path.join(project_root, '.env')
+class TokenService:
+    def __init__(self):
+        self.secret_key = settings.SECRET_KEY
+        self.algorithm = settings.ALGORITHM
+        self.access_token_expire_delta = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        self.refresh_token_expire_delta = timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES)
+        self.pending_auth_token_expire_delta = timedelta(minutes=settings.PENDING_AUTH_TOKEN_EXPIRE_MINUTES)
 
-if not os.path.exists(env_path):
-    raise FileNotFoundError("`.env` file is missing in the project root.")
+    def _create_token(self, data: dict, expires_delta: timedelta, token_type: str) -> str:
+        """
+        Hàm helper private để tạo token.
+        """
+        to_encode = data.copy()
+        expire = datetime.now(timezone.utc) + expires_delta
+        to_encode.update({
+            "exp": expire,
+            "iat": datetime.now(timezone.utc), # Issued at time
+            "type": token_type # Thêm loại token để phân biệt
+        })
+        encoded_jwt = jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
+        return encoded_jwt
 
-# Load environment variables
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY environment variable is not set.")
+    def create_access_token(self, data: Dict[str, Any]) -> str:
+        """Tạo Access Token."""
+        return self._create_token(
+            data=data, 
+            expires_delta=self.access_token_expire_delta,
+            token_type="access"
+        )
 
-ALGORITHM = os.getenv("ALGORITHM")
-if not ALGORITHM:
-    raise ValueError("ALGORITHM environment variable is not set.")
+    def create_refresh_token(self, data: Dict[str, Any]) -> str:
+        """Tạo Refresh Token."""
+        return self._create_token(
+            data=data, 
+            expires_delta=self.refresh_token_expire_delta,
+            token_type="refresh"
+        )
 
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
-if ACCESS_TOKEN_EXPIRE_MINUTES <= 0:
-    raise ValueError("ACCESS_TOKEN_EXPIRE_MINUTES must be a positive integer.")
+    def create_pending_auth_token(self, user_id: str) -> str:
+        """Tạo Token tạm thời cho quá trình xác thực 2FA."""
+        data = {"sub": user_id}
+        return self._create_token(
+            data=data,
+            expires_delta=self.pending_auth_token_expire_delta,
+            token_type="pending_auth"
+        )
 
-def create_token_access(data: dict) -> str:
-    to_encode = data.copy()
-    expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    def decode_token(self, token: str) -> Optional[dict]:
+        """
+        Giải mã một token bất kỳ. Trả về payload nếu hợp lệ, ngược lại trả về None.
+        """
+        try:
+            payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
+            return payload
+        except jwt.PyJWTError:
+            # Có thể log lỗi ở đây nếu cần (e.g., jwt.ExpiredSignatureError, jwt.InvalidTokenError)
+            return None
 
-
-def verify_user_token(token: str, credentials_exception):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise credentials_exception
-        token_data = TokenDataUser(username=username)
-    except jwt.PyJWTError:
-        raise credentials_exception
-    return token_data
-
-
-def decode_access_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except jwt.PyJWTError:
+    def decode_pending_auth_token(self, token: str) -> Optional[dict]:
+        """
+        Giải mã và xác thực token tạm thời.
+        """
+        payload = self.decode_token(token)
+        # Kiểm tra thêm xem có đúng là token "pending_auth" không
+        if payload and payload.get("type") == "pending_auth":
+            return payload
         return None
+
+# Tạo một instance duy nhất để import và sử dụng ở nơi khác
+token_service = TokenService()

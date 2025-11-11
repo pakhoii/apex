@@ -10,5 +10,25 @@ services:
     
     ports:
     - '3307:3306/tcp'
+
+  redis: 
+    image: redis:7-alpine # light version
+    container_name: apex_redis
+    ports:
+      - '6379:6379/tcp'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+    # Docker will run redis-cli ping command to check if Redis is healthy
+    # If it is healthy, it will return PONG
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     
     restart: unless-stopped
+
+volumes:
+  redis_data:
+  mysql_data:

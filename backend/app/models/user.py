@@ -11,6 +11,7 @@ class User(Base):
     email = Column(String(100), nullable=False, unique=True, index=True)
     phone_number = Column(String(15), nullable=False, unique=True)
     password_hash = Column(String(255), nullable=False)
+    is_2fa_enabled = True
 
     # Relationships
     orders = relationship("Order", back_populates="user")
