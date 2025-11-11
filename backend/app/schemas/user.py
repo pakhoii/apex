@@ -24,3 +24,18 @@ class UserOut(UserBase):
 
     class Config:
         orm_mode = True
+
+# User login schema
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+    
+# User schema with OTP
+class OtpVerify(BaseModel):
+    otp_code: str
+    pending_token: str
+    
+# User schema for password reset
+class UserResetPassword(BaseModel):
+    email: EmailStr
+    new_password: str
