@@ -1,10 +1,10 @@
-# from fastapi import FastAPI, Depends
-# from sqlalchemy.orm import Session
-# from app.db.session import get_db
+from fastapi import FastAPI, Depends
+from app.core.cors import setup_cors
+from app.api.v1.endpoints import register
 
-# app = FastAPI()
+app = FastAPI()
 
-# @app.get("/db-test")
-# def db_test(db: Session = Depends(get_db)):
-#     result = db.execute("SELECT 1")
-#     return {"connected": bool(result.scalar())}
+setup_cors(app)
+
+# Include API routers
+app.include_router(register.router)
