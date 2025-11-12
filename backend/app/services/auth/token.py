@@ -14,7 +14,7 @@ class TokenService:
 
     def _create_token(self, data: dict, expires_delta: timedelta, token_type: str) -> str:
         """
-        Hàm helper private để tạo token.
+        Create token method
         """
         to_encode = data.copy()
         expire = datetime.now(timezone.utc) + expires_delta
@@ -27,7 +27,7 @@ class TokenService:
         return encoded_jwt
 
     def create_access_token(self, data: Dict[str, Any]) -> str:
-        """Tạo Access Token."""
+        """Create access token"""
         return self._create_token(
             data=data, 
             expires_delta=self.access_token_expire_delta,
@@ -35,7 +35,7 @@ class TokenService:
         )
 
     def create_refresh_token(self, data: Dict[str, Any]) -> str:
-        """Tạo Refresh Token."""
+        """Create refresh token"""
         return self._create_token(
             data=data, 
             expires_delta=self.refresh_token_expire_delta,
@@ -43,7 +43,7 @@ class TokenService:
         )
 
     def create_pending_auth_token(self, user_id: str) -> str:
-        """Tạo Token tạm thời cho quá trình xác thực 2FA."""
+        """Create pending token for 2FA process"""
         data = {"sub": user_id}
         return self._create_token(
             data=data,
@@ -53,7 +53,7 @@ class TokenService:
 
     def decode_token(self, token: str) -> Optional[dict]:
         """
-        Giải mã một token bất kỳ. Trả về payload nếu hợp lệ, ngược lại trả về None.
+        Decode the token and return payload if it is valid
         """
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
@@ -64,7 +64,7 @@ class TokenService:
 
     def decode_pending_auth_token(self, token: str) -> Optional[dict]:
         """
-        Giải mã và xác thực token tạm thời.
+        Decode and verify pending token
         """
         payload = self.decode_token(token)
         # Kiểm tra thêm xem có đúng là token "pending_auth" không

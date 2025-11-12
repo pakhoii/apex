@@ -7,3 +7,6 @@ class Token(BaseModel):
 
 class TokenDataUser(Token):
     username: str | None = None
+    
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str
