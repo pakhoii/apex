@@ -3,7 +3,7 @@ from sqlalchemy.orm.session import Session
 from typing import Union
 
 from app.models.user import User
-from app.schemas.token import Token
+from app.schemas.token import Token, RefreshTokenRequest
 from app.schemas.user import UserLogin, OtpVerify
 
 from app.services.auth.otp import otp_service
@@ -82,4 +82,27 @@ class LoginService:
         
         return Token(access_token=access_token, refresh_token=refresh_token, token_type="bearer")
 
+
+    async def refresh_access_token(self, token_data: RefreshTokenRequest) -> Token:
+        refresh_token = token_data.refresh_token
+        payload = token_service.decode_token(refresh_token)
+        
+        if not payload or payload.get("type") != "refresh":
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired refresh token",
+            )
+        
+        user_id = payload.get("sub")
+        if not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Could not find user from token",
+            )
+            
+        new_access_token = token_service.create_access_token(data={"sub": user_id})
+        new_refresh_token = token_service.create_refresh_token(data={"sub": user_id}) 
+        
+        return Token(access_token=new_access_token, refresh_token=new_refresh_token)
+    
 login_service = LoginService()

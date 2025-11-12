@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 
 # Import các schema cần thiết cho request body và response model
-from app.schemas.token import Token
+from app.schemas.token import Token, RefreshTokenRequest
 from app.schemas.user import UserLogin, OtpVerify
 
 # Chỉ import auth_service từ lớp service
@@ -35,3 +35,11 @@ async def verify_otp_login(otp_data: OtpVerify):
     Verifies the OTP for 2FA login and returns final tokens upon success.
     """
     return await login_service.verify_login_otp(otp_data=otp_data)
+
+
+@router.post("/refresh-token", response_model=Token, summary="Refresh Access Token")
+async def refresh_token(token_data: RefreshTokenRequest):
+    """
+    Provides a new access token and a new refresh token using a valid refresh token.
+    """
+    return await login_service.refresh_access_token(token_data=token_data)
