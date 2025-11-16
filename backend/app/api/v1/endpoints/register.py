@@ -25,4 +25,5 @@ async def register_user(
     """
     new_user = register_service.create_user(db, user_data)
     access_token = token_service.create_access_token(data={"sub": new_user.id})
-    return Token(access_token=access_token, token_type="bearer")
+    refresh_token = token_service.create_refresh_token(data={"sub": new_user.id})
+    return Token(access_token=access_token, refresh_token=refresh_token, token_type="bearer")
