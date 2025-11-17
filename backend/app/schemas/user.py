@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 # from typing import Optional
+from app.models.user import UserRole
 
 # Base user schema
 class UserBase(BaseModel):
@@ -21,6 +22,8 @@ class UserUpdate(BaseModel):
 # Use for user output
 class UserOut(UserBase):
     id: int
+    is_2fa_enabled: bool
+    role: UserRole
 
     class Config:
         orm_mode = True
@@ -39,3 +42,7 @@ class OtpVerify(BaseModel):
 class UserResetPassword(BaseModel):
     email: EmailStr
     new_password: str
+    
+# Allow admin create new user
+class AdminUserCreate(UserCreate):
+    role: UserRole = UserRole.USER

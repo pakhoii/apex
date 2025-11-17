@@ -9,7 +9,7 @@ from app.schemas.user import UserLogin, OtpVerify
 from app.services.auth.otp import otp_service
 from app.services.mail.mail import mail_service
 from app.services.auth.token import token_service
-from app.services.utils.get_user import get_user_by_email
+from app.services.utils.get_user import get_user_by_email, get_user_by_id
 from app.services.utils.verify_password import verify_password
 
 class LoginService:
@@ -48,8 +48,11 @@ class LoginService:
                 "pending_token": pending_token
             }
         else: 
-            access_token = token_service.create_access_token(data={"sub": str(user.id)})
-            refresh_token = token_service.create_refresh_token(data={"sub": str(user.id)})
+            token_payload = {"sub": str(user.id), "role": user.role.value}
+            
+            # Create token based on the user_id and their role
+            access_token = token_service.create_access_token(data=token_payload)
+            refresh_token = token_service.create_refresh_token(data=token_payload)
             return Token(access_token=access_token, refresh_token=refresh_token, token_type="bearer")
         
     
@@ -67,6 +70,9 @@ class LoginService:
             
         user_id = payload.get("sub")
         
+        # Get user to access user.role
+        user = get_user_by_id(user_id)
+        
         #  Verify OTP
         is_valid = await otp_service.verify_otp(user_id=user_id, otp_code=otp_data.otp_code)
         
@@ -77,8 +83,11 @@ class LoginService:
             )
             
         # Return token if the OTP is valid
-        access_token = token_service.create_access_token(data={"sub": user_id})
-        refresh_token = token_service.create_refresh_token(data={"sub": user_id})
+        token_payload = {"sub": str(user.id), "role": user.role.value}
+        
+        # Create token based on ID and role
+        access_token = token_service.create_access_token(data=token_payload)
+        refresh_token = token_service.create_refresh_token(data=token_payload)
         
         return Token(access_token=access_token, refresh_token=refresh_token, token_type="bearer")
 
@@ -94,14 +103,17 @@ class LoginService:
             )
         
         user_id = payload.get("sub")
-        if not user_id:
+        user_role = payload.get("role")
+        
+        if not user_id or not user_role:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Could not find user from token",
             )
             
-        new_access_token = token_service.create_access_token(data={"sub": user_id})
-        new_refresh_token = token_service.create_refresh_token(data={"sub": user_id}) 
+        new_token_payload = {"sub": user_id, "role": user_role}
+        new_access_token = token_service.create_access_token(data=new_token_payload)
+        new_refresh_token = token_service.create_refresh_token(data=new_token_payload) 
         
         return Token(access_token=new_access_token, refresh_token=new_refresh_token)
     

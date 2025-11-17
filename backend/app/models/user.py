@@ -1,6 +1,12 @@
-from sqlalchemy import Column, Integer, String
+import enum
+from sqlalchemy import Column, Integer, String, Boolean, Enum as SQLAlchemyEnum
 from sqlalchemy.orm import relationship
 from app.db.database import Base
+
+class UserRole(str, enum.Enum):
+    USER = "user"
+    ADMIN = "admin"
+    
 
 class User(Base):
     __tablename__ = "users"
@@ -11,7 +17,12 @@ class User(Base):
     email = Column(String(100), nullable=False, unique=True, index=True)
     phone_number = Column(String(15), nullable=False, unique=True)
     password_hash = Column(String(255), nullable=False)
-    is_2fa_enabled = True
+    role = Column(SQLAlchemyEnum(UserRole), nullable=False, default=UserRole.USER)
+    # is_2fa_enabled = True
+    is_2fa_enabled = Column(Boolean(), default=False)
+    
+    # De day mot co loi thi uncomment
+    # otp_secret = Column(String, nullable=True)
 
     # Relationships
     orders = relationship("Order", back_populates="user")
