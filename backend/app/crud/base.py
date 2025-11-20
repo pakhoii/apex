@@ -35,9 +35,9 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db_object = self.model(**input_object_data)
         
         db.add(db_object)
-        db.commit()
-        # Update the object with the data from database
-        db.refresh(db_object) 
+        # db.commit()
+        # # Update the object with the data from database
+        # db.refresh(db_object) 
         
         return db_object
     
@@ -58,8 +58,8 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
                 setattr(db_object, field, update_data[field])
 
         db.add(db_object)
-        db.commit()
-        db.refresh(db_object)
+        # db.commit()
+        # db.refresh(db_object)
         
         return db_object
     
@@ -68,5 +68,5 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def remove(self, db: Session, *, id: int) -> ModelType:
         obj = db.query(self.model).get(id)
         db.delete(obj)
-        db.commit()
+        # db.commit()
         return obj
