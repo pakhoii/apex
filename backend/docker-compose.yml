@@ -4,7 +4,7 @@ services:
     container_name: apex_database
     environment:
       MYSQL_DATABASE: apex
-      MYSQL_USER: root
+      MYSQL_USER: apex
       MYSQL_PASSWORD: iloveanime
       MYSQL_ROOT_PASSWORD: iloveanime
     
