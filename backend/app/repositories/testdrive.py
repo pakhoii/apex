@@ -41,5 +41,14 @@ class TestDriveBookingRepository:
             TestDriveBooking.model_id == model_id
         ).first()
 
+    def get_booked_slots(self, db: Session, model_id: int, scheduled_date: date) -> List[int]:
+        """Return a list of slot_ids that are already booked for this model and date."""
+        results = db.query(TestDriveBooking.slot_id).filter(
+            TestDriveBooking.model_id == model_id,
+            TestDriveBooking.scheduled_date == scheduled_date,
+            TestDriveBooking.status != BookingStatus.CANCELLED
+        ).all()
+        return [r[0] for r in results]
+
 testdrive_slot_repo = TestDriveSlotRepository()
 testdrive_booking_repo = TestDriveBookingRepository()

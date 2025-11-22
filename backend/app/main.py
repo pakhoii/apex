@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends
 from app.core.cors import setup_cors
+import app.models # Ensure all models are registered
 from app.api.v1.endpoints import register
 from app.api.v1.endpoints import login
 from app.api.v1.endpoints import admin

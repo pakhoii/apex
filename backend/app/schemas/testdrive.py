@@ -14,6 +14,7 @@ class TestDriveSlotCreate(TestDriveSlotBase):
 
 class TestDriveSlotOut(TestDriveSlotBase):
     id: int
+    is_available: bool = True
 
     class Config:
         from_attributes = True

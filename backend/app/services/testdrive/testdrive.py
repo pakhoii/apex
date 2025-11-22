@@ -1,3 +1,5 @@
+from typing import Optional
+from datetime import date
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
@@ -41,7 +43,24 @@ class TestDriveService:
     def get_user_bookings(self, db: Session, user_id: int):
         return testdrive_booking_repo.get_bookings_by_user(db, user_id)
 
-    def get_all_slots(self, db: Session):
-        return testdrive_slot_repo.get_active_slots(db)
+    def get_all_slots(self, db: Session, model_id: Optional[int] = None, check_date: Optional[date] = None):
+        slots = testdrive_slot_repo.get_active_slots(db)
+        
+        # If no filter provided, return all as available (default behavior)
+        if not model_id or not check_date:
+            # Convert SQLAlchemy models to Pydantic models (or dicts) with is_available=True
+            # But since we return ORM objects, we need to attach the attribute dynamically or map it.
+            # Better to return a list of dicts or let Pydantic handle it if we set the attribute.
+            for slot in slots:
+                slot.is_available = True
+            return slots
+
+        # Get booked slot IDs
+        booked_slot_ids = testdrive_booking_repo.get_booked_slots(db, model_id, check_date)
+        
+        for slot in slots:
+            slot.is_available = slot.id not in booked_slot_ids
+            
+        return slots
 
 testdrive_service = TestDriveService()

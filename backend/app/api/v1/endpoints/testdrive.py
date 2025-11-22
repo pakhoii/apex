@@ -1,4 +1,5 @@
-from typing import List
+from typing import List, Optional
+from datetime import date
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from app.db.database import get_db
@@ -26,6 +27,8 @@ def get_my_bookings(
 
 @router.get("/slots", response_model=List[TestDriveSlotOut])
 def get_available_slots(
+    model_id: Optional[int] = None,
+    date: Optional[date] = None,
     db: Session = Depends(get_db)
 ):
-    return testdrive_service.get_all_slots(db)
+    return testdrive_service.get_all_slots(db, model_id, date)
