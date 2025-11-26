@@ -4,10 +4,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.db.database import Base
 
-class BookingStatus(str, enum.Enum):
-    SCHEDULED = "SCHEDULED"
-    COMPLETED = "COMPLETED"
-    CANCELLED = "CANCELLED"
+from app.core.enums import TestDriveStatus
 
 class TestDriveSlot(Base):
     __tablename__ = "testdrive_slots"
@@ -27,7 +24,7 @@ class TestDriveBooking(Base):
     model_id = Column(Integer, ForeignKey("models.id"), nullable=False)
     slot_id = Column(Integer, ForeignKey("testdrive_slots.id"), nullable=False)
     scheduled_date = Column(Date, nullable=False)
-    status = Column(Enum(BookingStatus), default=BookingStatus.SCHEDULED, nullable=False)
+    status = Column(Enum(TestDriveStatus), default=TestDriveStatus.SCHEDULED, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     user = relationship("User", back_populates="testdrive_bookings")

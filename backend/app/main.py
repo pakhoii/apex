@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, APIRouter
 from app.core.cors import setup_cors
 import app.models # Ensure all models are registered
 from app.api.v1.endpoints import register

@@ -1,7 +1,7 @@
 from typing import Optional
 from datetime import date, time, datetime
 from pydantic import BaseModel, Field
-from app.models.testdrive import BookingStatus
+from app.core.enums import TestDriveStatus
 
 # --- Slot Schemas ---
 class TestDriveSlotBase(BaseModel):
@@ -29,12 +29,12 @@ class BookingCreate(BookingBase):
     pass
 
 class BookingUpdate(BaseModel):
-    status: BookingStatus
+    status: TestDriveStatus
 
 class BookingOut(BookingBase):
     id: int
     user_id: int
-    status: BookingStatus
+    status: TestDriveStatus
     created_at: datetime
     
     # We might want to include nested objects later, but for now keep it simple

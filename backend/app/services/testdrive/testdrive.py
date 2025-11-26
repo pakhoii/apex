@@ -1,66 +1,86 @@
-from typing import Optional
+from typing import List, Optional
 from datetime import date
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
-from app.repositories.testdrive import testdrive_booking_repo, testdrive_slot_repo
-from app.schemas.testdrive import BookingCreate
-from app.models.model import Model
+
+from app.crud import crud_model, crud_testdrive_booking, crud_testdrive_slot, crud_audit_log
+from app.schemas.testdrive import BookingCreate, TestDriveSlotCreate
+from app.schemas.audit_log import AuditLogCreate
+from app.models import TestDriveBooking, TestDriveSlot
 
 class TestDriveService:
-    def check_availability(self, db: Session, model_id: int) -> bool:
-        model = db.query(Model).filter(Model.id == model_id).first()
-        if not model:
-            raise HTTPException(status_code=404, detail="Model not found")
-        return model.amount > 0
+    # --- Booking Logic ---
+    def create_booking(self, db: Session, *, user_id: int, booking_data: BookingCreate) -> TestDriveBooking:
+        # 1. Validate model
+        model = crud_model.get(db, id=booking_data.model_id)
+        if not model or model.amount <= 0:
+            raise HTTPException(status_code=400, detail="Model not available for test drive")
 
-    def create_booking(self, db: Session, user_id: int, booking_data: BookingCreate):
-        # 1. Check availability
-        if not self.check_availability(db, booking_data.model_id):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Model is not available for test drive (out of stock)"
-            )
-
-        # 2. Check if slot exists and is active
-        slot = testdrive_slot_repo.get_slot_by_id(db, booking_data.slot_id)
+        # 2. Validate slot
+        slot = crud_testdrive_slot.get(db, id=booking_data.slot_id)
         if not slot or not slot.is_active:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid or inactive time slot"
-            )
+            raise HTTPException(status_code=400, detail="Invalid or inactive time slot")
 
-        # 3. Try to create booking
         try:
-            return testdrive_booking_repo.create_booking(db, booking_data, user_id)
+            # Thao tác 1: Tạo booking (chưa commit)
+            booking = crud_testdrive_booking.create_with_owner(db, obj_in=booking_data, user_id=user_id)
+            
+            # Thao tác 2: Ghi log (chưa commit)
+            db.flush() # Lấy ID của booking
+            log_data = AuditLogCreate(
+                entity_type="TestDriveBooking", entity_id=booking.id, actor_id=user_id,
+                action="create_booking", details=f"Booking created for model {booking.model_id}"
+            )
+            crud_audit_log.create(db=db, obj_in=log_data)
+
+            # Commit toàn bộ transaction
+            db.commit()
+            db.refresh(booking)
+            return booking
+            
         except IntegrityError:
             db.rollback()
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail="This slot is already booked for this model on the selected date."
+            raise HTTPException(status_code=409, detail="This slot is already booked for this model on the selected date.")
+        except Exception as e:
+            db.rollback()
+            raise e
+
+    def get_user_bookings(self, db: Session, *, user_id: int) -> List[TestDriveBooking]:
+        return crud_testdrive_booking.get_by_user(db, user_id=user_id)
+
+    # --- Slot Logic ---
+    def create_slot(self, db: Session, *, slot_data: TestDriveSlotCreate, user_id: int) -> TestDriveSlot:
+        try:
+            slot = crud_testdrive_slot.create(db, obj_in=slot_data)
+            
+            db.flush()
+            log_data = AuditLogCreate(
+                entity_type="TestDriveSlot", entity_id=slot.id, actor_id=user_id,
+                action="create_slot", details=f"Slot created: {slot.start_time}-{slot.end_time}"
             )
+            crud_audit_log.create(db=db, obj_in=log_data)
+            
+            db.commit()
+            db.refresh(slot)
+            return slot
+        except Exception as e:
+            db.rollback()
+            raise e
 
-    def get_user_bookings(self, db: Session, user_id: int):
-        return testdrive_booking_repo.get_bookings_by_user(db, user_id)
-
-    def get_all_slots(self, db: Session, model_id: Optional[int] = None, check_date: Optional[date] = None):
-        slots = testdrive_slot_repo.get_active_slots(db)
+    def get_available_slots(self, db: Session, *, model_id: Optional[int] = None, check_date: Optional[date] = None) -> List[TestDriveSlot]:
+        active_slots = crud_testdrive_slot.get_active(db)
         
-        # If no filter provided, return all as available (default behavior)
         if not model_id or not check_date:
-            # Convert SQLAlchemy models to Pydantic models (or dicts) with is_available=True
-            # But since we return ORM objects, we need to attach the attribute dynamically or map it.
-            # Better to return a list of dicts or let Pydantic handle it if we set the attribute.
-            for slot in slots:
+            for slot in active_slots:
                 slot.is_available = True
-            return slots
+            return active_slots
 
-        # Get booked slot IDs
-        booked_slot_ids = testdrive_booking_repo.get_booked_slots(db, model_id, check_date)
+        booked_slot_ids = crud_testdrive_booking.get_booked_slot_ids(db, model_id=model_id, scheduled_date=check_date)
         
-        for slot in slots:
+        for slot in active_slots:
             slot.is_available = slot.id not in booked_slot_ids
             
-        return slots
+        return active_slots
 
 testdrive_service = TestDriveService()

@@ -16,3 +16,8 @@ class OrderAction(str, enum.Enum):
     ADMIN_SHIP = "admin_ship"
     USER_CONFIRM_DELIVERY = "user_confirm_delivery"
     CANCEL = "cancel"
+
+class TestDriveStatus(str, enum.Enum):
+    SCHEDULED = "SCHEDULED"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"
