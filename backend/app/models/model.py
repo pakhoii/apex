@@ -18,3 +18,4 @@ class Model(Base):
     cart_items = relationship("CartItem", back_populates="model")
     wishlist_items = relationship("WishlistItem", back_populates="model")
     testdrive_records = relationship("TestdriveRecord", back_populates="model")
+    testdrive_bookings = relationship("TestDriveBooking", back_populates="model")

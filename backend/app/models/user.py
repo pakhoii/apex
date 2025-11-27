@@ -26,3 +26,4 @@ class User(Base):
     carts = relationship("Cart", back_populates="user")
     wishlists = relationship("Wishlist", back_populates="user")
     messages = relationship("ContactMessage", back_populates="user")
+    testdrive_bookings = relationship("TestDriveBooking", back_populates="user")

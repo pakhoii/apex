@@ -6,3 +6,4 @@ from app.models.payment import Payment
 from app.models.cart import Cart, CartItem
 from app.models.wishlist import Wishlist, WishlistItem
 from app.models.contact import ContactMessage, TestdriveRecord
+from app.models.testdrive import TestDriveSlot, TestDriveBooking
