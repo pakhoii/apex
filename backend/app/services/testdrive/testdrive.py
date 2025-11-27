@@ -32,7 +32,7 @@ class TestDriveService:
                 entity_type="TestDriveBooking", entity_id=booking.id, actor_id=user_id,
                 action="create_booking", details=f"Booking created for model {booking.model_id}"
             )
-            crud_audit_log.create(db=db, obj_in=log_data)
+            crud_audit_log.create(db=db, input_object=log_data)
 
             # Commit toàn bộ transaction
             db.commit()
@@ -52,14 +52,14 @@ class TestDriveService:
     # --- Slot Logic ---
     def create_slot(self, db: Session, *, slot_data: TestDriveSlotCreate, user_id: int) -> TestDriveSlot:
         try:
-            slot = crud_testdrive_slot.create(db, obj_in=slot_data)
+            slot = crud_testdrive_slot.create(db, input_object=slot_data)
             
             db.flush()
             log_data = AuditLogCreate(
                 entity_type="TestDriveSlot", entity_id=slot.id, actor_id=user_id,
                 action="create_slot", details=f"Slot created: {slot.start_time}-{slot.end_time}"
             )
-            crud_audit_log.create(db=db, obj_in=log_data)
+            crud_audit_log.create(db=db, input_object=log_data)
             
             db.commit()
             db.refresh(slot)
