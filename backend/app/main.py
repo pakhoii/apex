@@ -8,7 +8,8 @@ from app.api.v1.endpoints import order
 from app.api.v1.endpoints import brand
 from app.api.v1.endpoints import model
 from app.api.v1.endpoints import testdrive
-
+from app.api.v1.endpoints import checkout
+from app.api.v1.endpoints import cart
 
 app = FastAPI()
 
@@ -22,4 +23,6 @@ app.include_router(order.router)
 app.include_router(brand.router)
 app.include_router(model.router)
 app.include_router(testdrive.router)
+app.include_router(checkout.router)
+app.include_router(cart.router)
 

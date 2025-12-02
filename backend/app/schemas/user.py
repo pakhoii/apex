@@ -26,7 +26,7 @@ class UserOut(UserBase):
     role: UserRole
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # User login schema
 class UserLogin(BaseModel):

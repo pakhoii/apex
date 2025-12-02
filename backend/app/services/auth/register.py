@@ -5,6 +5,7 @@ from passlib.context import CryptContext
 from app.models.user import User
 from app.schemas.user import UserCreate, AdminUserCreate
 from app.services.utils.get_user import get_user_by_email, get_user_by_phone
+from app.services.cart.cart import cart_service
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -43,6 +44,11 @@ class RegisterService:
         )
 
         db.add(db_user)
+        db.flush()
+        
+        new_user = get_user_by_email(db, user_data.email)
+        _ = cart_service.get_or_create_cart(db, user_id=new_user.id)
+        
         db.commit()
         db.refresh(db_user)
         return db_user
@@ -65,8 +71,13 @@ class RegisterService:
             password_hash=hashed_password,
             role=user_data.role
         )
-
+        
         db.add(db_user)
+        db.flush()
+        
+        new_user = get_user_by_email(db, user_data.email)
+        _ = cart_service.get_or_create_cart(db, user_id=new_user.id)
+            
         db.commit()
         db.refresh(db_user)
         return db_user
