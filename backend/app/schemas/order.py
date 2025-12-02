@@ -6,6 +6,7 @@ from app.core.enums import OrderAction, OrderStatus
 class OrderItemCreate(BaseModel):
     model_id: int
     quantity: int
+    unit_price: int
     
 
 class OrderCreate(BaseModel):
@@ -23,7 +24,7 @@ class OrderItemOut(BaseModel):
     unit_price: int
     
     class Config: 
-        orm_mode = True
+        from_attributes = True
         
 class OrderOut(BaseModel):
     id: int
@@ -34,7 +35,7 @@ class OrderOut(BaseModel):
     items: List[OrderItemOut]
     
     class Config:
-        orm_mode = True
+        from_attributes = True
         
 
 class OrderTransitionRequest(BaseModel):

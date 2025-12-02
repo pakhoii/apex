@@ -8,6 +8,8 @@ from app.crud import crud_order, crud_audit_log, crud_model
 from app.schemas import order as order_schemas
 from app.schemas.audit_log import AuditLogCreate
 from app.models import Order, OrderItem
+from app.models.payment import Payment
+from app.core.enums import PaymentMethod, PaymentStatus
 
 class OrderService:
     def create_order(self, db: Session, *, user_id: int,
@@ -68,14 +70,15 @@ class OrderService:
             
             crud_audit_log.create(db=db, input_object=log_data)
             
-            db.commit()
+            # db.commit() -> Remove commit to let caller handle transaction
+            db.flush()
             db.refresh(new_order)
             
             return new_order
                 
         except Exception as e:
             # If there is any error before commit -> rollback all changes
-            db.rollback()
+            # db.rollback() -> Caller should handle rollback
             raise e
     
     def transition( self, db: Session, order_id: int, 
@@ -125,5 +128,51 @@ class OrderService:
         except Exception as e:
             db.rollback()
             raise e
+        
+    # Private method to create payment record
+    def _create_payment_record(self, db: Session, *, order_id: int, amount: int, method: PaymentMethod, status: PaymentStatus) -> Payment:
+        payment = Payment(
+            order_id=order_id,
+            payment_date=datetime.now(),
+            amount=amount,
+            payment_method=method.value,
+            status=status.value
+        )
+        db.add(payment)
+        return payment
+    
+    def mark_paid(self, db: Session, *, order_id: int, amount: int, method: PaymentMethod):
+        self._create_payment_record(db, order_id=order_id, amount=amount, method=method, status=PaymentStatus.PAID)
+        # Update order status to CONFIRMED
+        order = crud_order.get(db, id=order_id)
+        if order:
+            order.status = OrderStatus.CONFIRMED.value
+            db.add(order)
+        
+    def mark_pending_payment(self, db: Session, *, order_id: int, amount: int, method: PaymentMethod):
+        self._create_payment_record(db, order_id=order_id, amount=amount, method=method, status=PaymentStatus.PENDING)
+        # Order status remains PENDING
+
+    def mark_failed_payment(self, db: Session, *, order_id: int, amount: int, method: PaymentMethod):
+        self._create_payment_record(db, order_id=order_id, amount=amount, method=method, status=PaymentStatus.FAILED)
+        # Update order status to CANCELLED
+        order = crud_order.get(db, id=order_id)
+        if order:
+            order.status = OrderStatus.CANCELLED.value
+            db.add(order)
+    
+    def mark_awaiting_payment_or_cod(self, db: Session, *, order_id: int, amount: int, method: PaymentMethod):
+        self._create_payment_record(db, order_id=order_id, amount=amount, method=method, status=PaymentStatus.PENDING)
+        # Order status remains PENDING or could be set to CONFIRMED if COD is considered confirmed.
+        # Usually COD means confirmed order, waiting for payment.
+        # Let's set it to CONFIRMED for COD as well, or keep PENDING.
+        # User requirement says "Order placed successfully. Payment on delivery."
+        # Let's keep PENDING for now or CONFIRMED.
+        # If I look at OrderStatus enum: PENDING, CONFIRMED, DELIVERING, DELIVERED, CANCELLED.
+        # COD -> CONFIRMED seems appropriate as the order is valid and will be processed.
+        order = crud_order.get(db, id=order_id)
+        if order:
+            order.status = OrderStatus.CONFIRMED.value
+            db.add(order)
 
 order_service = OrderService()

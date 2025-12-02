@@ -21,3 +21,13 @@ class TestDriveStatus(str, enum.Enum):
     SCHEDULED = "SCHEDULED"
     COMPLETED = "COMPLETED"
     CANCELLED = "CANCELLED"
+    
+class PaymentStatus(str, enum.Enum):
+    PENDING = "pending"
+    PAID = "paid"
+    FAILED = "failed"
+    
+class PaymentMethod(str, enum.Enum):
+    CREDIT_CARD = "credit_card"
+    BANK_TRANSFER = "bank_transfer"
+    COD = "cash_on_delivery"
