@@ -10,6 +10,8 @@ from app.models.model import Model
 from app.schemas.model import ModelCreate, ModelUpdate, ModelOut, PagedModelResponse, ModelFilterParams, PaginationParams
 from app.services.car.model import model_service
 from app.services.car.filter_service import filter_service
+from app.schemas.model_compare import ModelCompareParams, ModelCompareResponse
+from app.services.car.compare_service import compare_service
 
 router = APIRouter(prefix="/models", tags=["models"])
 
@@ -66,3 +68,7 @@ def get_model_details(
     db_object: Model = Depends(get_model_by_id)
 ):
     return db_object
+
+@router.post("/compare", response_model=ModelCompareResponse)
+def compare_models(params: ModelCompareParams, db: Session = Depends(get_db)):
+    return compare_service.compare_models(db, params)
