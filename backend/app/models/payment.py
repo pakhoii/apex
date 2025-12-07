@@ -11,6 +11,5 @@ class Payment(Base):
     amount = Column(BigInteger, nullable=False)
     payment_method = Column(String(50), nullable=False)
     status = Column(String(50), nullable=False)
-    transaction_id = Column(String(255), nullable=True)
 
     order = relationship("Order", back_populates="payments")
