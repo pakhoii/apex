@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import List, Annotated
+from typing import List, Annotated, Optional
 from app.core.enums import OrderAction, OrderStatus
 
 class OrderItemCreate(BaseModel):
@@ -37,6 +37,15 @@ class OrderOut(BaseModel):
     class Config:
         from_attributes = True
         
+
+class CancelOrderRequest(BaseModel):
+    order_id: int
+
+
+class CancelOrderResponse(BaseModel):
+    status: str  # e.g., "cancelled", "refunded", "not_eligible", "refund_failed"
+    message: Optional[str] = None 
+
 
 class OrderTransitionRequest(BaseModel):
     action: OrderAction

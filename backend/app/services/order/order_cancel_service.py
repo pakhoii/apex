@@ -3,7 +3,7 @@ from fastapi import HTTPException
 from app.models.order import Order
 from app.models.payment import Payment
 from app.core.enums import OrderStatus, PaymentStatus
-from app.schemas.order_cancel import CancelOrderResponse
+from app.schemas.order import CancelOrderResponse
 
 class PaymentGateway:
     @staticmethod
