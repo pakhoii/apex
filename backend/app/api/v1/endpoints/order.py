@@ -4,6 +4,8 @@ from app.api.dependencies.permission import require_admin, require_any_logged_in
 from app.db.database import get_db
 from app.schemas.order import OrderCreate, OrderOut, OrderTransitionRequest
 from app.services.order.order import order_service
+from app.schemas.order import CancelOrderRequest, CancelOrderResponse
+from app.services.order.order_cancel_service import order_cancel_service
 
 router = APIRouter(prefix="/orders", tags=["orders"])
 
@@ -31,3 +33,14 @@ def transition_order_state(
         # background_tasks=background_tasks,
         action=request_data.action, actor_id=admin_id
     )
+    
+@router.post("/cancel", response_model=CancelOrderResponse)
+def cancel_order(req: CancelOrderRequest, 
+                 db: Session = Depends(get_db),
+                 current_user_payload: dict = Depends(require_any_logged_in_user)
+                 ):
+    # Protect endpoint: only logged-in users can cancel their orders
+    _ = int(current_user_payload.get("sub"))
+    return order_cancel_service.cancel_order(db, req.order_id)
+
+    #  Need to improve: pass in user_id and check if the order belongs to the user
