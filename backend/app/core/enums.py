@@ -10,6 +10,7 @@ class OrderStatus(str, enum.Enum):
     DELIVERING = "delivering"
     DELIVERED = "delivered"
     CANCELLED = "cancelled"
+    REFUNDED = "refunded"
 
 class OrderAction(str, enum.Enum):
     ADMIN_CONFIRM = "admin_confirm"
