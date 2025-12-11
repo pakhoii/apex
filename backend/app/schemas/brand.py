@@ -3,12 +3,11 @@ from typing import Optional
 
 class BrandBase(BaseModel):
     name: str
-    logo_url: Optional[HttpUrl] = None
     
     
 class BrandCreate(BrandBase):
-    pass
-
+    logo_url: Optional[HttpUrl] = None
+    
 
 class BrandUpdate(BaseModel):
     name: Optional[str] = None
@@ -17,6 +16,7 @@ class BrandUpdate(BaseModel):
 
 class BrandOut(BrandBase):
     id: int
+    logo_url: Optional[HttpUrl] = None
     
     class Config:
         from_attributes = True
