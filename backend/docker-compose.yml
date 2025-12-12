@@ -10,6 +10,9 @@ services:
     
     ports:
     - '3307:3306/tcp'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
 
   redis: 
     image: redis:7-alpine # light version
@@ -29,6 +32,31 @@ services:
     
     restart: unless-stopped
 
+
+  minio:
+    image: minio/minio:latest
+    container_name: apex_minio
+    environment:
+      # Set MinIO root user and password
+      MINIO_ROOT_USER: apex_minio
+      MINIO_ROOT_PASSWORD: iloveanime
+    ports:
+      # Port 9000: For API access
+      - '9000:9000'
+      # Port 9001: For MinIO Console access
+      - '9001:9001'
+    volumes:
+      - minio_data:/data
+    # Command to start the MinIO server and specify the storage directory
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+
 volumes:
   redis_data:
   mysql_data:
+  minio_data:

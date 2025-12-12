@@ -1,15 +1,24 @@
 # app/services/brand_service.py
 
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, UploadFile
 from sqlalchemy.orm import Session
+from typing import Optional
 
 from app.models.brand import Brand
 from app.schemas.brand import BrandCreate, BrandUpdate
 from app.schemas.audit_log import AuditLogCreate
 from app.crud import crud_audit_log, crud_brand
+from app.services.storage.storage_service import storage_service
 
 class BrandService:
-    def create_brand(self, db: Session, *, brand_data: BrandCreate, user_id: int) -> Brand:
+    def create_brand(
+            self, 
+            db: Session, 
+            *, 
+            brand_data: BrandCreate, 
+            user_id: int,
+            logo_file: Optional[UploadFile] = None
+        ) -> Brand:
         # Check if the brand is already exist
         existing_brand = crud_brand.get_by_name(db, name=brand_data.name) # Giả sử có hàm này trong crud_brand
         if existing_brand:
@@ -18,8 +27,21 @@ class BrandService:
                 detail=f"Brand with name '{brand_data.name}' already exists."
             )
             
-        try: 
-            new_brand = crud_brand.create(db, input_object=brand_data)
+        try:
+            if logo_file:
+                # Validate file type
+                if not logo_file.content_type.startswith('image/'):
+                    raise HTTPException(
+                        status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="File must be an image"
+                    )
+                logo_url = storage_service.upload_image(logo_file, folder="brands")
+            
+            # Create brand object with logo_url
+            brand_create_data = brand_data.model_dump()
+            brand_create_data['logo_url'] = logo_url
+            
+            new_brand = crud_brand.create(db, input_object=BrandCreate(**brand_create_data))
             
             db.flush()
 
@@ -38,9 +60,26 @@ class BrandService:
             db.rollback()
             raise e
         
-    def update_brand(self, db: Session, *, db_object: Brand, 
-                    update_data: BrandUpdate, user_id: int) -> Brand:
+    def update_brand(
+        self, 
+        db: Session, 
+        *, 
+        db_object: Brand, 
+        update_data: BrandUpdate, 
+        user_id: int,
+        logo_file: Optional[UploadFile] = None
+    ) -> Brand:
         try: 
+            # Upload new logo if provided
+            if logo_file:
+                if not logo_file.content_type.startswith('image/'):
+                    raise HTTPException(
+                        status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="File must be an image"
+                    )
+                new_logo_url = storage_service.upload_image(logo_file, folder="brands")
+                update_data.logo_url = new_logo_url
+            
             updated_brand = crud_brand.update(db, db_object=db_object, input_object=update_data)
             
             log_data = AuditLogCreate(

@@ -1,7 +1,6 @@
-# app/api/routes/model.py
-
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, File, UploadFile, Form
 from sqlalchemy.orm import Session
+from typing import Optional
 
 from app.api.dependencies.permission import require_admin
 from app.services.utils.get_model import get_model_by_id
@@ -10,37 +9,71 @@ from app.models.model import Model
 from app.schemas.model import ModelCreate, ModelUpdate, ModelOut, PagedModelResponse, ModelFilterParams, PaginationParams
 from app.services.car.model import model_service
 from app.services.car.filter_service import filter_service
+
 from app.schemas.model_compare import ModelCompareParams, ModelCompareResponse
 from app.services.car.compare_service import compare_service
 
 router = APIRouter(prefix="/models", tags=["models"])
 
 @router.post("/", response_model=ModelOut)
-def create_new_model(
-    model_data: ModelCreate,
+async def create_new_model(
+    name: str = Form(...),
+    price: int = Form(...),
+    year: int = Form(...),
+    amount: int = Form(...),
+    brand_id: int = Form(...),
+    image_file: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db),
     current_user_payload: dict = Depends(require_admin)
 ):
     admin_id = int(current_user_payload.get("sub"))
     
-    return model_service.create_model(db=db, user_id=admin_id, model_data=model_data)
-
+    # Create model data object
+    model_data = ModelCreate(
+        name=name,
+        price=price,
+        year=year,
+        amount=amount,
+        brand_id=brand_id
+    )
+    
+    return model_service.create_model(
+        db=db, 
+        user_id=admin_id, 
+        model_data=model_data,
+        image_file=image_file
+    )
 
 @router.patch("/{model_id}", response_model=ModelOut)
-def update_model(
+async def update_model(
     model_id: int,
-    update_data: ModelUpdate,
+    name: Optional[str] = Form(None),
+    price: Optional[int] = Form(None),
+    year: Optional[int] = Form(None),
+    amount: Optional[int] = Form(None),
+    brand_id: Optional[int] = Form(None),
+    image_file: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db),
     current_user_payload: dict = Depends(require_admin),
     db_object: Model = Depends(get_model_by_id) 
 ):
     admin_id = int(current_user_payload.get("sub"))
     
+    # Create update data object
+    update_data = ModelUpdate(
+        name=name,
+        price=price,
+        year=year,
+        amount=amount,
+        brand_id=brand_id
+    )
+    
     return model_service.update_model(
         db=db, 
         user_id=admin_id, 
         db_object=db_object, 
-        update_data=update_data
+        update_data=update_data,
+        image_file=image_file
     )
     
 @router.get("/", response_model=PagedModelResponse)

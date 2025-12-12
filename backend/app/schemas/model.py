@@ -6,13 +6,12 @@ class ModelBase(BaseModel):
     price: int
     year: int
     amount: int
-    image_url: Optional[HttpUrl] = None
     brand_id: int
 
 
 # Add nothing, same schema with the ModelBase
 class ModelCreate(ModelBase): 
-    pass
+    image_url: Optional[HttpUrl] = None
 
 
 class ModelUpdate(BaseModel):
@@ -26,6 +25,8 @@ class ModelUpdate(BaseModel):
 
 class ModelOut(ModelBase):
     id: int
+    image_url: Optional[HttpUrl] = None
+    
     model_config = {
         "from_attributes": True
     }
