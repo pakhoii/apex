@@ -5,6 +5,7 @@ import { RegisterForm } from "./components/Auth/registerForm"
 function App() {
   return (
     <div>
+      <LoginForm />
       <RegisterForm />
     </div>
   )

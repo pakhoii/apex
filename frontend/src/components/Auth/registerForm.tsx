@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import "./auth.css";
 
 export const RegisterForm = () => {
     const [formData, setFormData] = useState({
@@ -37,31 +38,31 @@ export const RegisterForm = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 via-gray-100 to-gray-300 p-4 text-white font-sans">
+        <div className="auth-page-container">
             {/* Top Toggle */}
-            <div className="mb-6 bg-zinc-800/80 p-1 rounded-lg flex items-center shadow-lg backdrop-blur-sm">
-                <div className="px-6 py-2 rounded-md bg-gray-200 text-black text-sm font-medium shadow-sm">
+            <div className="auth-toggle-container">
+                <div className="auth-toggle-active">
                     Register
                 </div>
                 <a
                     href="/login"
-                    className="px-6 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    className="auth-toggle-link"
                 >
                     Login
                 </a>
             </div>
 
-            <Card className="w-full max-w-md bg-black/90 border-none shadow-2xl text-white rounded-xl overflow-hidden">
-                <CardHeader className="space-y-1 pb-2">
-                    <CardTitle className="text-xl font-normal text-gray-300">Create an account here.</CardTitle>
-                    <CardDescription className="sr-only">
+            <Card className="auth-card">
+                <CardHeader className="auth-card-header">
+                    <CardTitle className="auth-card-title">Create an account here.</CardTitle>
+                    <CardDescription className="auth-description">
                         Register form
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-6">
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="name" className="text-gray-300 font-normal">
+                <CardContent className="auth-card-content">
+                    <form onSubmit={handleSubmit} className="auth-form-register">
+                        <div className="auth-form-group">
+                            <Label htmlFor="name" className="auth-label">
                                 Name
                             </Label>
                             <Input
@@ -71,12 +72,12 @@ export const RegisterForm = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 disabled={isLoading}
-                                className="bg-gray-200 border-transparent text-black placeholder:text-gray-500 rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-gray-400"
+                                className="auth-input"
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="username" className="text-gray-300 font-normal">
+                        <div className="auth-form-group">
+                            <Label htmlFor="username" className="auth-label">
                                 Username
                             </Label>
                             <Input
@@ -86,12 +87,12 @@ export const RegisterForm = () => {
                                 value={formData.username}
                                 onChange={handleChange}
                                 disabled={isLoading}
-                                className="bg-gray-200 border-transparent text-black placeholder:text-gray-500 rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-gray-400"
+                                className="auth-input"
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="email" className="text-gray-300 font-normal">
+                        <div className="auth-form-group">
+                            <Label htmlFor="email" className="auth-label">
                                 Email
                             </Label>
                             <Input
@@ -102,12 +103,12 @@ export const RegisterForm = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 disabled={isLoading}
-                                className="bg-gray-200 border-transparent text-black placeholder:text-gray-500 rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-gray-400"
+                                className="auth-input"
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="password" className="text-gray-300 font-normal">
+                        <div className="auth-form-group">
+                            <Label htmlFor="password" className="auth-label">
                                 Password
                             </Label>
                             <Input
@@ -118,12 +119,12 @@ export const RegisterForm = () => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 disabled={isLoading}
-                                className="bg-gray-200 border-transparent text-black placeholder:text-gray-500 rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-gray-400"
+                                className="auth-input"
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="confirmPassword" className="text-white font-normal">
+                        <div className="auth-form-group">
+                            <Label htmlFor="confirmPassword" className="auth-label">
                                 Re-enter Password
                             </Label>
                             <Input
@@ -134,18 +135,18 @@ export const RegisterForm = () => {
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 disabled={isLoading}
-                                className="bg-gray-200 border-transparent text-black placeholder:text-gray-500 rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-gray-400"
+                                className="auth-input"
                             />
                         </div>
 
                         <Button
                             type="submit"
                             disabled={isLoading}
-                            className="mt-6 w-fit px-8 bg-[#1a1e2e] hover:bg-[#252a3d] text-white border border-gray-800 rounded-lg h-11 text-base font-normal shadow-lg transition-all"
+                            className="auth-submit-button-register"
                         >
                             {isLoading ? (
                                 <>
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    <Loader2 className="auth-spinner" />
                                     Creating...
                                 </>
                             ) : (
