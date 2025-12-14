@@ -1,0 +1,168 @@
+/* stylelint-disable at-rule-no-unknown */
+@import "tailwindcss" reference;
+
+/* Footer Component Styles */
+
+.footer-container {
+    @apply w-full text-white;
+    background-color: var(--apex-color-primary);
+}
+
+.footer-content {
+    @apply container mx-auto;
+    padding: var(--apex-space-10) var(--apex-space-8);
+}
+
+/* Main Grid Layout */
+.footer-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12;
+    margin-bottom: var(--apex-space-12);
+}
+
+/* Contact Section */
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--apex-space-4);
+}
+
+.footer-logo {
+    @apply flex items-center;
+    gap: var(--apex-space-2);
+}
+
+.footer-logo-outer {
+    @apply transform rotate-12 flex items-center justify-center;
+    width: var(--apex-space-12);
+    height: var(--apex-space-12);
+    border: 2px solid var(--apex-color-text);
+}
+
+.footer-logo-inner {
+    @apply transform -rotate-12;
+    width: var(--apex-space-8);
+    height: var(--apex-space-8);
+    border: 2px solid var(--apex-color-text);
+}
+
+.footer-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--apex-space-2);
+}
+
+.footer-phone {
+    @apply font-medium;
+    font-size: var(--apex-text-lg);
+}
+
+.footer-email {
+    color: var(--apex-color-text-light);
+}
+
+/* Quick Links & Company Sections */
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--apex-space-2);
+}
+
+.footer-section-title {
+    @apply font-semibold;
+    font-size: var(--apex-text-lg);
+    color: var(--apex-color-text);
+    margin-bottom: var(--apex-space-6);
+}
+
+.footer-link {
+    @apply block transition-colors;
+    color: var(--apex-color-text-light);
+}
+
+.footer-link:hover {
+    color: var(--apex-color-text);
+}
+
+.footer-company-section {
+    @apply lg:pt-12;
+}
+
+/* Subscribe Section */
+.footer-subscribe {
+    display: flex;
+    flex-direction: column;
+    gap: var(--apex-space-6);
+}
+
+.footer-subscribe-form {
+    @apply flex;
+}
+
+.footer-subscribe-input {
+    @apply flex-1 focus:outline-none;
+    background-color: var(--apex-color-text);
+    color: var(--apex-color-primary);
+    padding: var(--apex-space-3) var(--apex-space-4);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    font-size: var(--apex-text-base);
+}
+
+.footer-subscribe-input:focus {
+    @apply ring-2;
+    ring-color: var(--apex-color-light);
+}
+
+.footer-subscribe-button {
+    @apply flex items-center justify-center transition-colors;
+    background-color: var(--apex-color-accent);
+    color: var(--apex-color-text);
+    padding: var(--apex-space-6) var(--apex-space-6);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.footer-subscribe-button:hover {
+    filter: brightness(0.9);
+}
+
+/* Separator */
+.footer-separator {
+    background-color: var(--apex-color-border);
+    margin-bottom: var(--apex-space-8);
+}
+
+/* Bottom Section */
+.footer-bottom {
+    @apply flex flex-col md:flex-row justify-between items-center;
+    gap: var(--apex-space-6);
+}
+
+.footer-social {
+    @apply flex;
+    gap: var(--apex-space-4);
+}
+
+.footer-social-link {
+    @apply rounded-full flex items-center justify-center transition-colors;
+    width: var(--apex-space-10);
+    height: var(--apex-space-10);
+    border: 1px solid var(--apex-color-border);
+}
+
+.footer-social-link:hover {
+    background-color: var(--apex-color-secondary);
+}
+
+.footer-social-icon {
+    width: var(--apex-space-5);
+    height: var(--apex-space-5);
+}
+
+.footer-text {
+    color: var(--apex-color-text-light);
+    font-size: var(--apex-text-sm);
+}
+
+.footer-copyright {
+    color: var(--apex-color-text-light);
+    font-size: var(--apex-text-sm);
+}
