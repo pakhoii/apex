@@ -1,5 +1,5 @@
 /* stylelint-disable at-rule-no-unknown */
-@import "tailwindcss" reference;
+@import "../../index.css" reference;
 
 /* Footer Component Styles */
 
