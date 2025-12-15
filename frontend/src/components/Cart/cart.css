@@ -1,0 +1,210 @@
+/* stylelint-disable at-rule-no-unknown */
+@import "../../index.css" reference;
+
+/* -- Main Card Style -- */
+.item-card {
+    @apply bg-background overflow-hidden 
+            mb-4 rounded-xl shadow-sm transition-all;
+}
+
+.item-card:hover {
+    @apply shadow-md border-border;
+}
+
+/* -- Item Details Grid Layout -- */
+.item-details {
+    @apply grid gap-x-6 gap-y-2 p-5 items-center;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+        "image info delete"
+        "image controls delete";
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 640px) {
+    .item-details {
+        @apply flex flex-col items-start gap-4;
+    }
+    .image-container {
+        @apply w-full h-48;
+    }
+    .remove-item {
+        @apply self-end;
+    }
+}
+
+/* -- Image Section -- */
+.image-container {
+    grid-area: image;
+    @apply relative w-40 h-28 shrink-0 bg-muted 
+            rounded-lg overflow-hidden;
+}
+
+.item-image {
+    @apply object-cover w-full h-full;
+}
+
+/* -- Info Section (Name & Price) -- */
+.info-container {
+    grid-area: info;
+    @apply flex flex-col justify-end pb-1;
+}
+
+.info-container h3 {
+    @apply text-lg font-bold text-foreground mb-1;
+    letter-spacing: -0.025em; 
+}
+
+.item-price {
+    color: var(--apex-color-text-light);
+}
+
+.quantity-controls {
+    grid-area: controls;
+    @apply flex items-center w-fit bg-secondary/50 
+    rounded-lg p-1 gap-1 self-start mt-1;
+}
+
+.quantity-controls button {
+    @apply h-8 w-8 rounded-md border-0 bg-transparent 
+            hover:bg-background shadow-none text-foreground/80;
+}
+
+.quantity-display {
+    @apply text-sm font-semibold w-8 text-center text-foreground;
+}
+
+
+/* -- Remove Button -- */
+.remove-item {
+    grid-area: delete;
+    @apply flex items-center justify-center h-full pl-4;
+}
+
+.remove-item button {
+    @apply h-10 w-10 text-muted-foreground bg-transparent hover:bg-red-50 hover:text-red-600 transition-colors border-0 shadow-none;
+}
+
+/* Container */
+.cart-container {
+    @apply w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+}
+
+/* Grid Layout */
+.cart-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-6;
+}
+
+/* Cart Items Section */
+.cart-items-section {
+    @apply lg:col-span-2 space-y-4;
+}
+
+/* Empty Cart */
+.cart-empty {
+    @apply p-12 text-center;
+}
+
+.cart-empty-icon {
+    @apply mx-auto mb-4;
+    width: 64px;
+    height: 64px;
+    color: var(--apex-color-accent);
+}
+
+.cart-empty-title {
+    @apply text-xl font-semibold mb-2;
+    color: var(--apex-color-primary);
+}
+
+.cart-empty-text {
+    @apply mb-6;
+    color: var(--muted-foreground);
+}
+
+/* Order Summary Section */
+.cart-summary-section {
+    @apply lg:col-span-1;
+}
+
+.cart-summary {
+    @apply sticky;
+    top: 24px;
+}
+
+.cart-summary-content {
+    @apply p-6 space-y-6;
+}
+
+.cart-summary-title {
+    @apply text-xl font-bold;
+    color: var(--apex-color-primary);
+}
+
+/* Summary Details */
+.cart-summary-details {
+    @apply space-y-3;
+}
+
+.cart-summary-row {
+    @apply flex justify-between text-sm;
+}
+
+.cart-summary-label {
+    color: var(--apex-color-text-light);
+}
+
+.cart-summary-value {
+    @apply font-medium;
+    color: var(--apex-color-primary);
+}
+
+/* Total Section */
+.cart-summary-total-section {
+    @apply pt-4 border-t;
+    border-color: var(--apex-color-border);
+}
+
+.cart-summary-total {
+    @apply flex justify-between items-center mb-6;
+}
+
+.cart-summary-total-label {
+    @apply text-lg font-semibold;
+    color: var(--apex-color-primary);
+}
+
+.cart-summary-total-value {
+    @apply text-2xl font-bold;
+    color: var(--apex-color-primary);
+}
+
+/* Buttons */
+.cart-checkout-button {
+    @apply w-full font-semibold h-12 transition-colors;
+    background-color: var(--apex-color-accent) !important;
+}
+
+.cart-checkout-button:hover {
+    background-color: #C5A028 !important;
+}
+
+.cart-continue-button {
+    @apply w-full mt-3;
+}
+
+/* Features List */
+.cart-summary-features {
+    @apply space-y-2 pt-4 border-t;
+    border-color: var(--apex-color-border);
+}
+
+.cart-summary-feature {
+    @apply flex items-center gap-2 text-xs;
+    color: var(--apex-color-text-light);
+}
+
+.cart-feature-check {
+    @apply flex-shrink-0;
+    color: var(--apex-color-success);
+}
