@@ -26,47 +26,41 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links - Product Section */}
-          <div>
+          {/* Quick Links Section */}
+          <div className="footer-section-wrapper">
             <h3 className="footer-section-title">Quick Links</h3>
             <div className="footer-section">
-              <a href="#" className="footer-link">
-                Product
-              </a>
-              <a href="#" className="footer-link">
-                Information
-              </a>
+              <a href="#" className="footer-link">Product</a>
+              <a href="#" className="footer-link">Information</a>
             </div>
           </div>
 
           {/* Company Section */}
-          <div className="footer-company-section">
+          <div className="footer-section-wrapper">
+            <h3 className="footer-section-title">Company</h3>
             <div className="footer-section">
-              <a href="#" className="footer-link">
-                Company
-              </a>
-              <a href="#" className="footer-link">
-                APEX Auto
-              </a>
+              <a href="#" className="footer-link">APEX Auto</a>
             </div>
           </div>
 
           {/* Subscribe Section */}
           <div className="footer-subscribe">
             <h3 className="footer-section-title">Subscribe</h3>
-            <div className="footer-subscribe-form">
+            <form className="footer-subscribe-form" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
                 placeholder="Get product updates"
                 className="footer-subscribe-input"
+                aria-label="Email address"
               />
               <Button 
+                type="submit"
                 className="footer-subscribe-button"
                 aria-label="Subscribe"
               >
-                <ArrowRight className="footer-social-icon" />
+                <ArrowRight className="footer-subscribe-icon" />
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 
@@ -77,25 +71,13 @@ export function Footer() {
         <div className="footer-bottom">
           {/* Social Media Icons */}
           <div className="footer-social">
-            <a
-              href="#"
-              className="footer-social-link"
-              aria-label="LinkedIn"
-            >
+            <a href="#" className="footer-social-link" aria-label="LinkedIn">
               <Linkedin className="footer-social-icon" />
             </a>
-            <a
-              href="#"
-              className="footer-social-link"
-              aria-label="Facebook"
-            >
+            <a href="#" className="footer-social-link" aria-label="Facebook">
               <Facebook className="footer-social-icon" />
             </a>
-            <a
-              href="#"
-              className="footer-social-link"
-              aria-label="Twitter"
-            >
+            <a href="#" className="footer-social-link" aria-label="Twitter">
               <Twitter className="footer-social-icon" />
             </a>
           </div>

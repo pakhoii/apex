@@ -1,6 +1,7 @@
 import { Button } from "./components/ui/button"
 import Navbar from "./components/Navbar/navbar"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Footer } from "./components/Footer/footer";
 
 function App() {
   const NAV_ITEMS = {
@@ -42,6 +43,7 @@ function App() {
           />
         ))}
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }

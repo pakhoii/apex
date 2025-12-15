@@ -1,17 +1,15 @@
 /* stylelint-disable at-rule-no-unknown */
 @import "../../index.css" reference;
 
-/* Footer Component Styles */
-
+/* Footer Container - Full Width */
 .footer-container {
     @apply w-full text-white;
     background-color: var(--apex-color-primary);
 }
 
+/* Footer Content - Constrained Width */
 .footer-content {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl;
-    padding-top: var(--apex-space-10);
-    padding-bottom: var(--apex-space-10);
+    @apply w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12;
 }
 
 /* Main Grid Layout */
@@ -30,15 +28,15 @@
 
 .footer-logo-outer {
     @apply transform rotate-12 flex items-center justify-center flex-shrink-0;
-    width: var(--apex-space-12);
-    height: var(--apex-space-12);
+    width: 48px;
+    height: 48px;
     border: 2px solid var(--apex-color-text);
 }
 
 .footer-logo-inner {
     @apply transform -rotate-12;
-    width: var(--apex-space-8);
-    height: var(--apex-space-8);
+    width: 32px;
+    height: 32px;
     border: 2px solid var(--apex-color-text);
 }
 
@@ -47,28 +45,31 @@
 }
 
 .footer-phone {
-    @apply font-medium leading-relaxed;
-    font-size: var(--apex-text-lg);
+    @apply font-medium leading-relaxed text-lg;
 }
 
 .footer-email {
-    @apply break-words;
+    @apply break-words text-sm;
     color: var(--apex-color-text-light);
 }
 
-/* Quick Links & Company Sections */
+/* Section Wrapper */
+.footer-section-wrapper {
+    @apply flex flex-col;
+}
+
+.footer-section-title {
+    @apply font-semibold leading-snug mb-4 text-lg;
+    color: var(--apex-color-text);
+}
+
+/* Links Section */
 .footer-section {
     @apply flex flex-col space-y-3;
 }
 
-.footer-section-title {
-    @apply font-semibold leading-snug mb-4;
-    font-size: var(--apex-text-lg);
-    color: var(--apex-color-text);
-}
-
 .footer-link {
-    @apply block transition-colors leading-relaxed py-1;
+    @apply block transition-colors leading-relaxed py-1 text-sm;
     color: var(--apex-color-text-light);
 }
 
@@ -76,43 +77,46 @@
     color: var(--apex-color-text);
 }
 
-.footer-company-section {
-    @apply lg:pt-0;
-}
-
 /* Subscribe Section */
 .footer-subscribe {
-    @apply flex flex-col space-y-6;
+    @apply flex flex-col space-y-4;
 }
 
 .footer-subscribe-form {
-    @apply flex flex-col items-center sm:flex-row gap-2;
+    @apply flex flex-col sm:flex-row gap-2;
 }
 
 .footer-subscribe-input {
-    @apply flex-1 focus:outline-none focus:ring-2 min-w-0 rounded-lg sm:rounded-l-lg sm:rounded-r-none;
+    @apply flex-1 min-w-0 px-4 py-3 rounded-lg sm:rounded-l-lg sm:rounded-r-none 
+           focus:outline-none focus:ring-2 text-base;
     background-color: var(--apex-color-text);
     color: var(--apex-color-primary);
-    padding: var(--apex-space-3) var(--apex-space-4);
-    font-size: var(--apex-text-base);
     ring-color: var(--apex-color-light);
 }
 
+.footer-subscribe-input::placeholder {
+    color: var(--apex-color-text-light);
+}
+
 .footer-subscribe-button {
-    @apply flex items-center justify-center transition-colors whitespace-nowrap 
-            rounded-lg sm:rounded-l-none sm:rounded-r-lg p-3;
+    @apply flex items-center justify-center transition-all whitespace-nowrap 
+           rounded-lg sm:rounded-l-none sm:rounded-r-lg p-3 flex-shrink-0;
     background-color: var(--apex-color-accent);
     color: var(--apex-color-text);
-    height: 100%;
+    min-height: 48px;
 }
 
 .footer-subscribe-button:hover {
-    filter: brightness(0.9);
+    @apply brightness-90;
+}
+
+.footer-subscribe-icon {
+    @apply w-5 h-5;
 }
 
 /* Separator */
 .footer-separator {
-    @apply h-px mb-8;
+    @apply h-px mb-8 w-full;
     background-color: var(--apex-color-border);
 }
 
@@ -121,14 +125,15 @@
     @apply flex flex-col md:flex-row justify-between items-center gap-6;
 }
 
+/* Social Links */
 .footer-social {
     @apply flex flex-wrap justify-center gap-4;
 }
 
 .footer-social-link {
     @apply rounded-full flex items-center justify-center transition-colors flex-shrink-0;
-    width: var(--apex-space-10);
-    height: var(--apex-space-10);
+    width: 40px;
+    height: 40px;
     border: 1px solid var(--apex-color-border);
 }
 
@@ -137,18 +142,16 @@
 }
 
 .footer-social-icon {
-    width: var(--apex-space-5);
-    height: var(--apex-space-5);
+    @apply w-5 h-5;
 }
 
+/* Footer Text */
 .footer-text {
-    @apply text-center md:text-left leading-relaxed;
+    @apply text-center md:text-left leading-relaxed text-sm;
     color: var(--apex-color-text-light);
-    font-size: var(--apex-text-sm);
 }
 
 .footer-copyright {
-    @apply text-center md:text-right leading-relaxed;
+    @apply text-center md:text-right leading-relaxed text-sm;
     color: var(--apex-color-text-light);
-    font-size: var(--apex-text-sm);
 }
