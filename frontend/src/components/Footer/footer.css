@@ -9,30 +9,27 @@
 }
 
 .footer-content {
-    @apply container mx-auto;
-    padding: var(--apex-space-10) var(--apex-space-8);
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl;
+    padding-top: var(--apex-space-10);
+    padding-bottom: var(--apex-space-10);
 }
 
 /* Main Grid Layout */
 .footer-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12;
-    margin-bottom: var(--apex-space-12);
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12;
 }
 
 /* Contact Section */
 .footer-contact {
-    display: flex;
-    flex-direction: column;
-    gap: var(--apex-space-4);
+    @apply flex flex-col space-y-4;
 }
 
 .footer-logo {
-    @apply flex items-center;
-    gap: var(--apex-space-2);
+    @apply flex items-center space-x-2 mb-2;
 }
 
 .footer-logo-outer {
-    @apply transform rotate-12 flex items-center justify-center;
+    @apply transform rotate-12 flex items-center justify-center flex-shrink-0;
     width: var(--apex-space-12);
     height: var(--apex-space-12);
     border: 2px solid var(--apex-color-text);
@@ -46,36 +43,32 @@
 }
 
 .footer-contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--apex-space-2);
+    @apply flex flex-col space-y-2;
 }
 
 .footer-phone {
-    @apply font-medium;
+    @apply font-medium leading-relaxed;
     font-size: var(--apex-text-lg);
 }
 
 .footer-email {
+    @apply break-words;
     color: var(--apex-color-text-light);
 }
 
 /* Quick Links & Company Sections */
 .footer-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--apex-space-2);
+    @apply flex flex-col space-y-3;
 }
 
 .footer-section-title {
-    @apply font-semibold;
+    @apply font-semibold leading-snug mb-4;
     font-size: var(--apex-text-lg);
     color: var(--apex-color-text);
-    margin-bottom: var(--apex-space-6);
 }
 
 .footer-link {
-    @apply block transition-colors;
+    @apply block transition-colors leading-relaxed py-1;
     color: var(--apex-color-text-light);
 }
 
@@ -84,40 +77,33 @@
 }
 
 .footer-company-section {
-    @apply lg:pt-12;
+    @apply lg:pt-0;
 }
 
 /* Subscribe Section */
 .footer-subscribe {
-    display: flex;
-    flex-direction: column;
-    gap: var(--apex-space-6);
+    @apply flex flex-col space-y-6;
 }
 
 .footer-subscribe-form {
-    @apply flex;
+    @apply flex flex-col items-center sm:flex-row gap-2;
 }
 
 .footer-subscribe-input {
-    @apply flex-1 focus:outline-none;
+    @apply flex-1 focus:outline-none focus:ring-2 min-w-0 rounded-lg sm:rounded-l-lg sm:rounded-r-none;
     background-color: var(--apex-color-text);
     color: var(--apex-color-primary);
     padding: var(--apex-space-3) var(--apex-space-4);
-    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
     font-size: var(--apex-text-base);
-}
-
-.footer-subscribe-input:focus {
-    @apply ring-2;
     ring-color: var(--apex-color-light);
 }
 
 .footer-subscribe-button {
-    @apply flex items-center justify-center transition-colors;
+    @apply flex items-center justify-center transition-colors whitespace-nowrap 
+            rounded-lg sm:rounded-l-none sm:rounded-r-lg p-3;
     background-color: var(--apex-color-accent);
     color: var(--apex-color-text);
-    padding: var(--apex-space-6) var(--apex-space-6);
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    height: 100%;
 }
 
 .footer-subscribe-button:hover {
@@ -126,23 +112,21 @@
 
 /* Separator */
 .footer-separator {
+    @apply h-px mb-8;
     background-color: var(--apex-color-border);
-    margin-bottom: var(--apex-space-8);
 }
 
 /* Bottom Section */
 .footer-bottom {
-    @apply flex flex-col md:flex-row justify-between items-center;
-    gap: var(--apex-space-6);
+    @apply flex flex-col md:flex-row justify-between items-center gap-6;
 }
 
 .footer-social {
-    @apply flex;
-    gap: var(--apex-space-4);
+    @apply flex flex-wrap justify-center gap-4;
 }
 
 .footer-social-link {
-    @apply rounded-full flex items-center justify-center transition-colors;
+    @apply rounded-full flex items-center justify-center transition-colors flex-shrink-0;
     width: var(--apex-space-10);
     height: var(--apex-space-10);
     border: 1px solid var(--apex-color-border);
@@ -158,11 +142,13 @@
 }
 
 .footer-text {
+    @apply text-center md:text-left leading-relaxed;
     color: var(--apex-color-text-light);
     font-size: var(--apex-text-sm);
 }
 
 .footer-copyright {
+    @apply text-center md:text-right leading-relaxed;
     color: var(--apex-color-text-light);
     font-size: var(--apex-text-sm);
 }
