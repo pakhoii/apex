@@ -54,13 +54,36 @@ const CarDetail: React.FC = () => {
 
                 {/* Right Column (Sidebar) */}
                 <div className="car-detail-sidebar">
-                    <Button size="lg" className="car-detail-btn car-detail-btn-primary w-full text-base">
+                    <Button
+                        size="lg"
+                        className="car-detail-btn car-detail-btn-primary w-full text-base"
+                        onClick={() => {
+                            // TODO: Implement Add to Cart API call here
+                            console.log("Add to cart clicked");
+                        }}
+                    >
                         Add To Cart
                     </Button>
-                    <Button variant="outline" size="lg" className="car-detail-btn car-detail-btn-outline w-full text-base">
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        className="car-detail-btn car-detail-btn-outline w-full text-base"
+                        onClick={() => {
+                            // TODO: Implement Schedule Test Drive API call here
+                            console.log("Schedule test drive clicked");
+                        }}
+                    >
                         Schedule Test Drive
                     </Button>
-                    <Button variant="outline" size="lg" className="car-detail-btn car-detail-btn-outline w-full text-base">
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        className="car-detail-btn car-detail-btn-outline w-full text-base"
+                        onClick={() => {
+                            // TODO: Implement Compare API call here
+                            console.log("Compare clicked");
+                        }}
+                    >
                         Compare
                     </Button>
                     <Button
