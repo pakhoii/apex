@@ -1,0 +1,213 @@
+@import "../../index.css";
+
+@layer components {
+    .auth-container {
+        @apply flex flex-col items-center justify-center p-4
+                text-[var(--apex-color-text)];
+    }
+
+    .auth-toggle-container {
+        @apply mb-6 p-2 rounded-lg shadow-lg backdrop-blur-sm;
+        background: linear-gradient(
+            to right,
+            var(--apex-color-highlight),
+            var(--apex-color-primary)
+        );
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        width: fit-content;
+        min-width: 280px;
+    }
+
+    /* Sliding indicator background - Apple style */
+    .auth-toggle-container::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: calc(50% - 10px);
+        height: calc(100% - 16px);
+        background: var(--apex-color-highlight);
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        z-index: 0;
+    }
+
+    /* When register is active, slide to right */
+    .auth-toggle-container[data-active="register"]::before {
+        transform: translateX(calc(100% + 4px));
+    }
+
+    .auth-toggle-inactive,
+    .auth-toggle-active {
+        @apply py-2 rounded-md text-sm font-medium;
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        text-align: center;
+        transition: color 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        min-width: 100px;
+    }
+
+    .auth-toggle-inactive {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .auth-toggle-inactive:hover {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .auth-toggle-active {
+        color: var(--apex-color-primary);
+    }
+
+    /* Wrapper for form transition */
+    .auth-form-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .auth-card {
+        @apply w-full max-w-md rounded-md overflow-hidden gap-0;
+        background: linear-gradient(
+            -45deg,
+            var(--apex-color-highlight),
+            var(--apex-color-primary)
+        );
+        /* Form slide-in animation */
+        animation: slideInFromRight 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    /* Keyframes for card entrance */
+    @keyframes slideInFromRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .auth-card-header {
+        @apply space-y-1 px-6 pt-0 pb-0;
+        animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.1s both;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .auth-card-title {
+        @apply text-xl text-[var(--apex-color-text)];
+    }
+
+    .auth-card-content {
+        @apply pt-0 px-6 pb-6 mt-0;
+    }
+
+    .auth-form {
+        @apply space-y-6;
+    }
+
+    .auth-description {
+        @apply sr-only;
+    }
+
+    .auth-form-register {
+        @apply space-y-4;
+    }
+
+    .auth-form-group {
+        @apply space-y-2;
+        animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) both;
+    }
+
+    /* Stagger animation for form fields */
+    .auth-form-group:nth-child(1) {
+        animation-delay: 0.15s;
+    }
+    
+    .auth-form-group:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .auth-form-group:nth-child(3) {
+        animation-delay: 0.25s;
+    }
+    
+    .auth-form-group:nth-child(4) {
+        animation-delay: 0.3s;
+    }
+    
+    .auth-form-group:nth-child(5) {
+        animation-delay: 0.35s;
+    }
+
+    .auth-label {
+        @apply text-[var(--apex-color-text)] drop-shadow-md;
+    }
+
+    .auth-input {
+        @apply !bg-[var(--apex-color-text)] !text-[var(--apex-color-primary)] 
+                border-transparent placeholder:text-[var(--apex-color-text-light)] rounded-md h-11 
+                focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--apex-color-light)] 
+                text-base;
+        transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .auth-input:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-submit-button {
+        @apply mt-4 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] 
+                text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
+                rounded-lg h-11 text-base shadow-lg;
+        transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.4s both;
+    }
+
+    .auth-submit-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .auth-submit-button:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    .auth-submit-button-register {
+        @apply mt-6 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] 
+                text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
+                rounded-lg h-11 text-base shadow-lg;
+        transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.5s both;
+    }
+
+    .auth-submit-button-register:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .auth-submit-button-register:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    .auth-spinner {
+        @apply mr-2 h-4 w-4 animate-spin;
+    }
+}
