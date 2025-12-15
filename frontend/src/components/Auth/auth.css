@@ -1,24 +1,39 @@
 @import "../../index.css";
 
 @layer components {
-    .auth-page-container {
-        @apply min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[var(--apex-color-highlight)] via-[var(--apex-color-text)] to-[var(--apex-color-light)] p-4 text-[var(--apex-color-text)] font-sans;
+    .auth-container {
+        @apply flex flex-col items-center justify-center p-4
+                text-[var(--apex-color-text)];
     }
 
     .auth-toggle-container {
-        @apply mb-6 bg-gradient-to-r from-[var(--apex-color-text-light)] to-[var(--apex-color-primary)] p-2 rounded-lg flex items-center shadow-lg backdrop-blur-sm;
+        @apply mb-6 p-2 rounded-lg flex items-center shadow-lg backdrop-blur-sm;
+        background: linear-gradient(
+            to right,
+            var(--apex-color-highlight),
+            var(--apex-color-primary)
+        );
     }
 
     .auth-toggle-link {
-        @apply px-6 py-2 rounded-md text-sm font-medium text-[var(--apex-color-light)] hover:text-[var(--apex-color-text)] transition-colors;
+        @apply px-6 py-2 rounded-md text-sm 
+                text-[var(--apex-color-highlight)] hover:text-[var(--apex-color-text)] 
+                font-medium transition-colors;
     }
 
     .auth-toggle-active {
-        @apply px-6 py-2 rounded-md bg-[var(--apex-color-highlight)] text-[var(--apex-color-primary)] text-sm font-medium shadow-sm;
+        @apply px-6 py-2 rounded-md bg-[var(--apex-color-highlight)] 
+                text-[var(--apex-color-primary)] 
+                text-sm shadow-sm font-medium;
     }
 
     .auth-card {
-        @apply w-full max-w-md bg-gradient-to-t from-[var(--apex-color-text)] to-[var(--apex-color-primary)] border-none shadow-2xl text-[var(--apex-color-text)] rounded-xl overflow-hidden gap-0;
+        @apply w-full max-w-md rounded-md overflow-hidden gap-0;
+        background: linear-gradient(
+            -45deg,
+            var(--apex-color-highlight),
+            var(--apex-color-primary)
+        )
     }
 
     .auth-card-header {
@@ -26,7 +41,7 @@
     }
 
     .auth-card-title {
-        @apply text-xl font-normal text-[var(--apex-color-text)];
+        @apply text-xl text-[var(--apex-color-text)];
     }
 
     .auth-card-content {
@@ -52,20 +67,26 @@
     }
 
     .auth-label {
-        @apply text-[var(--apex-color-text)] font-normal drop-shadow-md;
+        @apply text-[var(--apex-color-text)] drop-shadow-md;
     }
 
     .auth-input {
-        /* Thêm: font-sans, text-base (hoặc text-sm), font-normal */
-        @apply !bg-[var(--apex-color-text)] !text-[var(--apex-color-primary)] border-transparent placeholder:text-[var(--apex-color-text-light)] rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--apex-color-light)] font-sans text-base font-normal;
+        @apply !bg-[var(--apex-color-text)] !text-[var(--apex-color-primary)] 
+                border-transparent placeholder:text-[var(--apex-color-text-light)] rounded-md h-11 
+                focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--apex-color-light)] 
+                text-base;
     }
 
     .auth-submit-button {
-        @apply mt-4 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] text-[var(--apex-color-text)] border border-[var(--apex-color-border)] rounded-lg h-11 text-base font-normal shadow-lg transition-all;
+        @apply mt-4 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] 
+                text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
+                rounded-lg h-11 text-base shadow-lg transition-all;
     }
 
     .auth-submit-button-register {
-        @apply mt-6 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] text-[var(--apex-color-text)] border border-[var(--apex-color-border)] rounded-lg h-11 text-base font-normal shadow-lg transition-all;
+        @apply mt-6 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] 
+                text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
+                rounded-lg h-11 text-base shadow-lg transition-all;
     }
 
     /* Loading state spinner */

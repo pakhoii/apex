@@ -35,77 +35,62 @@ export const LoginForm = () => {
     };
 
     return (
-        <div className="auth-page-container">
-            {/* Top Toggle */}
-            <div className="auth-toggle-container">
-                <a
-                    href="/register"
-                    className="auth-toggle-link"
-                >
-                    Register
-                </a>
-                <div className="auth-toggle-active">
-                    Login
-                </div>
-            </div>
-
-            <Card className="auth-card">
-                <CardHeader className="auth-card-header">
-                    <CardTitle className="auth-card-title">Login here.</CardTitle>
-                    <CardDescription className="auth-description">
-                        Login form
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="auth-card-content">
-                    <form onSubmit={handleSubmit} className="auth-form">
-                        <div className="auth-form-group">
-                            <Label htmlFor="identifier" className="auth-label">
-                                Email
-                            </Label>
-                            <Input
-                                id="identifier"
-                                name="identifier"
-                                placeholder="schirano@gmail.com"
-                                value={credentials.identifier}
-                                onChange={handleChange}
-                                disabled={isLoading}
-                                className="auth-input"
-                            />
-                        </div>
-
-                        <div className="auth-form-group">
-                            <Label htmlFor="password" className="auth-label">
-                                Password
-                            </Label>
-                            <Input
-                                id="password"
-                                name="password"
-                                type="password"
-                                placeholder="**********"
-                                value={credentials.password}
-                                onChange={handleChange}
-                                disabled={isLoading}
-                                className="auth-input"
-                            />
-                        </div>
-
-                        <Button
-                            type="submit"
+        <Card className="auth-card">
+            <CardHeader className="auth-card-header">
+                <CardTitle className="auth-card-title">Login here.</CardTitle>
+                <CardDescription className="auth-description">
+                    Login form
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="auth-card-content">
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="auth-form-group">
+                        <Label htmlFor="identifier" className="auth-label">
+                            Email
+                        </Label>
+                        <Input
+                            id="identifier"
+                            name="identifier"
+                            placeholder="schirano@gmail.com"
+                            value={credentials.identifier}
+                            onChange={handleChange}
                             disabled={isLoading}
-                            className="auth-submit-button"
-                        >
-                            {isLoading ? (
-                                <>
-                                    <Loader2 className="auth-spinner" />
-                                    Logging in...
-                                </>
-                            ) : (
-                                "Login"
-                            )}
-                        </Button>
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+                            className="auth-input"
+                        />
+                    </div>
+
+                    <div className="auth-form-group">
+                        <Label htmlFor="password" className="auth-label">
+                            Password
+                        </Label>
+                        <Input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Type in your password"
+                            value={credentials.password}
+                            onChange={handleChange}
+                            disabled={isLoading}
+                            className="auth-input"
+                        />
+                    </div>
+
+                    <Button
+                        type="submit"
+                        disabled={isLoading}
+                        className="auth-submit-button"
+                    >
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="auth-spinner" />
+                                Logging in...
+                            </>
+                        ) : (
+                            "Login"
+                        )}
+                    </Button>
+                </form>
+            </CardContent>
+        </Card>
     );
 };

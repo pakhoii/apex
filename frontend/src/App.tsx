@@ -1,12 +1,11 @@
-import { Button } from "./components/ui/button"
 import { LoginForm } from "./components/Auth/loginForm"
 import { RegisterForm } from "./components/Auth/registerForm"
+import AuthToggle from "./components/Auth/auth"
 
 function App() {
   return (
     <div>
-      <LoginForm />
-      <RegisterForm />
+      <AuthToggle />
     </div>
   )
 }
