@@ -2,6 +2,7 @@ import { Button } from "./components/ui/button"
 import Navbar from "./components/Navbar/navbar"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Footer } from "./components/Footer/footer";
+import AuthToggle from "./components/Auth/auth";
 
 function App() {
   const NAV_ITEMS = {
@@ -22,12 +23,10 @@ function App() {
         <Route 
           path="/" 
           element={
-            <div className="flex flex-col justify-center items-center min-h-screen">
-              <h1 className="text-4xl">APEX</h1>
-              <p className="mt-2 text-lg text-gray-700">Web Application Development Project</p>
-              <Button className="mt-4">Get Started</Button>
+            <div className="mt-20">
+            <AuthToggle/>
             </div>
-          } 
+          }
         />
         
         {/* Dynamic routes from NAV_ITEMS */}

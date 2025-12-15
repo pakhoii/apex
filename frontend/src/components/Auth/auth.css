@@ -2,7 +2,7 @@
 
 @layer components {
     .auth-container {
-        @apply flex flex-col items-center justify-center p-4
+        @apply min-h-screen flex flex-col items-center p-4
                 text-[var(--apex-color-text)];
     }
 
@@ -32,7 +32,7 @@
         background: var(--apex-color-highlight);
         border-radius: 6px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
         z-index: 0;
     }
 
@@ -178,7 +178,7 @@
                 text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
                 rounded-lg h-11 text-base shadow-lg;
         transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-        animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.4s both;
+        animation: fadeInUp 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) 0.4s both;
     }
 
     .auth-submit-button:hover:not(:disabled) {
