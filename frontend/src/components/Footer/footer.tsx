@@ -16,7 +16,7 @@ export function Footer() {
             {/* Logo */}
             <div className="footer-logo">
               <img 
-                src="/logo/web-logo.svg" 
+                src="public/logo/web-logo.svg" 
                 alt="APEX Auto Logo" 
                 className="footer-logo-image"
               />
