@@ -15,9 +15,11 @@ export function Footer() {
           <div className="footer-contact">
             {/* Logo */}
             <div className="footer-logo">
-              <div className="footer-logo-outer">
-                <div className="footer-logo-inner"></div>
-              </div>
+              <img 
+                src="/logo/web-logo.svg" 
+                alt="APEX Auto Logo" 
+                className="footer-logo-image"
+              />
             </div>
             
             <div className="footer-contact-info">

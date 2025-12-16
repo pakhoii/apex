@@ -32,16 +32,16 @@
 }
 
 .footer-logo-outer {
-    @apply transform rotate-12 flex items-center justify-center;
-    width: var(--apex-space-12);
-    height: var(--apex-space-12);
+    @apply transform rotate-12 flex items-center justify-center flex-shrink-0;
+    width: 48px;
+    height: 48px;
     border: 2px solid var(--apex-color-text);
 }
 
 .footer-logo-inner {
     @apply transform -rotate-12;
-    width: var(--apex-space-8);
-    height: var(--apex-space-8);
+    width: 32px;
+    height: 32px;
     border: 2px solid var(--apex-color-text);
 }
 
