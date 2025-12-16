@@ -19,8 +19,19 @@
   z-index: 2;
 }
 
-/* Model Card Background */
+/* Model Card Background - Image as Background */
 .model-card-background {
+  @apply absolute inset-0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Overlay for text readability */
+.model-card-default .model-card-background::before,
+.model-card-hover .model-card-background::before {
+  content: '';
   @apply absolute inset-0;
   background: linear-gradient(
     135deg,
@@ -28,14 +39,6 @@
     color-mix(in srgb, var(--apex-color-highlight) 25%, transparent) 50%,
     color-mix(in srgb, var(--apex-color-light) 20%, transparent) 100%
   );
-  backdrop-filter: blur(100px);
-  z-index: 1;
-}
-
-.model-card-default .model-card-background::before,
-.model-card-hover .model-card-background::before {
-  content: '';
-  @apply absolute inset-0;
   background-image: repeating-linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.03) 0px,
@@ -44,17 +47,6 @@
     transparent 40px
   );
   z-index: 1;
-}
-
-/* Image Wrapper */
-.model-card-image-wrapper {
-  @apply relative;
-  z-index: 2;
-}
-
-.model-card-image {
-  max-height: 400px;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
 }
 
 /* Card States */

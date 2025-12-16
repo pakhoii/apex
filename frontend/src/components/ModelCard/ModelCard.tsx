@@ -19,22 +19,22 @@ const MODELS_DATA = [
     modelName: "Range Rover Velar",
     year: 2025,
     price: 50000,
-    imageDefault: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&auto=format&fit=crop",
-    imageHover: "https://images.unsplash.com/photo-1617531653520-bd788c6823dd?w=800&auto=format&fit=crop",
+    imageDefault: "/image/cars/Velar.jpg",
+    imageHover: "/image/cars/Velar-Hover.jpg",
   },
   {
     modelName: "Range Rover Sport",
     year: 2025,
     price: 75000,
-    imageDefault: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&auto=format&fit=crop",
-    imageHover: "https://images.unsplash.com/photo-1617531653520-bd788c6823dd?w=800&auto=format&fit=crop",
+    imageDefault: "/image/cars/Velar.jpg",
+    imageHover: "/image/cars/Velar-Hover.jpg",
   },
   {
     modelName: "Range Rover Evoque",
     year: 2025,
     price: 45000,
-    imageDefault: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&auto=format&fit=crop",
-    imageHover: "https://images.unsplash.com/photo-1617531653520-bd788c6823dd?w=800&auto=format&fit=crop",
+       imageDefault: "/image/cars/Velar.jpg",
+    imageHover: "/image/cars/Velar-Hover.jpg",
   },
 ];
 
@@ -62,8 +62,12 @@ export function ModelCard({
             isHovered ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          <div className="model-card-content flex flex-col items-center justify-center h-full p-8">
-            <div className="text-center mb-8 z-10">
+          <div
+            className="model-card-background"
+            style={{ backgroundImage: `url(${imageDefault})` }}
+          />
+          <div className="model-card-content flex flex-col items-center h-full p-8 pt-30">
+            <div className="text-center z-10">
               <h2 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">
                 {modelName} {year}
               </h2>
@@ -71,15 +75,7 @@ export function ModelCard({
                 Start from {price.toLocaleString('en-US')} USD
               </p>
             </div>
-            <div className="model-card-image-wrapper w-full flex items-center justify-center">
-              <img
-                src={imageDefault}
-                alt={`${modelName} ${year}`}
-                className="model-card-image object-contain w-full h-auto"
-              />
-            </div>
           </div>
-          <div className="model-card-background" />
         </div>
 
         {/* Hover View */}
@@ -88,6 +84,10 @@ export function ModelCard({
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         >
+          <div
+            className="model-card-background"
+            style={{ backgroundImage: `url(${imageHover})` }}
+          />
           <div className="model-card-content flex flex-col h-full p-8">
             <div className="text-center mb-6 z-10">
               <h2 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">
@@ -103,14 +103,8 @@ export function ModelCard({
                 Build your own
               </Button>
             </div>
-            <div className="model-card-image-wrapper flex-1 flex items-center justify-center">
-              <img
-                src={imageHover}
-                alt={`${modelName} ${year} front view`}
-                className="model-card-image object-contain w-full h-auto"
-              />
-            </div>
-            <div className="text-center mt-auto z-10">
+            <div className="flex-1"></div>
+            <div className="text-center z-10">
               <button
                 onClick={onFindOutMore}
                 className="text-gray-900 dark:text-white underline hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
@@ -119,7 +113,6 @@ export function ModelCard({
               </button>
             </div>
           </div>
-          <div className="model-card-background" />
         </div>
       </Card>
     </div>
