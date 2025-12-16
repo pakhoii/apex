@@ -1,0 +1,88 @@
+@import "../../index.css";
+
+.model-card-container {
+  width: 100%;
+  max-width: 475px;
+  height: 720px;
+}
+
+.model-card {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.model-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.model-card-background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--apex-color-accent) 15%, transparent) 0%,
+    color-mix(in srgb, var(--apex-color-highlight) 25%, transparent) 50%,
+    color-mix(in srgb, var(--apex-color-light) 20%, transparent) 100%
+  );
+  backdrop-filter: blur(100px);
+  z-index: 1;
+}
+
+.model-card-default .model-card-background::before,
+.model-card-hover .model-card-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 40px
+  );
+  z-index: 1;
+}
+
+.model-card-image-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.model-card-image {
+  max-height: 400px;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+.model-card-default,
+.model-card-hover {
+  pointer-events: none;
+}
+
+.model-card-hover button,
+.model-card-hover a {
+  pointer-events: auto;
+}
+
+/* Animation for smooth transitions */
+.model-card-default,
+.model-card-hover {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .model-card-container {
+    height: 600px;
+  }
+  
+  .model-card h2 {
+    font-size: 2rem;
+  }
+  
+  .model-card-image {
+    max-height: 300px;
+  }
+}
