@@ -1,26 +1,27 @@
-@import "../../index.css";
+/* stylelint-disable at-rule-no-unknown */
+@import "../../index.css" reference;
 
+/* Model Card Container */
 .model-card-container {
-  width: 100%;
+  @apply w-full;
   max-width: 475px;
   height: 720px;
 }
 
+/* Model Card */
 .model-card {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  position: relative;
+  @apply w-full h-full cursor-pointer relative;
 }
 
+/* Model Card Content */
 .model-card-content {
-  position: relative;
+  @apply relative;
   z-index: 2;
 }
 
+/* Model Card Background */
 .model-card-background {
-  position: absolute;
-  inset: 0;
+  @apply absolute inset-0;
   background: linear-gradient(
     135deg,
     color-mix(in srgb, var(--apex-color-accent) 15%, transparent) 0%,
@@ -34,8 +35,7 @@
 .model-card-default .model-card-background::before,
 .model-card-hover .model-card-background::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  @apply absolute inset-0;
   background-image: repeating-linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.03) 0px,
@@ -46,8 +46,9 @@
   z-index: 1;
 }
 
+/* Image Wrapper */
 .model-card-image-wrapper {
-  position: relative;
+  @apply relative;
   z-index: 2;
 }
 
@@ -56,6 +57,7 @@
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
 }
 
+/* Card States */
 .model-card-default,
 .model-card-hover {
   pointer-events: none;
@@ -69,7 +71,7 @@
 /* Animation for smooth transitions */
 .model-card-default,
 .model-card-hover {
-  transition: opacity 0.5s ease-in-out;
+  @apply transition-opacity duration-500;
 }
 
 /* Responsive adjustments */
@@ -79,7 +81,7 @@
   }
   
   .model-card h2 {
-    font-size: 2rem;
+    @apply text-2xl;
   }
   
   .model-card-image {
