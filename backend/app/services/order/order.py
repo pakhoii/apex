@@ -174,5 +174,11 @@ class OrderService:
         if order:
             order.status = OrderStatus.CONFIRMED.value
             db.add(order)
+            
+    def get_orders(self, db: Session, skip: int = 0, limit: int = 10) -> list[Order]:
+        return crud_order.get_multi(db, skip=skip, limit=limit)
+    
+    def get_orders_by_user(self, db: Session, *, user_id: int, skip: int = 0, limit: int = 10) -> list[Order]:
+        return crud_order.get_multi_by_user(db, user_id=user_id, skip=skip, limit=limit)
 
 order_service = OrderService()

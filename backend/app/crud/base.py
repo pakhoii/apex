@@ -24,7 +24,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     # meaning they must be passed as skip=... and limit=... instead of by position.
     # This improves clarity and prevents accidental misuse.
     def get_multi(
-        self, db: Session, *, skip: int = 0, limit: int = 100
+        self, db: Session, *, skip: int = 0, limit: int = 10
     ) -> List[ModelType]:
         return db.query(self.model).offset(skip).limit(limit).all()
     
