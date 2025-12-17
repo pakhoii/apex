@@ -1,0 +1,131 @@
+@import "../../index.css";
+
+@layer components {
+    .car-detail-container {
+        @apply max-w-7xl mx-auto px-4 py-8 font-sans;
+        background-color: var(--apex-color-text);
+        color: var(--apex-color-primary);
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Hero Image */
+    .car-detail-hero-image {
+        @apply w-full h-[500px] object-cover rounded-3xl mb-12 shadow-md;
+    }
+
+    /* Grid Layout */
+    .car-detail-content {
+        @apply grid grid-cols-1 lg:grid-cols-3 gap-12;
+    }
+
+    /* Left Column */
+    .car-detail-main-col {
+        @apply lg:col-span-2 space-y-8;
+    }
+
+    /* Info Card */
+    .car-detail-info-card {
+        @apply p-8 rounded-2xl border flex flex-col items-start justify-center gap-2;
+        border-color: var(--apex-color-primary) !important;
+        background-color: var(--apex-color-highlight) !important;
+    }
+
+    .car-detail-title {
+        @apply text-3xl font-bold;
+        color: var(--apex-color-primary);
+    }
+
+    .car-detail-price {
+        @apply text-xl font-normal;
+        color: var(--apex-color-secondary);
+    }
+
+    /* Specification Section */
+    .car-detail-specs-title {
+        @apply text-2xl font-bold mb-4;
+        color: var(--apex-color-primary);
+    }
+
+    .car-detail-table-container {
+        @apply w-full border rounded-lg overflow-hidden;
+        border-color: #E5E7EB;
+    }
+
+    .car-detail-table {
+        @apply w-full text-left border-collapse;
+    }
+
+    .car-detail-table th,
+    .car-detail-table td {
+        @apply p-4 border-b;
+        border-color: #E5E7EB;
+    }
+
+    .car-detail-table th {
+        @apply font-bold w-1/2 bg-gray-50;
+        color: var(--apex-color-primary);
+    }
+
+    .car-detail-table td {
+        color: var(--apex-color-secondary);
+    }
+
+    .car-detail-table tr:last-child td,
+    .car-detail-table tr:last-child th {
+        @apply border-b-0;
+    }
+
+    /* Add vertical divider */
+    .car-detail-table th:first-child,
+    .car-detail-table td:first-child {
+        @apply border-r;
+        border-color: #E5E7EB;
+    }
+
+    /* Right Column */
+    .car-detail-sidebar {
+        @apply space-y-4;
+    }
+
+    /* Buttons */
+    .car-detail-btn {
+        @apply w-full py-3 px-4 rounded-lg font-medium transition-all text-sm h-auto;
+    }
+
+    .car-detail-btn-primary {
+        @apply shadow-lg hover:opacity-90;
+        background-color: var(--apex-color-primary);
+        color: var(--apex-color-text);
+    }
+
+    .car-detail-btn-outline {
+        @apply border hover:bg-gray-50;
+        border-color: var(--apex-color-primary);
+        color: var(--apex-color-primary);
+        background-color: transparent;
+    }
+
+    .car-detail-btn-danger {
+        @apply shadow-lg hover:opacity-90;
+        background-color: var(--apex-color-error) !important;
+        color: var(--apex-color-text);
+        border: none;
+    }
+
+    /* Service Info Box */
+    .car-detail-service-box {
+        @apply mt-6 p-6 rounded-xl space-y-3 text-sm;
+        background-color: #E5E5E5;
+        /* Slightly darker gray for sidebar box */
+        color: var(--apex-color-secondary);
+    }
+
+    .car-detail-service-item {
+        @apply flex items-center gap-2;
+    }
+
+    .car-detail-check-icon {
+        @apply w-4 h-4;
+        color: var(--apex-color-secondary);
+    }
+}
