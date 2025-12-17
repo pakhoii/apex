@@ -46,3 +46,13 @@ class UserResetPassword(BaseModel):
 # Allow admin create new user
 class AdminUserCreate(UserCreate):
     role: UserRole = UserRole.USER
+
+# Use for user to update their own information
+class UserUpdateMe(BaseModel):
+    first_name: str | None = None
+    last_name: str | None = None
+    phone_number: str | None = None
+
+# Use for admin to update user role
+class UserRoleUpdate(BaseModel):
+    role: UserRole
