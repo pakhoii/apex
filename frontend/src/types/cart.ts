@@ -12,3 +12,12 @@ export interface CartItemProps {
     onDecrease: (id: string) => void
     onRemove: (id: string) => void
 }
+
+export interface CartItemCreate {
+    model_id: number;
+    quantity: number;
+}
+
+export interface CartItemUpdate {
+    quantity: number;
+}
