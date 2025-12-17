@@ -8,5 +8,10 @@ class CRUDModel(CRUDBase[Brand, BrandCreate, BrandUpdate]):
     def get_by_name(self, db: Session, name: str):
         return db.query(self.model).filter(self.model.name == name).first()
 
+    def get_all(self, db: Session) -> list[Brand]:
+        return db.query(self.model).all()
+    
+    def get_by_id(self, db: Session, id: int) -> Brand | None:
+        return db.query(self.model).filter(self.model.id == id).first()
 
 crud_brand = CRUDModel(Brand)

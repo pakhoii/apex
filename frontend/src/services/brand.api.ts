@@ -15,3 +15,15 @@ export const updateBrandApi = (brandId: number, formData: FormData) => {
         }
     }).then(res => res.data);
 };
+
+export const getAllBrandsApi = () => {
+    return http.get("/brands/").then(res => res.data);
+}
+
+export const getBrandByIdApi = (brandId: number) => {
+    return http.get(`/brands/${brandId}`).then(res => res.data);
+}
+
+export const deleteBrandApi = (brandId: number) => {
+    return http.delete(`/brands/${brandId}`).then(res => res.data);
+}

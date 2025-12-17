@@ -14,6 +14,23 @@ from app.services.car.brand import brand_service
 
 router = APIRouter(prefix="/brands", tags=["brands"])
 
+@router.get("/", response_model=list[BrandOut])
+def list_brands(
+    db: Session = Depends(get_db)
+):
+    brands = brand_service.get_all_brands(db=db)
+    return brands
+
+
+@router.get("/{brand_id}", response_model=BrandOut)
+def get_brand(
+    brand_id: int,
+    db: Session = Depends(get_db)
+):
+    brand = brand_service.get_brand_by_id(db=db, brand_id=brand_id)
+    return brand
+
+
 @router.post("/", response_model=BrandOut)
 def create_new_brand (
     name: str = Form(...),
@@ -53,4 +70,18 @@ async def update_brand(
         db_object=brand_to_update,
         update_data=update_data,
         logo_file=logo_file
+    )
+    
+@router.delete("/{brand_id}", response_model=BrandOut)
+def delete_brand(
+    brand_id: int,
+    db: Session = Depends(get_db),
+    current_user_payload: dict = Depends(require_admin)
+):
+    admin_id = int(current_user_payload.get("sub"))
+    
+    return brand_service.delete_brand(
+        db=db, 
+        user_id=admin_id, 
+        brand_id=brand_id
     )

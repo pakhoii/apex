@@ -10,6 +10,7 @@ from app.api.v1.endpoints import model
 from app.api.v1.endpoints import testdrive
 from app.api.v1.endpoints import checkout
 from app.api.v1.endpoints import cart
+from app.api.v1.endpoints import user
 
 app = FastAPI()
 
@@ -25,4 +26,6 @@ app.include_router(model.router)
 app.include_router(testdrive.router)
 app.include_router(checkout.router)
 app.include_router(cart.router)
+app.include_router(user.router)
+
 
