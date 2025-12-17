@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+
 import { Loader2 } from "lucide-react"; // Eye icons removed to match clean mockup style or kept if desired? Mockup has dots. keeping standard input for now.
 import { Button } from "@/components/ui/button";
 import {
@@ -14,10 +16,10 @@ import "./auth.css";
 
 export const LoginForm = () => {
     const [credentials, setCredentials] = useState({
-        identifier: "",
+        email: "",
         password: "",
     });
-    const [isLoading, setIsLoading] = useState(false);
+    const { login, isLoading } = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -26,12 +28,8 @@ export const LoginForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
-        // Simulate API call
-        setTimeout(() => {
-            console.log("Login", credentials);
-            setIsLoading(false);
-        }, 1500);
+        await login(credentials);
+        // console.log("Login successful");
     };
 
     return (
@@ -45,14 +43,14 @@ export const LoginForm = () => {
             <CardContent className="auth-card-content">
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="auth-form-group">
-                        <Label htmlFor="identifier" className="auth-label">
+                        <Label htmlFor="email" className="auth-label">
                             Email
                         </Label>
                         <Input
-                            id="identifier"
-                            name="identifier"
+                            id="email"
+                            name="email"
                             placeholder="schirano@gmail.com"
-                            value={credentials.identifier}
+                            value={credentials.email}
                             onChange={handleChange}
                             disabled={isLoading}
                             className="auth-input"

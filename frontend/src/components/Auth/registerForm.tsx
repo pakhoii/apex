@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,29 +16,34 @@ import "./auth.css";
 
 export const RegisterForm = () => {
     const [formData, setFormData] = useState({
-        name: "",
-        username: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const { register, isLoading } = useAuth();
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
-        // Simulate API call
-        setTimeout(() => {
-            console.log("Register", formData);
-            setIsLoading(false);
-        }, 1500);
-    };
-
+        await register(
+            {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                phoneNumber: formData.phoneNumber,
+                email: formData.email,
+                password: formData.password,
+            }
+        );
+    }
+    
     return (
         <Card className="auth-card">
             <CardHeader className="auth-card-header">
@@ -48,14 +55,14 @@ export const RegisterForm = () => {
             <CardContent className="auth-card-content">
                 <form onSubmit={handleSubmit} className="auth-form-register">
                     <div className="auth-form-group">
-                        <Label htmlFor="name" className="auth-label">
-                            Name
+                        <Label htmlFor="firstName" className="auth-label">
+                            First Name
                         </Label>
                         <Input
-                            id="name"
-                            name="name"
-                            placeholder="Pietro Schirano"
-                            value={formData.name}
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Pietro"
+                            value={formData.firstName}
                             onChange={handleChange}
                             disabled={isLoading}
                             className="auth-input"
@@ -63,14 +70,29 @@ export const RegisterForm = () => {
                     </div>
 
                     <div className="auth-form-group">
-                        <Label htmlFor="username" className="auth-label">
-                            Username
+                        <Label htmlFor="lastName" className="auth-label">
+                            Last Name
                         </Label>
                         <Input
-                            id="username"
-                            name="username"
-                            placeholder="@schirano"
-                            value={formData.username}
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Schirano"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            disabled={isLoading}
+                            className="auth-input"
+                        />
+                    </div>
+
+                    <div className="auth-form-group">
+                        <Label htmlFor="phoneNumber" className="auth-label">
+                            Phone Number
+                        </Label>
+                        <Input
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="(123) 456-7890"
+                            value={formData.phoneNumber}
                             onChange={handleChange}
                             disabled={isLoading}
                             className="auth-input"
