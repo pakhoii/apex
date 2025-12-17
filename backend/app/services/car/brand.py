@@ -97,4 +97,37 @@ class BrandService:
             db.rollback()
             raise e
         
+    def get_all_brands(self, db: Session) -> list[Brand]:
+        return crud_brand.get_all(db)
+    
+    
+    def get_brand_by_id(self, db: Session, brand_id: int) -> Optional[Brand]:
+        return crud_brand.get_by_id(db, id=brand_id)
+    
+    
+    def delete_brand(self, db: Session, brand_id: int, user_id: int) -> Brand:
+        brand = crud_brand.get_by_id(db, id=brand_id)
+        if not brand:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Brand with id '{brand_id}' not found."
+            )
+        
+        try:
+            crud_brand.remove(db, id=brand_id)
+            
+            log_data = AuditLogCreate(
+                entity_type="Brand", entity_id=brand_id, actor_id=user_id,
+                action="delete_brand", details=f"Deleted brand: {brand.name}"
+            )
+            crud_audit_log.create(db=db, input_object=log_data)
+
+            db.commit()
+        
+        except Exception as e:
+            db.rollback()
+            raise e
+        
+        return brand
+        
 brand_service = BrandService()
