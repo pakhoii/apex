@@ -82,7 +82,9 @@
 }
 
 .remove-item button {
-    @apply h-10 w-10 text-muted-foreground bg-transparent hover:bg-red-50 hover:text-red-600 transition-colors border-0 shadow-none;
+    @apply h-10 w-10 text-muted-foreground bg-transparent 
+    hover:bg-red-50 hover:text-[var(--apex-color-error)]
+    transition-colors border-0 shadow-none;
 }
 
 /* Container */
