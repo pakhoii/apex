@@ -43,26 +43,27 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     
     
     # UPDATE
-    def update(self, db: Session, *,
-                db_object: ModelType, # current object from db
-                input_object: Union[UpdateSchemaType, Dict[str, Any]]) -> ModelType:
-        object_data = db_object.__dict__
-        
-        if (isinstance(input_object, dict)):
+    def update(
+        self,
+        db: Session,
+        *,
+        db_object: ModelType,
+        input_object: Union[UpdateSchemaType, Dict[str, Any]]
+    ) -> ModelType:
+        if isinstance(input_object, dict):
             update_data = input_object
         else:
-            update_data = input_object.model_dump(exclude_unset=True)
-            
-        for field in object_data:
-            if field in update_data:
-                setattr(db_object, field, update_data[field])
+            update_data = input_object.model_dump(
+                exclude_unset=True,
+                exclude_none=True   # ⭐ CỨU MẠNG
+            )
+
+        for field, value in update_data.items():
+            setattr(db_object, field, value)
 
         db.add(db_object)
-        # db.commit()
-        # db.refresh(db_object)
-        
         return db_object
-    
+
     
     # DELETE
     def remove(self, db: Session, *, id: int) -> ModelType:
