@@ -188,7 +188,10 @@
 
     /* Utility text colors */
     .text-gold {
-        color: var(--apex-color-accent) !important;
+        background: linear-gradient(to right, #F59E0B, var(--apex-color-accent), #ca8a04);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 
     .group:hover .about-member-img {
