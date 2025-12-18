@@ -2,17 +2,17 @@
 
 @layer components {
     .auth-container {
-        @apply min-h-screen flex flex-col items-center p-4
-                text-[var(--apex-color-text)];
+        @apply h-screen w-screen overflow-hidden flex flex-col items-center justify-center p-4 text-[var(--apex-color-text)];
+        background-image: url('/images/auth-page-background.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
     .auth-toggle-container {
         @apply mb-6 p-2 rounded-lg shadow-lg backdrop-blur-sm;
-        background: linear-gradient(
-            to right,
-            var(--apex-color-highlight),
-            var(--apex-color-primary)
-        );
+        background: linear-gradient(to right,
+                var(--apex-color-highlight),
+                var(--apex-color-primary));
         position: relative;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -73,11 +73,9 @@
 
     .auth-card {
         @apply w-full max-w-md rounded-md overflow-hidden gap-0;
-        background: linear-gradient(
-            -45deg,
-            var(--apex-color-highlight),
-            var(--apex-color-primary)
-        );
+        background: linear-gradient(-45deg,
+                var(--apex-color-highlight),
+                var(--apex-color-primary));
         /* Form slide-in animation */
         animation: slideInFromRight 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
     }
@@ -88,6 +86,7 @@
             opacity: 0;
             transform: translateX(30px);
         }
+
         to {
             opacity: 1;
             transform: translateX(0);
@@ -104,6 +103,7 @@
             opacity: 0;
             transform: translateY(10px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -139,21 +139,25 @@
     .auth-form-group:nth-child(1) {
         animation-delay: 0.15s;
     }
-    
+
     .auth-form-group:nth-child(2) {
         animation-delay: 0.2s;
     }
-    
+
     .auth-form-group:nth-child(3) {
         animation-delay: 0.25s;
     }
-    
+
     .auth-form-group:nth-child(4) {
         animation-delay: 0.3s;
     }
-    
+
     .auth-form-group:nth-child(5) {
         animation-delay: 0.35s;
+    }
+
+    .auth-form-group:nth-child(6) {
+        animation-delay: 0.4s;
     }
 
     .auth-label {
@@ -161,10 +165,7 @@
     }
 
     .auth-input {
-        @apply !bg-[var(--apex-color-text)] !text-[var(--apex-color-primary)] 
-                border-transparent placeholder:text-[var(--apex-color-text-light)] rounded-md h-11 
-                focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--apex-color-light)] 
-                text-base;
+        @apply !bg-[var(--apex-color-text)] !text-[var(--apex-color-primary)] border-transparent placeholder:text-[var(--apex-color-text-light)] rounded-md h-11 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--apex-color-light)] text-base;
         transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
     }
 
@@ -174,9 +175,7 @@
     }
 
     .auth-submit-button {
-        @apply mt-4 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] 
-                text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
-                rounded-lg h-11 text-base shadow-lg;
+        @apply mt-4 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] text-[var(--apex-color-text)] border border-[var(--apex-color-border)] rounded-lg h-11 text-base shadow-lg;
         transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         animation: fadeInUp 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) 0.4s both;
     }
@@ -191,9 +190,7 @@
     }
 
     .auth-submit-button-register {
-        @apply mt-6 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] 
-                text-[var(--apex-color-text)] border border-[var(--apex-color-border)] 
-                rounded-lg h-11 text-base shadow-lg;
+        @apply mt-6 w-fit px-8 bg-[var(--apex-color-dark)] hover:bg-[#1a2e4b] text-[var(--apex-color-text)] border border-[var(--apex-color-border)] rounded-lg h-11 text-base shadow-lg;
         transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.5s both;
     }

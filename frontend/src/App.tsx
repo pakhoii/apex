@@ -6,7 +6,6 @@ import AuthPage from "./pages/Auth/auth";
 function App() {
   return (
     <>
-      <Navbar />
       {/* <div className="mt-40"></div> */}
       <AuthPage />
     </>
