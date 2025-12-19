@@ -1,27 +1,21 @@
 import { useState } from "react";
 import { 
-    getModelDetailsApi, 
-    getModelsApi,
-    createModelApi,
-    updateModelApi,
-    compareModelsApi
-} from "@/services/model.api";
+    createBrandApi,
+    updateBrandApi,
+    getAllBrandsApi,
+    getBrandByIdApi,
+    deleteBrandApi
+} from "@/services/brand.api";
 
-import type { 
-    ModelFilterParams, 
-    PaginationParams, 
-    ModelCompareParams 
-} from "@/types/model";
-
-export const useModel = () => {
+export const useBrand = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchModels = async (filters?: ModelFilterParams, pagination?: PaginationParams) => {
+    const createBrand = async (formData: FormData) => {
         try {
             setLoading(true);
             setError(null);
-            return await getModelsApi(filters, pagination);
+            return await createBrandApi(formData);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -30,64 +24,64 @@ export const useModel = () => {
         }
     };
 
-    const fetchModelsDetails = async (modelId: number) => {
+    const updateBrand = async (brandId: number, formData: FormData) => {
         try {
             setLoading(true);
             setError(null);
-            return await getModelDetailsApi(modelId);
+            return await updateBrandApi(brandId, formData);
         } catch (err: any) {
             setError(err.message);
             throw err;
         } finally {
             setLoading(false);
         }
-    }
+    };
 
-    const updateModel = async (modelId: number, formData: FormData) => {
+    const fetchAllBrands = async () => {
         try {
             setLoading(true);
             setError(null);
-            return await updateModelApi(modelId, formData);
+            return await getAllBrandsApi();
         } catch (err: any) {
             setError(err.message);
             throw err;
         } finally {
             setLoading(false);
         }
-    }
+    };
 
-    const createModel = async (formData: FormData) => {
+    const fetchBrandById = async (brandId: number) => {
         try {
             setLoading(true);
             setError(null);
-            return await createModelApi(formData);
+            return await getBrandByIdApi(brandId);
         } catch (err: any) {
             setError(err.message);
             throw err;
         } finally {
             setLoading(false);
         }
-    }
+    };
 
-    const compareModels = async (params: ModelCompareParams) => {
+    const deleteBrand = async (brandId: number) => {
         try {
             setLoading(true);
             setError(null);
-            return await compareModelsApi(params);
+            return await deleteBrandApi(brandId);
         } catch (err: any) {
             setError(err.message);
             throw err;
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return {
-        fetchModels,
-        fetchModelsDetails,
-        updateModel,
-        createModel,
-        compareModels,
+        createBrand,
+        updateBrand,
+        fetchAllBrands,
+        fetchBrandById,
+        deleteBrand,
         loading,
         error,
     };
