@@ -55,3 +55,8 @@ export interface ModelCompareParams {
 export interface ModelCompareResponse {
     models: ModelOut[];
 }
+
+// Props
+export interface GalleryProps {
+    models ?: ModelOut[];
+}

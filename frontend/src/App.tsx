@@ -1,12 +1,13 @@
 import Navbar from "./components/Navbar/navbar";
-import AboutPage from "./pages/About/about";
+import { Footer } from "./components/Footer/footer";
+import Landing from "./pages/Landing/landing";
 
 function App() {
   return (
     <>
       <Navbar />
-      {/* <div className="mt-40"></div> */}
-      <AboutPage />
+      <Landing />
+      <Footer />
     </>
   )
 }
