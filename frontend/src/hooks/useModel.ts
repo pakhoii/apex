@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getModelsApi } from "@/services/model.api";
+import { getModelDetailsApi, getModelsApi } from "@/services/model.api";
 
 export const useModel = () => {
     const [error, setError] = useState<string | null>(null);
@@ -18,8 +18,22 @@ export const useModel = () => {
         }
     };
 
+    const fetchModelsDetails = async (modelId: number) => {
+        try {
+            setLoading(true);
+            setError(null);
+            return await getModelDetailsApi(modelId);
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         fetchModels,
+        fetchModelsDetails,
         loading,
         error,
     };
