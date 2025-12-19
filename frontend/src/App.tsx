@@ -3,12 +3,12 @@ import Navbar from "./components/Navbar/navbar";
 import ComparePage from "./pages/Compare/compare";
 import { Footer } from "./components/Footer/footer";
 import AboutPage from "./pages/About/about";
+import AuthPage from "./pages/Auth/auth";
 
 
 function App() {
   return (
     <>
-      <Navbar />
       {/* <div className="mt-40"></div> */}
       <ComparePage />
       <AboutPage/>
