@@ -1,0 +1,122 @@
+@import "../../index.css";
+
+.compare-container {
+    @apply min-h-screen pt-[80px];
+    background-color: var(--apex-color-primary);
+    color: var(--apex-color-text);
+}
+
+/* Header Section */
+.compare-header {
+    @apply py-16 text-center border-b;
+    border-bottom-color: var(--apex-color-border);
+}
+
+.compare-title {
+    @apply text-5xl md:text-6xl font-bold mb-4;
+    color: var(--apex-color-text);
+}
+
+.compare-title-gradient {
+    /* Gradient text is a visual effect/color, keeping as standard CSS for now, 
+     though Tailwind supports bg-clip-text. 
+     Keeping original gradient implementation as it's complex/custom. */
+    background: linear-gradient(to right, #F59E0B, var(--apex-color-accent), #ca8a04);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.compare-subtitle {
+    @apply text-lg max-w-2xl mx-auto px-4;
+    color: var(--apex-color-text-light);
+}
+
+/* Comparison Grid */
+.compare-content {
+    @apply max-w-7xl mx-auto py-12 px-4;
+}
+
+.compare-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+/* Car Cards */
+.car-card {
+    @apply overflow-hidden border transition-all duration-300;
+    /* Using standard CSS for radius since it involves a var variable, though @apply rounded-[var(--radius)] would also work. 
+     User asked for Tailwind for non-colors. Radius is borderline but often pairs with layout. 
+     I will use standard property for radius to be safe with the var, or I can use @apply rounded-[...].
+     Let's use standard property for the var to avoid any JIT issues, as it's cleaner. */
+    border-radius: var(--radius);
+    background-color: var(--apex-color-secondary);
+    border-color: var(--apex-color-border);
+}
+
+.car-card:hover {
+    border-color: var(--apex-color-accent);
+}
+
+.car-image-container {
+    @apply relative h-64 w-full;
+    /* Gradient background is a "color" property */
+    background: linear-gradient(to bottom right, #27272a, #18181b);
+}
+
+.car-image-container img {
+    @apply w-full h-full object-cover;
+}
+
+.car-info {
+    @apply p-6 text-center border-b;
+    border-bottom-color: var(--apex-color-border);
+}
+
+.car-name {
+    @apply text-2xl font-bold mb-2;
+    color: var(--apex-color-text);
+}
+
+.car-price {
+    @apply text-xl font-semibold;
+    color: var(--apex-color-accent);
+}
+
+/* Specifications Sections */
+.specs-container {
+    @apply mt-12 flex flex-col gap-8;
+}
+
+.spec-section {
+    @apply p-6 border;
+    border-radius: var(--radius);
+    background-color: color-mix(in srgb, var(--apex-color-secondary), transparent 50%);
+    border-color: var(--apex-color-border);
+}
+
+.spec-title {
+    @apply text-2xl font-bold mb-6;
+    color: var(--apex-color-accent);
+}
+
+.spec-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+.spec-list {
+    @apply flex flex-col gap-4;
+}
+
+.spec-item {
+    @apply flex justify-between items-center py-3 border-b last:border-b-0;
+    border-bottom-color: var(--apex-color-border);
+}
+
+.spec-label {
+    color: var(--apex-color-text-light);
+}
+
+.spec-value {
+    @apply font-semibold;
+    color: var(--apex-color-text);
+}
