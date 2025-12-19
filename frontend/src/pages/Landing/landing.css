@@ -5,6 +5,10 @@ body:has([data-state="open"]) {
     padding-right: 0 !important;
 }
 
+.landing-page {
+    background-color: var(--apex-color-primary)
+}
+
 .section-container {
     @apply flex flex-col items-center justify-center 
             min-h-screen h-screen;
