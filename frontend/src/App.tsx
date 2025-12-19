@@ -5,6 +5,8 @@ import Landing from "./pages/Landing/landing";
 import MyCart from "./pages/MyCart/myCart";
 import AuthPage from "./pages/Auth/auth";
 
+import ModelsPage from "./pages/Models/models";
+
 function App() {
   return (
     <>
