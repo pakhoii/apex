@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { 
-    createBrandApi,
-    updateBrandApi,
-    getAllBrandsApi,
-    getBrandByIdApi,
-    deleteBrandApi
-} from "@/services/brand.api";
+    createBookingApi,
+    getMyBookingsApi,
+    getAvailableSlotsApi,
+    createSlotApi
+} from "@/services/testdrive.api";
+import type { BookingCreate, TestDriveSlotCreate } from "@/types/testdrive";
 
-export const useBrand = () => {
+export const useTestDrive = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const createBrand = async (formData: FormData) => {
+    const createBooking = async (bookingData: BookingCreate) => {
         try {
             setLoading(true);
             setError(null);
-            return await createBrandApi(formData);
+            return await createBookingApi(bookingData);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -24,11 +24,11 @@ export const useBrand = () => {
         }
     };
 
-    const updateBrand = async (brandId: number, formData: FormData) => {
+    const fetchMyBookings = async () => {
         try {
             setLoading(true);
             setError(null);
-            return await updateBrandApi(brandId, formData);
+            return await getMyBookingsApi();
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -37,11 +37,11 @@ export const useBrand = () => {
         }
     };
 
-    const fetchAllBrands = async () => {
+    const fetchAvailableSlots = async (modelId?: number, date?: string) => {
         try {
             setLoading(true);
             setError(null);
-            return await getAllBrandsApi();
+            return await getAvailableSlotsApi(modelId, date);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -50,24 +50,11 @@ export const useBrand = () => {
         }
     };
 
-    const fetchBrandById = async (brandId: number) => {
+    const createSlot = async (slotData: TestDriveSlotCreate) => {
         try {
             setLoading(true);
             setError(null);
-            return await getBrandByIdApi(brandId);
-        } catch (err: any) {
-            setError(err.message);
-            throw err;
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const deleteBrand = async (brandId: number) => {
-        try {
-            setLoading(true);
-            setError(null);
-            return await deleteBrandApi(brandId);
+            return await createSlotApi(slotData);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -77,11 +64,10 @@ export const useBrand = () => {
     };
 
     return {
-        createBrand,
-        updateBrand,
-        fetchAllBrands,
-        fetchBrandById,
-        deleteBrand,
+        createBooking,
+        fetchMyBookings,
+        fetchAvailableSlots,
+        createSlot,
         loading,
         error,
     };
