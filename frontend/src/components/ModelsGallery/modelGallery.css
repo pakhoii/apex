@@ -1,0 +1,108 @@
+@import "../../index.css";
+
+.gallery-container {
+    @apply grid grid-cols-1 md:grid-cols-3 items-center overflow-hidden relative;
+    height: 100vh;
+    background-color: var(--apex-color-accent);
+    transition: all 0.5s ease-in-out;
+}
+
+/* Image Container */
+.image-container {
+    @apply md:col-span-2 h-full relative overflow-hidden;
+}
+
+.gallery-image {
+    @apply w-full h-full object-cover;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Info Container */
+.info-container {
+    @apply flex flex-col justify-center items-center h-full gap-6 px-8;
+}
+
+.model-name {
+    @apply text-4xl font-extrabold text-center;
+    color: var(--apex-color-primary);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.gallery-button {
+    @apply gap-2 px-6 py-3;
+    background-color: var(--apex-color-primary);
+    color: var(--apex-color-text);
+    transition: all 0.3s ease;
+}
+
+.gallery-button:hover {
+    background-color: var(--apex-color-dark);
+    transform: translateY(-2px);
+}
+
+/* Simple Fade Animations */
+.image-fade-out {
+    opacity: 0;
+    transform: scale(1.03);
+}
+
+.image-fade-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.text-fade-out,
+.button-fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.text-fade-in,
+.button-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Gallery Indicators */
+.gallery-indicators {
+    @apply absolute bottom-8 left-1/2 flex gap-2 z-10;
+    transform: translateX(-50%);
+}
+
+.indicator {
+    @apply w-2 h-2 rounded-full cursor-pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.indicator:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.indicator-active {
+    @apply w-6;
+    background-color: var(--apex-color-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gallery-container {
+        @apply grid-rows-2;
+    }
+
+    .image-container {
+        @apply row-span-1;
+    }
+
+    .info-container {
+        @apply row-span-1;
+    }
+
+    .model-name {
+        @apply text-2xl;
+    }
+
+    .gallery-indicators {
+        @apply bottom-4;
+    }
+}
