@@ -1,13 +1,13 @@
-import { ShoppingCartComponent } from "./components/Cart/shoppingCart";
+import { Footer } from "./components/Footer/footer";
 import Navbar from "./components/Navbar/navbar";
-import AuthToggle from "./components/Auth/auth";
+import AboutPage from "./pages/About/about";
+import AuthPage from "./pages/Auth/auth";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <div className="mt-40"></div>
-      <AuthToggle />
+      {/* <div className="mt-40"></div> */}
+      <AuthPage />
     </>
   )
 }
