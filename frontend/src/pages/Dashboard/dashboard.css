@@ -1,0 +1,837 @@
+@import "../../index.css";
+
+/* ============================
+   Dashboard Page Layout
+   ============================ */
+.dashboard-page {
+    @apply w-full min-h-screen flex flex-col items-center;
+    padding-top: 120px;
+    background-color: var(--apex-color-primary);
+    color: var(--apex-color-text);
+}
+
+.dashboard-container {
+    @apply w-full max-w-7xl flex flex-row-reverse gap-12 px-8;
+}
+
+.dashboard-loading-full {
+    @apply flex flex-col items-center justify-center w-full min-h-[60vh] gap-6;
+    color: var(--apex-color-text-light);
+}
+
+.spinner {
+    @apply w-8 h-8 rounded-full;
+    border: 2px solid var(--apex-color-border);
+    border-top-color: var(--apex-color-accent);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================
+   Sidebar - Card Style
+   ============================ */
+.dashboard-sidebar {
+    @apply w-[320px] flex flex-col sticky top-32 p-4 rounded-lg;
+    height: auto;
+    min-height: fit-content;
+    max-height: fit-content;
+    background: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+    align-self: flex-start;
+}
+
+.sidebar-header {
+    @apply flex items-center gap-4 pb-5 mb-5;
+    border-bottom: 1px solid var(--apex-color-border);
+}
+
+.sidebar-header svg {
+    color: var(--apex-color-accent);
+}
+
+.sidebar-header h2 {
+    @apply text-2xl font-light tracking-wide m-0;
+    color: var(--apex-color-text);
+    letter-spacing: 0.1em;
+}
+
+.sidebar-user {
+    @apply flex items-center gap-4 py-5 mb-5;
+    border-bottom: 1px solid var(--apex-color-border);
+}
+
+.user-avatar {
+    @apply w-14 h-14 rounded-full flex items-center justify-center;
+    background: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+    color: var(--apex-color-accent);
+}
+
+.user-info {
+    @apply flex flex-col gap-1;
+}
+
+.user-name {
+    @apply font-medium text-base tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.user-role {
+    @apply text-xs uppercase tracking-widest;
+    color: var(--apex-color-accent);
+    letter-spacing: 0.15em;
+}
+
+.sidebar-nav {
+    @apply flex flex-col gap-2;
+}
+
+.sidebar-item {
+    @apply flex items-center gap-3 w-full px-4 py-3 text-sm cursor-pointer transition-all duration-300 text-left tracking-wide rounded-md;
+    background: transparent;
+    border: none;
+    color: var(--apex-color-text-light);
+    letter-spacing: 0.02em;
+}
+
+.sidebar-item:hover {
+    color: var(--apex-color-text);
+    background: color-mix(in srgb, var(--apex-color-text), transparent 95%);
+}
+
+.sidebar-item.active {
+    color: var(--apex-color-accent);
+    background: color-mix(in srgb, var(--apex-color-accent), transparent 90%);
+}
+
+.sidebar-footer {
+    @apply mt-6 pt-5;
+    border-top: 1px solid var(--apex-color-border);
+}
+
+.sidebar-item.logout {
+    color: var(--apex-color-text-light);
+}
+
+.sidebar-item.logout:hover {
+    color: var(--apex-color-error);
+}
+
+/* ============================
+   Main Content Area
+   ============================ */
+.dashboard-content {
+    @apply flex-1 pb-20;
+}
+
+/* ============================
+   Section Styling
+   ============================ */
+.section-header {
+    @apply flex justify-between items-center mb-8;
+}
+
+.section-title {
+    @apply flex items-center gap-4 text-3xl font-light m-0 mb-8 tracking-wide;
+    color: var(--apex-color-text);
+    letter-spacing: 0.05em;
+}
+
+.section-title::after {
+    content: '';
+    @apply flex-1 h-px ml-6;
+    background: linear-gradient(90deg, var(--apex-color-border), transparent);
+}
+
+.section-icon {
+    color: var(--apex-color-accent);
+}
+
+.add-btn {
+    @apply flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wider transition-all duration-500;
+    background: transparent;
+    border: 1px solid var(--apex-color-accent);
+    color: var(--apex-color-accent);
+    letter-spacing: 0.1em;
+}
+
+.add-btn:hover {
+    background: var(--apex-color-accent);
+    color: var(--apex-color-primary);
+}
+
+/* ============================
+   Cards & Empty States
+   ============================ */
+.empty-state {
+    @apply flex flex-col items-center justify-center py-20 text-center;
+    color: var(--apex-color-text-light);
+}
+
+.empty-icon {
+    @apply w-16 h-16 mb-6;
+    color: var(--apex-color-border);
+}
+
+.empty-state p {
+    @apply text-sm tracking-wide;
+    letter-spacing: 0.05em;
+}
+
+.dashboard-loading {
+    @apply text-center py-20;
+    color: var(--apex-color-text-light);
+}
+
+/* ============================
+   Order Cards (User & Admin)
+   ============================ */
+.orders-list,
+.bookings-list {
+    @apply flex flex-col gap-6;
+}
+
+.order-card,
+.booking-card {
+    @apply p-6;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+    transition: all 0.5s ease;
+}
+
+.order-card:hover,
+.booking-card:hover {
+    border-color: var(--apex-color-accent);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--apex-color-accent), transparent 95%);
+}
+
+.order-header,
+.booking-header {
+    @apply flex justify-between items-center mb-6 flex-wrap gap-4;
+}
+
+.order-info,
+.booking-info {
+    @apply flex items-center gap-6;
+}
+
+.order-id,
+.booking-id {
+    @apply font-medium text-base tracking-wide;
+    color: var(--apex-color-text);
+    letter-spacing: 0.05em;
+}
+
+.order-status,
+.booking-status {
+    @apply px-4 py-1.5 text-xs font-medium uppercase tracking-widest;
+    letter-spacing: 0.15em;
+    border: 1px solid currentColor;
+}
+
+/* Status Colors - Elegant borders */
+.status-pending {
+    color: var(--apex-color-warning);
+    background: transparent;
+}
+
+.status-confirmed {
+    color: var(--apex-color-success);
+    background: transparent;
+}
+
+.status-processing {
+    color: #60A5FA;
+    background: transparent;
+}
+
+.status-shipped {
+    color: #A78BFA;
+    background: transparent;
+}
+
+.status-delivered {
+    color: var(--apex-color-success);
+    background: transparent;
+}
+
+.status-cancelled {
+    color: var(--apex-color-error);
+    background: transparent;
+}
+
+.status-refunded {
+    color: var(--apex-color-text-light);
+    background: transparent;
+}
+
+.order-date {
+    @apply flex items-center gap-2 text-sm tracking-wide;
+    color: var(--apex-color-text-light);
+}
+
+.order-meta {
+    @apply flex gap-6 items-center text-sm;
+    color: var(--apex-color-text-light);
+}
+
+.order-user {
+    @apply flex items-center gap-2;
+}
+
+.order-items {
+    @apply py-6 my-6;
+    border-top: 1px solid var(--apex-color-border);
+    border-bottom: 1px solid var(--apex-color-border);
+}
+
+.order-item {
+    @apply flex justify-between items-center py-3;
+}
+
+.item-name {
+    @apply flex-1 font-light tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.item-qty {
+    @apply mx-6 text-sm;
+    color: var(--apex-color-text-light);
+}
+
+.item-price {
+    @apply font-medium;
+    color: var(--apex-color-accent);
+}
+
+.order-footer {
+    @apply flex justify-between items-center flex-wrap gap-4;
+}
+
+.shipping-address {
+    @apply flex items-center gap-2 text-sm;
+    color: var(--apex-color-text-light);
+}
+
+.order-total {
+    @apply font-light text-xl tracking-wide;
+    color: var(--apex-color-accent);
+}
+
+.cancel-btn,
+.order-actions {
+    @apply mt-6;
+}
+
+.order-actions {
+    @apply flex gap-3 flex-wrap;
+}
+
+/* ============================
+   Booking Cards
+   ============================ */
+.booking-details {
+    @apply py-6;
+    border-top: 1px solid var(--apex-color-border);
+}
+
+.booking-model {
+    @apply flex items-center gap-3 font-light text-lg mb-4 tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.booking-schedule {
+    @apply flex gap-8;
+}
+
+.schedule-item {
+    @apply flex items-center gap-3 text-sm;
+    color: var(--apex-color-text-light);
+}
+
+.booking-footer {
+    @apply pt-6;
+    border-top: 1px solid var(--apex-color-border);
+}
+
+.created-at {
+    @apply text-xs tracking-wide;
+    color: var(--apex-color-text-light);
+}
+
+/* ============================
+   Profile Card
+   ============================ */
+.profile-card {
+    @apply p-8 max-w-2xl;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+}
+
+.profile-view {
+    @apply flex flex-col gap-8;
+}
+
+.profile-avatar {
+    @apply w-24 h-24 rounded-full flex items-center justify-center;
+    background: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+    color: var(--apex-color-accent);
+}
+
+.profile-info {
+    @apply flex flex-col gap-4;
+}
+
+.profile-name {
+    @apply text-3xl font-light m-0 tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.profile-detail {
+    @apply flex items-center gap-3 text-sm;
+    color: var(--apex-color-text-light);
+}
+
+.profile-role {
+    @apply text-sm;
+    color: var(--apex-color-text-light);
+}
+
+.role-badge {
+    @apply px-4 py-1.5 capitalize text-xs font-medium tracking-widest;
+    background: transparent;
+    border: 1px solid var(--apex-color-accent);
+    color: var(--apex-color-accent);
+    letter-spacing: 0.15em;
+}
+
+.edit-btn {
+    @apply self-start mt-4 flex items-center gap-3 px-6 py-3 text-sm tracking-wider transition-all duration-500;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+    color: var(--apex-color-text);
+    letter-spacing: 0.1em;
+}
+
+.edit-btn:hover {
+    border-color: var(--apex-color-accent);
+    color: var(--apex-color-accent);
+}
+
+/* ============================
+   Forms - Refined Inputs
+   ============================ */
+.profile-form,
+.admin-form-card form {
+    @apply flex flex-col gap-6;
+}
+
+.admin-form-card {
+    @apply p-8 mb-8;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+}
+
+.admin-form-card h3 {
+    @apply m-0 mb-8 text-xl font-light tracking-wide;
+    color: var(--apex-color-text);
+    letter-spacing: 0.05em;
+}
+
+.form-row {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.form-group {
+    @apply flex flex-col gap-2;
+}
+
+.form-group label {
+    @apply text-xs uppercase tracking-widest;
+    color: var(--apex-color-text-light);
+    letter-spacing: 0.15em;
+}
+
+.form-group input {
+    @apply w-full px-4 py-3 transition-all duration-500;
+    background: var(--apex-color-secondary) !important;
+    border: 1px solid var(--apex-color-border) !important;
+    border-radius: 4px !important;
+    color: var(--apex-color-text) !important;
+    font-size: 0.95rem !important;
+    height: 48px !important;
+    line-height: 1.5;
+    box-shadow: none !important;
+}
+
+.form-group input:focus {
+    @apply outline-none;
+    border-color: var(--apex-color-accent) !important;
+    box-shadow: none !important;
+}
+
+.form-group input::placeholder {
+    color: var(--apex-color-text-light) !important;
+    opacity: 0.7;
+}
+
+.form-group input:disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+.form-group input[type="file"] {
+    @apply py-2;
+    height: 48px !important;
+    display: flex;
+    align-items: center;
+}
+
+.form-select {
+    @apply w-full px-4 py-3 cursor-pointer transition-all duration-500;
+    background: var(--apex-color-secondary) !important;
+    border: 1px solid var(--apex-color-border) !important;
+    border-radius: 4px !important;
+    color: var(--apex-color-text) !important;
+    font-size: 0.95rem !important;
+    height: 48px !important;
+    line-height: 1.5;
+}
+
+.form-select:focus {
+    @apply outline-none;
+    border-color: var(--apex-color-accent) !important;
+}
+
+.form-select option {
+    background: var(--apex-color-secondary);
+    color: var(--apex-color-text);
+}
+
+.form-hint {
+    @apply text-xs m-0 mt-1;
+    color: var(--apex-color-text-light);
+}
+
+.form-error {
+    @apply p-4 text-sm tracking-wide;
+    background: transparent;
+    border: 1px solid var(--apex-color-error);
+    color: var(--apex-color-error);
+}
+
+.form-actions {
+    @apply flex justify-end gap-4 mt-4;
+}
+
+/* ============================
+   Buttons - Luxury Style
+   ============================ */
+.btn-primary {
+    @apply px-8 py-3 text-sm font-medium tracking-wider transition-all duration-500;
+    background: var(--apex-color-accent);
+    border: 1px solid var(--apex-color-accent);
+    color: var(--apex-color-primary);
+    letter-spacing: 0.1em;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: var(--apex-color-accent);
+}
+
+.btn-secondary {
+    @apply px-8 py-3 text-sm font-medium tracking-wider transition-all duration-500;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+    color: var(--apex-color-text);
+    letter-spacing: 0.1em;
+}
+
+.btn-secondary:hover {
+    border-color: var(--apex-color-text);
+}
+
+.btn-danger {
+    @apply px-6 py-2.5 text-sm tracking-wider transition-all duration-500;
+    background: transparent;
+    border: 1px solid var(--apex-color-error);
+    color: var(--apex-color-error);
+    letter-spacing: 0.1em;
+}
+
+.btn-danger:hover {
+    background: var(--apex-color-error);
+    color: var(--apex-color-text);
+}
+
+.btn-sm {
+    @apply px-4 py-2 text-xs;
+}
+
+/* ============================
+   Brand Grid
+   ============================ */
+.brands-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.brand-card {
+    @apply p-6 flex items-center gap-6;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+    transition: all 0.5s ease;
+}
+
+.brand-card:hover {
+    border-color: var(--apex-color-accent);
+}
+
+.brand-logo {
+    @apply w-16 h-16 flex items-center justify-center overflow-hidden shrink-0;
+    background-color: var(--apex-color-text);
+    border: 1px solid var(--apex-color-border);
+}
+
+.brand-logo img {
+    @apply w-full h-full object-contain p-2;
+}
+
+.brand-info {
+    @apply flex-1;
+}
+
+.brand-info h4 {
+    @apply m-0 mb-2 text-base font-medium tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.brand-id {
+    @apply text-xs tracking-wide;
+    color: var(--apex-color-text-light);
+}
+
+.brand-actions {
+    @apply flex gap-2;
+}
+
+/* ============================
+   Model Grid
+   ============================ */
+.models-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    
+}
+
+.model-card {
+    @apply overflow-hidden flex flex-col items-center;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+    transition: all 0.5s ease;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.model-card:hover {
+    border-color: var(--apex-color-accent);
+}
+
+
+.model-image {
+    @apply h-48 flex items-center justify-center overflow-hidden;
+    background: var(--apex-color-secondary);
+    width: 100%;
+}
+
+
+.model-image img {
+    @apply w-full h-full object-cover;
+}
+
+.model-image svg {
+    color: var(--apex-color-text-light);
+    opacity: 0.5;
+}
+
+.model-info {
+    @apply p-6 text-center;
+}
+
+.model-info h4 {
+    @apply m-0 mb-2 text-lg font-light tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.model-brand {
+    @apply text-sm m-0 mb-3;
+    color: var(--apex-color-text-light);
+}
+
+.model-price {
+    @apply text-xl font-light m-0 mb-3;
+    color: var(--apex-color-accent);
+}
+
+.model-details {
+    @apply text-xs m-0;
+    color: var(--apex-color-text-light);
+}
+
+.model-actions {
+    @apply p-6 pt-0 flex justify-end;
+}
+
+/* ============================
+   Admin Users
+   ============================ */
+.success-message {
+    @apply flex items-center gap-4 p-5 mb-8;
+    background: transparent;
+    border: 1px solid var(--apex-color-success);
+    color: var(--apex-color-success);
+}
+
+.success-message span {
+    @apply flex-1 text-sm tracking-wide;
+}
+
+.info-card {
+    @apply flex flex-col items-center text-center py-16 px-8 max-w-lg;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+}
+
+.info-card h3 {
+    @apply my-6 text-xl font-light tracking-wide;
+    color: var(--apex-color-text);
+}
+
+.info-card p {
+    @apply m-0 leading-relaxed text-sm;
+    color: var(--apex-color-text-light);
+}
+
+/* ============================
+   Filter Bar
+   ============================ */
+.filter-bar {
+    @apply flex flex-wrap gap-3 mb-8;
+}
+
+.filter-btn {
+    @apply text-xs px-5 py-2 tracking-widest transition-all duration-500;
+    background: transparent;
+    border: 1px solid var(--apex-color-border);
+    color: var(--apex-color-text-light);
+    letter-spacing: 0.1em;
+}
+
+.filter-btn:hover {
+    border-color: var(--apex-color-text);
+    color: var(--apex-color-text);
+}
+
+.filter-btn.active {
+    border-color: var(--apex-color-accent);
+    color: var(--apex-color-accent);
+}
+
+/* ============================
+   Divider
+   ============================ */
+.dashboard-divider {
+    @apply w-full my-8;
+    border: none;
+    border-top: 1px solid var(--apex-color-border);
+}
+
+/* ============================
+   Responsive Styles
+   ============================ */
+@media (max-width: 1200px) {
+    .dashboard-container {
+        @apply gap-8;
+    }
+    
+    .dashboard-sidebar {
+        @apply w-[280px];
+    }
+}
+
+@media (max-width: 992px) {
+    .dashboard-sidebar {
+        @apply w-[260px];
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-page {
+        padding-top: 100px;
+    }
+    
+    .dashboard-container {
+        @apply flex-col-reverse px-6 gap-6;
+    }
+    
+    .dashboard-sidebar {
+        @apply w-full p-5 rounded-lg;
+    }
+    
+    .sidebar-header {
+        @apply pb-4 mb-4;
+    }
+    
+    .sidebar-header h2 {
+        @apply text-xl;
+    }
+    
+    .sidebar-user {
+        @apply py-4 mb-4;
+    }
+    
+    .sidebar-nav {
+        @apply flex flex-row flex-wrap gap-2;
+    }
+    
+    .sidebar-item {
+        @apply px-4 py-3 flex-1 justify-center min-w-[140px] rounded-md;
+    }
+    
+    .sidebar-footer {
+        @apply mt-4 pt-4;
+    }
+    
+    .dashboard-content {
+        @apply pb-12;
+    }
+    
+    .section-title {
+        @apply text-2xl mb-6;
+    }
+    
+    .section-title::after {
+        display: none;
+    }
+    
+    .form-row {
+        @apply grid-cols-1;
+    }
+    
+    .order-footer {
+        @apply flex-col items-start;
+    }
+    
+    .profile-card {
+        @apply p-6;
+    }
+    
+    .admin-form-card {
+        @apply p-6;
+    }
+}

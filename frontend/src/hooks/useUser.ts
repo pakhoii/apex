@@ -1,22 +1,22 @@
 import {
-    cancelOrderApi,
-    createOrderApi,
-    getAllOrdersApi,
-    getMyOrdersApi,
-    transitionOrderStateApi
-} from "@/services/order.api";
-import type { CancelOrderRequest, OrderCreate, OrderOut, OrderTransitionRequest } from "@/types/order";
+    createUserApi,
+    getAllUsersApi,
+    getCurrentUserApi,
+    updateCurrentUserApi,
+    updateUserRoleApi,
+} from "@/services/user.api";
+import type { AdminUserCreate, UserOut, UserRoleUpdate, UserUpdateMe } from "@/types/user";
 import { useState } from "react";
 
-export const useOrder = () => {
+export const useUser = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const createOrder = async (orderData: OrderCreate) => {
+    const getCurrentUser = async (): Promise<UserOut> => {
         try {
             setLoading(true);
             setError(null);
-            return await createOrderApi(orderData);
+            return await getCurrentUserApi();
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -25,11 +25,11 @@ export const useOrder = () => {
         }
     };
 
-    const transitionOrderState = async (orderId: number, request: OrderTransitionRequest) => {
+    const updateCurrentUser = async (userData: UserUpdateMe): Promise<UserOut> => {
         try {
             setLoading(true);
             setError(null);
-            return await transitionOrderStateApi(orderId, request);
+            return await updateCurrentUserApi(userData);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -38,11 +38,11 @@ export const useOrder = () => {
         }
     };
 
-    const cancelOrder = async (request: CancelOrderRequest) => {
+    const updateUserRole = async (userId: number, roleData: UserRoleUpdate): Promise<UserOut> => {
         try {
             setLoading(true);
             setError(null);
-            return await cancelOrderApi(request);
+            return await updateUserRoleApi(userId, roleData);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -51,11 +51,11 @@ export const useOrder = () => {
         }
     };
 
-    const fetchMyOrders = async (skip: number = 0, limit: number = 10): Promise<OrderOut[]> => {
+    const getAllUsers = async (): Promise<UserOut[]> => {
         try {
             setLoading(true);
             setError(null);
-            return await getMyOrdersApi(skip, limit);
+            return await getAllUsersApi();
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -64,11 +64,11 @@ export const useOrder = () => {
         }
     };
 
-    const fetchAllOrders = async (skip: number = 0, limit: number = 100): Promise<OrderOut[]> => {
+    const createUser = async (userData: AdminUserCreate): Promise<UserOut> => {
         try {
             setLoading(true);
             setError(null);
-            return await getAllOrdersApi(skip, limit);
+            return await createUserApi(userData);
         } catch (err: any) {
             setError(err.message);
             throw err;
@@ -78,11 +78,11 @@ export const useOrder = () => {
     };
 
     return {
-        createOrder,
-        transitionOrderState,
-        cancelOrder,
-        fetchMyOrders,
-        fetchAllOrders,
+        getCurrentUser,
+        updateCurrentUser,
+        updateUserRole,
+        getAllUsers,
+        createUser,
         loading,
         error,
     };

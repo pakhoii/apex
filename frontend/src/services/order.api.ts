@@ -1,5 +1,5 @@
+import type { CancelOrderRequest, OrderCreate, OrderOut, OrderTransitionRequest } from "@/types/order";
 import http from "./http";
-import type { OrderCreate, CancelOrderRequest, OrderTransitionRequest } from "@/types/order";
 
 export const createOrderApi = (orderData: OrderCreate) => {
     return http.post("/orders/", orderData).then(res => res.data);
@@ -11,4 +11,14 @@ export const transitionOrderStateApi = (orderId: number, request: OrderTransitio
 
 export const cancelOrderApi = (request: CancelOrderRequest) => {
     return http.post("/orders/cancel", request).then(res => res.data);
+};
+
+// Get current user's orders
+export const getMyOrdersApi = (skip: number = 0, limit: number = 10): Promise<OrderOut[]> => {
+    return http.get("/orders/my", { params: { skip, limit } }).then(res => res.data);
+};
+
+// Admin: Get all orders
+export const getAllOrdersApi = (skip: number = 0, limit: number = 100): Promise<OrderOut[]> => {
+    return http.get("/orders/", { params: { skip, limit } }).then(res => res.data);
 };
