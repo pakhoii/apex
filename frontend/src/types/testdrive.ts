@@ -33,3 +33,14 @@ export interface BookingOut {
     status: TestDriveStatus;
     created_at: string;
 }
+
+// Props
+export interface TestDriveFormProps {
+    modelId: number;
+}
+
+export interface TestDrivePageProps {
+    modelId: number;
+    name: string;
+    imageUrl: string | null;
+}
