@@ -1,21 +1,49 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar/navbar";
+import { Button } from "./components/ui/button"
+import Navbar from "./components/Navbar/navbar"
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Footer } from "./components/Footer/footer";
-import Landing from "./pages/Landing/landing";
-import MyCart from "./pages/MyCart/myCart";
-import AuthPage from "./pages/Auth/auth";
-
-import ModelsPage from "./pages/Models/models";
+import AuthToggle from "./components/Auth/auth";
 
 function App() {
+  const NAV_ITEMS = {
+    "ABOUT US": "/about",
+    "MODELS": "/models",
+    "CONTACT": "/contact",
+    "DASHBOARD": "/dashboard",
+    "WISHLIST": "/wishlist",
+    "CART": "/cart",
+    "BOOK TEST DRIVE": "/book-test-drive",
+  };
+
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      {/* <Landing /> */}
-      <AuthPage />
-      <MyCart />
-      {/* <Footer /> */}
-    </>
+      <Routes>
+        {/* Home route */}
+        <Route 
+          path="/" 
+          element={
+            <div className="mt-20">
+            <AuthToggle/>
+            </div>
+          }
+        />
+        
+        {/* Dynamic routes from NAV_ITEMS */}
+        {Object.entries(NAV_ITEMS).map(([label, href]) => (
+          <Route 
+            key={label} 
+            path={href} 
+            element={
+              <div className="flex flex-col justify-center items-center min-h-screen">
+                <h1 className="text-3xl font-bold">{label} Page</h1>
+              </div>
+            } 
+          />
+        ))}
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   )
 }
 
