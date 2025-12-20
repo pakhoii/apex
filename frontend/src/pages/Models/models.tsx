@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { ArrowRight } from "lucide-react"
+import Navbar from "@/components/Navbar/navbar"
 import "./models.css"
 
 interface Car {
@@ -178,156 +179,159 @@ export default function ModelsPage() {
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
     return (
-        <div className="models-page">
-            {/* ... Hero Section ... */}
-            <section className="hero-section">
-                <div className="hero-background">
-                    {/* Seamless Dual Video Loop */}
-                    <video
-                        ref={videoRef1}
-                        className={`hero-bg-video ${activeVideo === 1 ? "opacity-100" : "opacity-0"}`}
-                        muted
-                        playsInline
-                        preload="auto"
-                    >
-                        <source src="/video/background-model.mp4" type="video/mp4" />
-                    </video>
-                    <video
-                        ref={videoRef2}
-                        className={`hero-bg-video ${activeVideo === 2 ? "opacity-100" : "opacity-0"}`}
-                        muted
-                        playsInline
-                        preload="auto"
-                    >
-                        <source src="/video/background-model.mp4" type="video/mp4" />
-                    </video>
-                    <div className="hero-overlay"></div>
-                </div>
-                <div className="hero-content">
-                    <h1 className="hero-main-title">Your <span className="hero-main-title-span">APEX</span> journey starts now.</h1>
-                    <p className="hero-subtitle">Discover the pinnacle of automotive excellence</p>
-                </div>
-            </section>
-
-            <div className="filter-bar">
-                <div className="filter-container">
-                    <div className="filter-group">
-                        <label className="filter-label">Brand</label>
-                        <select
-                            className="filter-dropdown"
-                            value={selectedBrand}
-                            onChange={(e) => setSelectedBrand(e.target.value)}
+        <>
+            <Navbar />
+            <div className="models-page">
+                {/* ... Hero Section ... */}
+                <section className="hero-section">
+                    <div className="hero-background">
+                        {/* Seamless Dual Video Loop */}
+                        <video
+                            ref={videoRef1}
+                            className={`hero-bg-video ${activeVideo === 1 ? "opacity-100" : "opacity-0"}`}
+                            muted
+                            playsInline
+                            preload="auto"
                         >
-                            {brands.map((brand) => (
-                                <option key={brand} value={brand}>
-                                    {brand === "All" ? "All Brands" : brand}
-                                </option>
-                            ))}
-                        </select>
+                            <source src="/video/background-model.mp4" type="video/mp4" />
+                        </video>
+                        <video
+                            ref={videoRef2}
+                            className={`hero-bg-video ${activeVideo === 2 ? "opacity-100" : "opacity-0"}`}
+                            muted
+                            playsInline
+                            preload="auto"
+                        >
+                            <source src="/video/background-model.mp4" type="video/mp4" />
+                        </video>
+                        <div className="hero-overlay"></div>
                     </div>
-
-                    <div className="filter-group">
-                        <label className="filter-label">Price Range</label>
-                        <select className="filter-dropdown" value={priceRange} onChange={(e) => setPriceRange(e.target.value)}>
-                            {priceRanges.map((range) => (
-                                <option key={range} value={range}>
-                                    {range === "All" ? "All Prices" : range}
-                                </option>
-                            ))}
-                        </select>
+                    <div className="hero-content">
+                        <h1 className="hero-main-title">Your <span className="hero-main-title-span">APEX</span> journey starts now.</h1>
+                        <p className="hero-subtitle">Discover the pinnacle of automotive excellence</p>
                     </div>
+                </section>
 
-                    <div className="filter-group">
-                        <label className="filter-label">Year</label>
-                        <select className="filter-dropdown" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-                            {years.map((year) => (
-                                <option key={year} value={year}>
-                                    {year === "All" ? "All Years" : year}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <button
-                        className="reset-filter-btn"
-                        onClick={() => {
-                            setSelectedBrand("All")
-                            setSelectedYear("All")
-                            setPriceRange("All")
-                        }}
-                    >
-                        Reset Filters
-                    </button>
-                </div>
-            </div>
-
-            {/* Car Gallery */}
-            <section className="gallery-section">
-                {isLoading ? (
-                    <div className="loading-container">
-                        <div className="loading-spinner"></div>
-                        <p>Loading collection...</p>
-                    </div>
-                ) : (
-                    <>
-                        <div className="gallery-grid">
-                            {currentItems.map((car) => (
-                                <div key={car.id} className="car-card">
-                                    <div className="car-image-container">
-                                        <div className="card-glow"></div>
-                                        <img src={car.image_url || "/placeholder.svg"} alt={`${car.brand} ${car.name}`} className="car-image" />
-                                        <div className="image-overlay"></div>
-                                        <h2 className="car-model-name">{car.name}</h2>
-                                        <div className="car-info-overlay">
-                                            <span className="car-year">{car.year}</span>
-                                            <span className="car-price">${(car.price / 1000).toFixed(0)}k</span>
-                                        </div>
-                                    </div>
-                                    <div className="car-details">
-                                        <div className="car-brand-badge">{car.brand}</div>
-                                        <p className="car-description">{car.description}</p>
-                                        <button className="learn-more-btn">
-                                            <span>Learn More</span>
-                                            <ArrowRight size={24} />
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
+                <div className="filter-bar">
+                    <div className="filter-container">
+                        <div className="filter-group">
+                            <label className="filter-label">Brand</label>
+                            <select
+                                className="filter-dropdown"
+                                value={selectedBrand}
+                                onChange={(e) => setSelectedBrand(e.target.value)}
+                            >
+                                {brands.map((brand) => (
+                                    <option key={brand} value={brand}>
+                                        {brand === "All" ? "All Brands" : brand}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
-                        {/* Pagination Controls */}
-                        {totalPages > 1 && (
-                            <div className="pagination-container mt-20 flex justify-center items-center gap-4">
-                                <button
-                                    onClick={() => paginate(currentPage - 1)}
-                                    disabled={currentPage === 1}
-                                    className={`pagination-btn px-4 py-2 border border-yellow-700/50 text-yellow-500 rounded hover:bg-yellow-700/20 disabled:opacity-50 disabled:cursor-not-allowed`}
-                                >
-                                    Previous
-                                </button>
-                                <div className="flex gap-2">
-                                    {Array.from({ length: totalPages }, (_, i) => (
-                                        <button
-                                            key={i + 1}
-                                            onClick={() => paginate(i + 1)}
-                                            className={`w-10 h-10 flex items-center justify-center rounded border ${currentPage === i + 1 ? 'bg-yellow-600 border-yellow-600 text-white' : 'border-yellow-700/50 text-yellow-500 hover:bg-yellow-700/20'}`}
-                                        >
-                                            {i + 1}
-                                        </button>
-                                    ))}
-                                </div>
-                                <button
-                                    onClick={() => paginate(currentPage + 1)}
-                                    disabled={currentPage === totalPages}
-                                    className={`pagination-btn px-4 py-2 border border-yellow-700/50 text-yellow-500 rounded hover:bg-yellow-700/20 disabled:opacity-50 disabled:cursor-not-allowed`}
-                                >
-                                    Next
-                                </button>
+                        <div className="filter-group">
+                            <label className="filter-label">Price Range</label>
+                            <select className="filter-dropdown" value={priceRange} onChange={(e) => setPriceRange(e.target.value)}>
+                                {priceRanges.map((range) => (
+                                    <option key={range} value={range}>
+                                        {range === "All" ? "All Prices" : range}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="filter-group">
+                            <label className="filter-label">Year</label>
+                            <select className="filter-dropdown" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+                                {years.map((year) => (
+                                    <option key={year} value={year}>
+                                        {year === "All" ? "All Years" : year}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <button
+                            className="reset-filter-btn"
+                            onClick={() => {
+                                setSelectedBrand("All")
+                                setSelectedYear("All")
+                                setPriceRange("All")
+                            }}
+                        >
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                {/* Car Gallery */}
+                <section className="gallery-section">
+                    {isLoading ? (
+                        <div className="loading-container">
+                            <div className="loading-spinner"></div>
+                            <p>Loading collection...</p>
+                        </div>
+                    ) : (
+                        <>
+                            <div className="gallery-grid">
+                                {currentItems.map((car) => (
+                                    <div key={car.id} className="car-card">
+                                        <div className="car-image-container">
+                                            <div className="card-glow"></div>
+                                            <img src={car.image_url || "/placeholder.svg"} alt={`${car.brand} ${car.name}`} className="car-image" />
+                                            <div className="image-overlay"></div>
+                                            <h2 className="car-model-name">{car.name}</h2>
+                                            <div className="car-info-overlay">
+                                                <span className="car-year">{car.year}</span>
+                                                <span className="car-price">${(car.price / 1000).toFixed(0)}k</span>
+                                            </div>
+                                        </div>
+                                        <div className="car-details">
+                                            <div className="car-brand-badge">{car.brand}</div>
+                                            <p className="car-description">{car.description}</p>
+                                            <button className="learn-more-btn">
+                                                <span>Learn More</span>
+                                                <ArrowRight size={24} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        )}
-                    </>
-                )}
-            </section>
-        </div>
+
+                            {/* Pagination Controls */}
+                            {totalPages > 1 && (
+                                <div className="pagination-container mt-20 flex justify-center items-center gap-4">
+                                    <button
+                                        onClick={() => paginate(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                        className={`pagination-btn px-4 py-2 border border-yellow-700/50 text-yellow-500 rounded hover:bg-yellow-700/20 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                    >
+                                        Previous
+                                    </button>
+                                    <div className="flex gap-2">
+                                        {Array.from({ length: totalPages }, (_, i) => (
+                                            <button
+                                                key={i + 1}
+                                                onClick={() => paginate(i + 1)}
+                                                className={`w-10 h-10 flex items-center justify-center rounded border ${currentPage === i + 1 ? 'bg-yellow-600 border-yellow-600 text-white' : 'border-yellow-700/50 text-yellow-500 hover:bg-yellow-700/20'}`}
+                                            >
+                                                {i + 1}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <button
+                                        onClick={() => paginate(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                        className={`pagination-btn px-4 py-2 border border-yellow-700/50 text-yellow-500 rounded hover:bg-yellow-700/20 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </section>
+            </div>
+        </>
     )
 }
