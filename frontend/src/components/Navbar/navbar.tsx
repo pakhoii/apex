@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu, LogInIcon } from "lucide-react";
+import { Menu, LogInIcon, LayoutDashboard } from "lucide-react";
 
 import "@/components/Navbar/navbar.css";
 
@@ -11,10 +11,12 @@ const NAV_ITEMS = {
   "DASHBOARD": "/dashboard",
   "WISHLIST": "/wishlist",
   "CART": "/cart",
-  "BOOK TEST DRIVE": "/book-test-drive",
+  "BOOK TEST DRIVE": "/test-drive",
 };
 
 export default function Navbar() {
+    const accessToken = localStorage.getItem("access_token");
+
     return (
         <div className="nav-container">
             <div className="nav-left">
@@ -56,12 +58,27 @@ export default function Navbar() {
                 </a>
             </div>
 
-            <div className="nav-right">
+            {/* <div className="nav-right">
                 <Button className="nav-btn">
                     LOGIN / SIGNUP
                     <LogInIcon />
                 </Button>
-            </div>
+            </div> */}
+            {accessToken ? (
+                <div className="nav-right">
+                    <Button className="nav-btn">
+                        <a href="/dashboard" className="nav-link">DASHBOARD</a>
+                        <LayoutDashboard />
+                    </Button>
+                </div>
+            ) : (
+                <div className="nav-right">
+                    <Button className="nav-btn">
+                        <a href="/auth" className="nav-link">LOGIN / SIGNUP</a>
+                        <LogInIcon />
+                    </Button>
+                </div>
+            )}
         </div>
     )
 }
