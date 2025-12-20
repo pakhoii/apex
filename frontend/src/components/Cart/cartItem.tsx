@@ -1,25 +1,25 @@
-import type { CartItemProps } from "@/types/cart";
-import { Minus, Plus, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import type { CartItemProps } from "@/types/cart";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 export default function CartItemComponent(
     { item, onIncrease, onDecrease, onRemove }: CartItemProps
 ) {
     return (
-        <Card className="item-card">
-            <div className="item-details">
+        <Card className="cart-item-card">
+            <div className="cart-item-details">
                 {/* Item's image */}
-                <div className="image-container">
+                <div className="cart-image-container">
                     <img src={item.imageUrl}
                         alt="Item Image" 
-                        className="item-image" />
+                        className="cart-item-image" />
                 </div>
 
                 {/* Item's info */}
-                <div className="info-container">
+                <div className="cart-info-container">
                     <h3>{item.name}</h3>
-                    <p className="item-price">
+                    <p className="cart-item-price">
                         Unit Price: ${
                             item.unitPrice.toFixed(3).toLocaleString()
                         }
@@ -27,7 +27,7 @@ export default function CartItemComponent(
                 </div>
 
                 {/* Item's quantity controls */}
-                <div className="quantity-controls">
+                <div className="cart-quantity-controls">
                     <Button 
                         variant="outline" 
                         size="icon" 
@@ -35,7 +35,7 @@ export default function CartItemComponent(
                     >
                         <Minus size={16} />
                     </Button>
-                    <span className="quantity-display">{item.quantity}</span>
+                    <span className="cart-quantity-display">{item.quantity}</span>
                     <Button 
                         variant="outline" 
                         size="icon" 
@@ -46,7 +46,7 @@ export default function CartItemComponent(
                 </div>
                 
                 {/* Remove item button */}
-                <div className="remove-item">
+                <div className="cart-remove-item">
                     <Button 
                         variant="destructive" 
                         size="icon" 

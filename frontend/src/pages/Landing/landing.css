@@ -9,53 +9,53 @@ body:has([data-state="open"]) {
     background-color: var(--apex-color-primary)
 }
 
-.section-container {
+.landing-section-container {
     @apply flex flex-col items-center justify-center 
             min-h-screen h-screen;
     position: relative;
     overflow: hidden;
 }
 
-.section-container .section-img {
+.landing-section-container .landing-section-img {
     @apply absolute w-full h-full object-cover;
     top: 0;
     left: 0;
     z-index: 0;
 }
 
-.section-info {
+.landing-section-info {
     @apply relative flex flex-col 
             items-center justify-center text-center px-4;
     color: var(--apex-color-text);
     z-index: 1;
 }
 
-.section-info .title {
+.landing-section-info .landing-title {
     @apply text-4xl md:text-6xl font-extrabold;
     color: var(--apex-color-text);
 }
 
-.section-info .slogan {
+.landing-section-info .landing-slogan {
     @apply text-lg md:text-2xl m-4;
 }
 
-.section-info .discover-btn {
+.landing-section-info .landing-discover-btn {
     background-color: var(--apex-color-text);
     color: var(--apex-color-primary);
 }
 
-.section-info .discover-btn:hover {
+.landing-section-info .landing-discover-btn:hover {
     background-color: var(--apex-color-highlight);
 }
 
 /* Lazy Load Animations */
-.fade-out {
+.landing-fade-out {
     opacity: 0;
     /* transform: translateY(30px); */
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.fade-in {
+.landing-fade-in {
     opacity: 1;
     /* transform: translateY(0); */
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
