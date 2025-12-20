@@ -1,20 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/navbar";
-import { Footer } from "./components/Footer/footer";
-import Landing from "./pages/Landing/landing";
-import MyCart from "./pages/MyCart/myCart";
-import AuthPage from "./pages/Auth/auth";
-
-import ModelsPage from "./pages/Models/models";
+import TestDrive from "./pages/TestDrive/testDrive";
 
 function App() {
   return (
     <>
       <Navbar />
-      {/* <Landing /> */}
-      <AuthPage />
-      <MyCart />
-      {/* <Footer /> */}
+      <TestDrive modelId={1} name="Sample Model" imageUrl="/images/silver-porsche-911-turbo-s-luxury-sports-car.jpg" />
     </>
   )
 }
