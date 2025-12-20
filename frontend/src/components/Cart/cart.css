@@ -2,17 +2,17 @@
 @import "../../index.css" reference;
 
 /* -- Main Card Style -- */
-.item-card {
+.cart-item-card {
     @apply bg-background overflow-hidden 
             mb-4 rounded-xl shadow-sm transition-all;
 }
 
-.item-card:hover {
+.cart-item-card:hover {
     @apply shadow-md border-border;
 }
 
 /* -- Item Details Grid Layout -- */
-.item-details {
+.cart-item-details {
     @apply grid gap-x-6 gap-y-2 p-5 items-center;
     grid-template-columns: auto 1fr auto;
     grid-template-areas:
@@ -22,68 +22,68 @@
 
 /* Responsive adjustment for small screens */
 @media (max-width: 640px) {
-    .item-details {
+    .cart-item-details {
         @apply flex flex-col items-start gap-4;
     }
-    .image-container {
+    .cart-image-container {
         @apply w-full h-48;
     }
-    .remove-item {
+    .cart-remove-item {
         @apply self-end;
     }
 }
 
 /* -- Image Section -- */
-.image-container {
+.cart-image-container {
     grid-area: image;
     @apply relative w-40 h-28 shrink-0 bg-muted 
             rounded-lg overflow-hidden;
 }
 
-.item-image {
+.cart-item-image {
     @apply object-cover w-full h-full;
 }
 
 /* -- Info Section (Name & Price) -- */
-.info-container {
+.cart-info-container {
     grid-area: info;
     @apply flex flex-col items-start justify-center w-full h-full gap-1;
     /* background-color: turquoise; */
     padding: 0.75rem;
 }
 
-.info-container h3 {
+.cart-info-container h3 {
     @apply text-lg font-bold text-foreground text-left;
 }
 
-.item-price {
+.cart-item-price {
     @apply text-left;
     color: var(--apex-color-text-light);
 }
 
-.quantity-controls {
+.cart-quantity-controls {
     grid-area: controls;
     @apply flex items-center w-fit bg-secondary/70 
     rounded-lg p-1 gap-1;
 }
 
-.quantity-controls button {
+.cart-quantity-controls button {
     @apply h-8 w-8 rounded-md border-0 bg-transparent 
             hover:bg-background shadow-none text-foreground/80;
 }
 
-.quantity-display {
+.cart-quantity-display {
     @apply text-sm font-semibold w-8 text-center text-foreground;
 }
 
 
 /* -- Remove Button -- */
-.remove-item {
+.cart-remove-item {
     grid-area: delete;
     @apply flex items-center justify-center h-full pl-4;
 }
 
-.remove-item button {
+.cart-remove-item button {
     @apply h-10 w-10 text-muted-foreground bg-transparent 
     hover:bg-red-50 hover:text-[var(--apex-color-error)]
     transition-colors border-0 shadow-none;
@@ -213,12 +213,12 @@
     color: var(--apex-color-success);
 }
 
-.loading-container {
+.cart-loading-container {
     @apply w-full flex justify-center items-center mt-20
             text-3xl;
 }
 
-.error-container {
+.cart-error-container {
     @apply w-full flex justify-center items-center mt-20
             text-3xl;
     color: var(--apex-color-error);

@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { ShoppingCart } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import type { CartItem } from "@/types/cart"
-import "./cart.css"
-import CartItemComponent from "./cartItem"
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { useCart } from "@/hooks/useCart";
 import { useModel } from "@/hooks/useModel";
+import type { CartItem } from "@/types/cart";
+import { ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
+import "./cart.css";
+import CartItemComponent from "./cartItem";
 
 export function ShoppingCartComponent() {
     const { fetchMyCart,
@@ -71,7 +71,7 @@ export function ShoppingCartComponent() {
 
     if (error) {
         return (
-            <div className="error-container">
+            <div className="cart-error-container">
                 <p>Error: {error}</p>
             </div>
         );

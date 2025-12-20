@@ -51,7 +51,7 @@
 }
 
 /* Filter Bar */
-.filter-bar {
+.models-filter-bar {
     @apply py-[35px] mb-20 backdrop-blur-[20px] sticky top-0 z-50;
     /* Dark background with slight transparency */
     background: linear-gradient(135deg, color-mix(in srgb, var(--apex-color-primary), transparent 5%), var(--apex-color-secondary));
@@ -61,20 +61,20 @@
     box-shadow: 0 10px 50px color-mix(in srgb, var(--apex-color-accent), transparent 90%);
 }
 
-.filter-container {
+.models-filter-container {
     @apply max-w-[1400px] mx-auto px-10 flex gap-[30px] items-end justify-between;
 }
 
-.filter-group {
+.models-filter-group {
     @apply flex flex-col gap-[10px] flex-1;
 }
 
-.filter-label {
+.models-filter-label {
     @apply text-xs uppercase tracking-[2px] font-semibold;
     color: var(--apex-color-accent);
 }
 
-.filter-dropdown {
+.models-filter-dropdown {
     @apply w-full px-6 py-[14px] pr-[50px] rounded text-[0.95rem] cursor-pointer transition-all duration-300 tracking-[0.5px] outline-none appearance-none;
     font-family: inherit;
     /* Semi-transparent dark background */
@@ -88,26 +88,24 @@
     box-shadow: inset 0 2px 10px color-mix(in srgb, var(--apex-color-primary), transparent 70%);
 }
 
-.filter-dropdown:hover {
-    @apply border-emerald-500/50;
-    /* kept generic hover/focus styles but removed translate */
+.models-filter-dropdown:hover {
     border-color: var(--apex-color-accent);
     background-color: color-mix(in srgb, var(--apex-color-accent), transparent 90%);
     box-shadow: 0 0 25px color-mix(in srgb, var(--apex-color-accent), transparent 70%), inset 0 2px 10px color-mix(in srgb, var(--apex-color-primary), transparent 70%);
 }
 
-.filter-dropdown:focus {
+.models-filter-dropdown:focus {
     border-color: var(--apex-color-accent);
     box-shadow: 0 0 30px color-mix(in srgb, var(--apex-color-accent), transparent 60%);
 }
 
-.filter-dropdown option {
+.models-filter-dropdown option {
     @apply p-2.5;
     background: var(--apex-color-primary);
     color: var(--apex-color-text);
 }
 
-.reset-filter-btn {
+.models-reset-filter-btn {
     @apply px-8 py-[14px] rounded text-[0.85rem] uppercase tracking-[2px] cursor-pointer transition-all duration-300 font-semibold whitespace-nowrap;
     background: linear-gradient(135deg, color-mix(in srgb, var(--apex-color-accent), transparent 80%), color-mix(in srgb, var(--apex-color-accent), transparent 90%));
     border: 2px solid color-mix(in srgb, var(--apex-color-accent), transparent 60%);
@@ -115,138 +113,136 @@
     box-shadow: 0 4px 15px color-mix(in srgb, var(--apex-color-accent), transparent 80%);
 }
 
-.reset-filter-btn:hover {
-    @apply border-emerald-500/50;
-    /* kept generic hover for consistency if needed or just remove translation */
+.models-reset-filter-btn:hover {
     background: linear-gradient(135deg, color-mix(in srgb, var(--apex-color-accent), transparent 70%), color-mix(in srgb, var(--apex-color-accent), transparent 80%));
     border-color: var(--apex-color-accent);
     box-shadow: 0 0 30px color-mix(in srgb, var(--apex-color-accent), transparent 60%);
 }
 
 /* Gallery Section */
-.gallery-section {
+.models-gallery-section {
     @apply px-10 pb-[100px] max-w-[1400px] mx-auto;
 }
 
-.loading-container {
+.models-loading-container {
     @apply flex flex-col items-center justify-center py-20 gap-4;
     color: var(--apex-color-accent);
 }
 
-.loading-spinner {
+.models-loading-spinner {
     @apply w-10 h-10 rounded-full animate-spin;
     border: 3px solid color-mix(in srgb, var(--apex-color-accent), transparent 80%);
     border-top-color: var(--apex-color-accent);
 }
 
-.gallery-grid {
+.models-gallery-grid {
     @apply grid grid-cols-1 md:grid-cols-2 gap-[50px];
 }
 
 /* Car Card */
-.car-card {
+.models-car-card {
     @apply relative cursor-pointer transition-transform duration-500;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.car-card:hover {
+.models-car-card:hover {
     @apply -translate-y-2.5 z-10;
 }
 
-.card-glow {
+.models-card-glow {
     @apply absolute -inset-0.5 opacity-0 transition-opacity duration-500 z-0 blur-[15px];
     /* Gold glow */
     background: linear-gradient(135deg, color-mix(in srgb, var(--apex-color-accent), transparent 60%), color-mix(in srgb, #FFD700, transparent 80%), color-mix(in srgb, var(--apex-color-accent), transparent 60%));
 }
 
-.car-card:hover .card-glow {
+.models-car-card:hover .models-card-glow {
     @apply opacity-100;
 }
 
-.car-image-container {
+.models-car-image-container {
     @apply relative aspect-[16/11] overflow-hidden mb-[25px] rounded-md transition-colors duration-500;
     background: var(--apex-color-primary);
     border: 1px solid color-mix(in srgb, var(--apex-color-text), transparent 95%);
 }
 
-.car-card:hover .car-image-container {
+.models-car-card:hover .models-car-image-container {
     border-color: color-mix(in srgb, var(--apex-color-accent), transparent 60%);
 }
 
-.car-image {
+.models-car-image {
     @apply w-full h-full object-cover transition-transform duration-700 relative z-10;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.car-card:hover .car-image {
+.models-car-card:hover .models-car-image {
     @apply scale-110;
 }
 
-.image-overlay {
+.models-image-overlay {
     @apply absolute inset-0 transition-opacity duration-500 z-20 pointer-events-none;
     /* Dark overlay */
     background: linear-gradient(to bottom, color-mix(in srgb, var(--apex-color-primary), transparent 80%), color-mix(in srgb, var(--apex-color-primary), transparent 60%));
 }
 
-.car-card:hover .image-overlay {
+.models-car-card:hover .models-image-overlay {
     @apply opacity-0;
 }
 
-.car-model-name {
+.models-car-model-name {
     @apply absolute top-[30px] right-[30px] text-[3rem] font-light italic m-0 tracking-[2px] z-30 transition-all duration-500 text-right;
     color: var(--apex-color-text);
     text-shadow: 0 2px 30px color-mix(in srgb, var(--apex-color-primary), transparent 20%);
 }
 
-.car-card:hover .car-model-name {
+.models-car-card:hover .models-car-model-name {
     @apply -translate-x-1;
     color: var(--apex-color-accent);
     text-shadow: 0 0 30px color-mix(in srgb, var(--apex-color-accent), transparent 40%);
 }
 
-.car-info-overlay {
+.models-car-info-overlay {
     @apply absolute top-[20px] left-[20px] flex flex-col gap-2 opacity-0 -translate-x-5 transition-all duration-500 z-30;
 }
 
-.car-card:hover .car-info-overlay {
+.models-car-card:hover .models-car-info-overlay {
     @apply opacity-100 translate-x-0;
 }
 
-.car-year,
-.car-price {
+.models-car-year,
+.models-car-price {
     @apply px-4 py-2 text-[0.85rem] tracking-[1px] font-medium backdrop-blur-sm;
     background: color-mix(in srgb, var(--apex-color-primary), transparent 15%);
     color: var(--apex-color-accent);
     border: 1px solid color-mix(in srgb, var(--apex-color-accent), transparent 60%);
 }
 
-.car-details {
+.models-car-details {
     @apply flex flex-col gap-[15px];
 }
 
-.car-brand-badge {
+.models-car-brand-badge {
     @apply text-xs tracking-[3px] uppercase font-semibold py-1 w-fit;
     color: var(--apex-color-accent);
     border-bottom: 1px solid color-mix(in srgb, var(--apex-color-accent), transparent 70%);
 }
 
-.car-description {
+.models-car-description {
     @apply text-[0.95rem] leading-relaxed m-0 mb-4 transition-colors duration-300;
     color: var(--apex-color-text-light);
 }
 
-.car-card:hover .car-description {
+.models-car-card:hover .models-car-description {
     color: color-mix(in srgb, var(--apex-color-text), transparent 10%);
 }
 
-.learn-more-btn {
+.models-learn-more-btn {
     @apply flex items-center gap-2.5 text-[0.9rem] cursor-pointer transition-all duration-300 px-6 py-3 w-fit tracking-[1px] uppercase mt-2.5;
     background: transparent;
     border: 1px solid color-mix(in srgb, var(--apex-color-accent), transparent 70%);
     color: var(--apex-color-text);
 }
 
-.learn-more-btn:hover {
+.models-learn-more-btn:hover {
     background: color-mix(in srgb, var(--apex-color-accent), transparent 90%);
     border-color: var(--apex-color-accent);
     color: var(--apex-color-accent);
@@ -259,15 +255,15 @@
         @apply text-[3rem];
     }
 
-    .car-model-name {
+    .models-car-model-name {
         @apply text-[2.2rem];
     }
 
-    .filter-container {
+    .models-filter-container {
         @apply flex-wrap;
     }
 
-    .filter-group {
+    .models-filter-group {
         @apply min-w-[200px];
     }
 }
@@ -289,31 +285,31 @@
         @apply text-[0.85rem] tracking-[2px];
     }
 
-    .filter-bar {
+    .models-filter-bar {
         @apply py-[25px] mb-[60px];
     }
 
-    .filter-container {
+    .models-filter-container {
         @apply px-5 gap-5 flex-col items-stretch;
     }
 
-    .filter-group {
+    .models-filter-group {
         @apply w-full;
     }
 
-    .reset-filter-btn {
+    .models-reset-filter-btn {
         @apply w-full;
     }
 
-    .gallery-section {
+    .models-gallery-section {
         @apply px-5 pb-20;
     }
 
-    .car-model-name {
+    .models-car-model-name {
         @apply text-[2rem] top-5 right-5;
     }
 
-    .car-info-overlay {
+    .models-car-info-overlay {
         @apply opacity-100 translate-x-0;
     }
 }

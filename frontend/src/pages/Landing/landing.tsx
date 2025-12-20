@@ -3,6 +3,8 @@ import { useModel } from "@/hooks/useModel";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useInView } from "@/hooks/useInView";
+import Navbar from "@/components/Navbar/navbar";
+import { Footer } from "@/components/Footer/footer";
 
 import "./landing.css";
 
@@ -44,52 +46,56 @@ export default function Landing() {
     }
 
     return (
-        <div className="landing-page">
-            {/* Section 1 */}
-            <div 
-                className={`section-container ${section1Ref.isVisible ? 'fade-in' : 'fade-out'}`}
-                ref={section1Ref.ref}
-            >
-                <img 
-                    src="/images/mclaren.jpg" 
-                    alt="Apex Models"
-                    className="section-img"
-                />
-                <div className="section-info">
-                    <h1 className="title">APEX</h1>
-                    <p className="slogan">Driven by Quality, Defined by Trust</p>
-                    <Button className="discover-btn" size="lg">
-                        Discover Now
-                    </Button>
+        <>
+            <Navbar />
+            <div className="landing-page">
+                {/* Section 1 */}
+                <div 
+                    className={`landing-section-container ${section1Ref.isVisible ? 'landing-fade-in' : 'landing-fade-out'}`}
+                    ref={section1Ref.ref}
+                >
+                    <img 
+                        src="/images/mclaren.jpg" 
+                        alt="Apex Models"
+                        className="landing-section-img"
+                    />
+                    <div className="landing-section-info">
+                        <h1 className="landing-title">APEX</h1>
+                        <p className="landing-slogan">Driven by Quality, Defined by Trust</p>
+                        <Button className="landing-discover-btn" size="lg">
+                            Discover Now
+                        </Button>
+                    </div>
+                </div>
+
+                {/* Section 2 */}
+                <div 
+                    className={`landing-section-container ${section2Ref.isVisible ? 'landing-fade-in' : 'landing-fade-out'}`}
+                    ref={section2Ref.ref}
+                >
+                    <ModelGallery models={models} />
+                </div>
+
+                {/* Section 3 */}
+                <div 
+                    className={`landing-section-container ${section3Ref.isVisible ? 'landing-fade-in' : 'landing-fade-out'}`}
+                    ref={section3Ref.ref}
+                >
+                    <img 
+                        src="/images/yellow-abstract.jpg" 
+                        alt="Yellow Abstract"
+                        className="landing-section-img"
+                    />
+                    <div className="landing-section-info">
+                        <h1 className="landing-title">More About Us</h1>
+                        <div className="m-4"></div>
+                        <Button className="landing-discover-btn" size="lg">
+                            Discover Now
+                        </Button>
+                    </div>
                 </div>
             </div>
-
-            {/* Section 2 */}
-            <div 
-                className={`section-container ${section2Ref.isVisible ? 'fade-in' : 'fade-out'}`}
-                ref={section2Ref.ref}
-            >
-                <ModelGallery models={models} />
-            </div>
-
-            {/* Section 3 */}
-            <div 
-                className={`section-container ${section3Ref.isVisible ? 'fade-in' : 'fade-out'}`}
-                ref={section3Ref.ref}
-            >
-                <img 
-                    src="/images/yellow-abstract.jpg" 
-                    alt="Yellow Abstract"
-                    className="section-img"
-                />
-                <div className="section-info">
-                    <h1 className="title">More About Us</h1>
-                    <div className="m-4"></div>
-                    <Button className="discover-btn" size="lg">
-                        Discover Now
-                    </Button>
-                </div>
-            </div>
-        </div>
+            <Footer />
+        </>
     )
 }
