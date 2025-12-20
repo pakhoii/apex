@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginApi, registerApi } from "@/services/auth.api";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,8 @@ export const useAuth = () => {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("refresh_token", data.refresh_token);
     };
+    
+    const navigate = useNavigate();
 
     const login = async (payload: {
         email: string;
@@ -19,6 +22,7 @@ export const useAuth = () => {
             setError(null);
             const data = await loginApi(payload);
             saveToken(data);
+            navigate("/dashboard");
             return data;
         } catch (err: any) {
             setError(err.message);
@@ -46,6 +50,7 @@ export const useAuth = () => {
                 password: payload.password,
             });
             saveToken(data);
+            navigate("/dashboard");
             return data;
         } catch (err: any) {
             setError(err.message);
