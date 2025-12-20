@@ -60,3 +60,7 @@ export interface ModelCompareResponse {
 export interface GalleryProps {
     models ?: ModelOut[];
 }
+
+export interface CompareProps {
+    modelIds: number[];
+}

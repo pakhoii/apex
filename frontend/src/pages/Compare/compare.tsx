@@ -1,67 +1,60 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useModel } from "@/hooks/useModel";
+import { useBrand } from "@/hooks/useBrand";
+import type { ModelOut } from "@/types/model";
 import Navbar from "@/components/Navbar/navbar";
 import "./compare.css"
 
-// Type definition for Car (Future-proofing for API)
-interface Car {
-    id: number;
+interface ModelOutWithBrand extends ModelOut {
     brand: string;
-    name: string;
-    year: number;
-    price: number;
-    amount: number;
-    image: string;
 }
 
-// Mock API service (Simulating fetching data)
-const fetchCars = async (): Promise<Car[]> => {
-    // In the future, this would be: return axios.get("/api/cars")
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([
-                {
-                    id: 1,
-                    brand: "BMW",
-                    name: "M440i xDrive",
-                    year: 2024,
-                    price: 87500,
-                    amount: 15,
-                    image: "/images/bmw-m440i.png",
-                },
-                {
-                    id: 2,
-                    brand: "Range Rover",
-                    name: "SV Black",
-                    year: 2024,
-                    price: 187500,
-                    amount: 8,
-                    image: "/images/rangeRover-SV.png",
-                },
-            ]);
-        }, 500); // Simulate network delay
-    });
-};
-
 export default function ComparePage() {
-    const [cars, setCars] = useState<Car[]>([]);
+    const [cars, setCars] = useState<ModelOutWithBrand[]>([]);
     const [loading, setLoading] = useState(true);
+    const { fetchModelsDetails } = useModel();
+    const { fetchBrandById } = useBrand();
+
+
+    const { id1, id2 } = useParams<{ id1: string; id2: string }>();
+    if (!id1 || !id2) {
+        return <div className="min-h-screen flex items-center justify-center text-white">Invalid model IDs for comparison.</div>;
+    }
+
+    const modelIds = [Number(id1), Number(id2)];
 
     // Initial data fetch
     useEffect(() => {
-        const loadData = async () => {
+        const loadModels = async () => {
+            setLoading(true);
             try {
-                const data = await fetchCars();
-                setCars(data);
-            } catch (error) {
-                console.error("Failed to fetch cars", error);
+                const results = await Promise.all(
+                    modelIds.map(async (modelId) => {
+                        const modelDetails = await fetchModelsDetails(modelId);
+                        if (!modelDetails) return null;
+
+                        const brandDetails = await fetchBrandById(modelDetails.brand_id);
+
+                        return {
+                            ...modelDetails,
+                            brand: brandDetails?.name ?? "Unknown",
+                        };
+                    })
+                );
+
+                setCars(results.filter(Boolean)); // set 1 lần duy nhất
+            } catch (err) {
+                console.error(err);
             } finally {
                 setLoading(false);
             }
         };
 
-        loadData();
+        loadModels();
         window.scrollTo(0, 0);
     }, []);
+
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center text-white">Loading comparison...</div>; // Simple loading state
@@ -89,14 +82,14 @@ export default function ComparePage() {
                             <div key={car.id} className="car-card">
                                 <div className="car-image-container">
                                     <img
-                                        src={car.image}
-                                        alt={`${car.brand} ${car.name}`}
+                                        src={car.image_url || ""}
+                                        alt={`${car.brand_id} ${car.name}`}
                                         loading="lazy"
                                     />
                                 </div>
                                 <div className="car-info">
                                     <h3 className="car-name">
-                                        {car.brand} {car.name}
+                                        {car.brand_id} {car.name}
                                     </h3>
                                     <p className="car-price">${car.price.toLocaleString()}</p>
                                 </div>
