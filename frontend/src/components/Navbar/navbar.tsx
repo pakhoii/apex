@@ -11,7 +11,7 @@ const NAV_ITEMS = {
   "DASHBOARD": "/dashboard",
   "WISHLIST": "/wishlist",
   "CART": "/cart",
-  "BOOK TEST DRIVE": "/test-drive",
+//   "BOOK TEST DRIVE": "/test-drive",
 };
 
 export default function Navbar() {
@@ -51,7 +51,7 @@ export default function Navbar() {
             <div className="nav-center">
                 <a href="/">
                     <img 
-                        src="logo/web-logo.svg" 
+                        src="/logo/web-logo.svg" 
                         alt="Company Logo" 
                         className="logo-image"
                     />
