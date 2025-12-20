@@ -1,0 +1,119 @@
+/* stylelint-disable at-rule-no-unknown */
+@import "../../index.css" reference;
+
+/* Discover Card Container */
+.discover-card-container {
+  @apply w-full;
+  max-width: 100%;
+  height: 600px;
+}
+
+/* Discover Card */
+.discover-card {
+  @apply w-full h-full relative;
+  cursor: default;
+}
+
+/* Discover Card Content */
+.discover-card-content {
+  @apply relative;
+  z-index: 2;
+}
+
+/* Discover Card Background - Image as Background */
+.discover-card-background {
+  @apply absolute inset-0;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Overlay for text readability and luxury feel */
+.discover-card-background::before {
+  content: '';
+  @apply absolute inset-0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--apex-color-secondary) 30%, transparent) 0%,
+    color-mix(in srgb, var(--apex-color-dark) 40%, transparent) 50%,
+    color-mix(in srgb, var(--apex-color-primary) 60%, transparent) 100%
+  );
+  z-index: 1;
+}
+
+/* Typography styles */
+.discover-card-title {
+  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.discover-card-subtitle {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.02em;
+}
+
+/* Button styles with pointer */
+.discover-card-button {
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.discover-card-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.discover-card-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .discover-card-container {
+    height: 500px;
+  }
+  
+  .discover-card-title {
+    @apply text-5xl;
+  }
+  
+  .discover-card-subtitle {
+    @apply text-xl;
+  }
+}
+
+@media (max-width: 768px) {
+  .discover-card-container {
+    height: 400px;
+  }
+  
+  .discover-card-title {
+    @apply text-4xl;
+  }
+  
+  .discover-card-subtitle {
+    @apply text-lg;
+  }
+  
+  .discover-card-button {
+    @apply px-6 py-2 text-sm;
+  }
+}
+
+@media (max-width: 640px) {
+  .discover-card-container {
+    height: 350px;
+  }
+  
+  .discover-card-title {
+    @apply text-3xl;
+  }
+  
+  .discover-card-subtitle {
+    @apply text-base;
+  }
+}
