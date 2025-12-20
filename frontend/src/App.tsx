@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import ProtectedRoutes from "@/routes/protectedRoute";
-import Landing from "@/pages/Landing/landing";
 import Auth from "@/pages/Auth/auth";
-import ModelsPage from "./pages/Models/models";
+import Landing from "@/pages/Landing/landing";
+import ProtectedRoutes from "@/routes/protectedRoute";
 import AboutPage from "./pages/About/about";
 import ComparePage from "./pages/Compare/compare";
+import DashboardPage from "./pages/Dashboard/dashboard";
+import ModelsPage from "./pages/Models/models";
 import MyCart from "./pages/MyCart/myCart";
 import TestDrive from "./pages/TestDrive/testDrive";
 
@@ -29,8 +30,7 @@ export default function App() {
                     path="/dashboard"
                     element={
                         <ProtectedRoutes>
-                            {/* <Dashboard /> */}
-                            <></>
+                            <DashboardPage />
                         </ProtectedRoutes>
                     }
                 />
