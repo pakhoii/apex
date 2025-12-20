@@ -3,6 +3,10 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import './ModelCard.css';
 
+// ============================================
+// ModelCard.tsx - Pure Component
+// ============================================
+
 interface ModelCardProps {
   modelName: string;
   year: string | number;
@@ -12,31 +16,6 @@ interface ModelCardProps {
   onBuildYourOwn?: () => void;
   onFindOutMore?: () => void;
 }
-
-// Models data
-const MODELS_DATA = [
-  {
-    modelName: "Range Rover Velar",
-    year: 2025,
-    price: 50000,
-    imageDefault: "/image/cars/Velar.jpg",
-    imageHover: "/image/cars/Velar-Hover.jpg",
-  },
-  {
-    modelName: "Range Rover Sport",
-    year: 2025,
-    price: 75000,
-    imageDefault: "/image/cars/Velar.jpg",
-    imageHover: "/image/cars/Velar-Hover.jpg",
-  },
-  {
-    modelName: "Range Rover Evoque",
-    year: 2025,
-    price: 45000,
-       imageDefault: "/image/cars/Velar.jpg",
-    imageHover: "/image/cars/Velar-Hover.jpg",
-  },
-];
 
 export function ModelCard({
   modelName,
@@ -66,13 +45,16 @@ export function ModelCard({
             className="model-card-background"
             style={{ backgroundImage: `url(${imageDefault})` }}
           />
-          <div className="model-card-content flex flex-col items-center h-full p-8 pt-30">
+          <div className="model-card-content flex flex-col items-center justify-end h-full p-8 pb-16">
             <div className="text-center z-10">
               <h2 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">
-                {modelName} {year}
+                {modelName}
               </h2>
+              <p className="text-base text-gray-800 dark:text-gray-200 mb-1">
+                {year}
+              </p>
               <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                Start from {price.toLocaleString('en-US')} USD
+                Start from ${price.toLocaleString('en-US')}
               </p>
             </div>
           </div>
@@ -89,25 +71,28 @@ export function ModelCard({
             style={{ backgroundImage: `url(${imageHover})` }}
           />
           <div className="model-card-content flex flex-col h-full p-8">
-            <div className="text-center mb-6 z-10">
+            <div className="text-center mb-6 z-10 mt-8">
               <h2 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">
-                {modelName} {year}
+                {modelName}
               </h2>
-              <p className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
-                Start from {price.toLocaleString('en-US')} USD
+              <p className="text-base text-gray-800 dark:text-gray-200 mb-1">
+                {year}
+              </p>
+              <p className="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-200">
+                Start from ${price.toLocaleString('en-US')}
               </p>
               <Button
                 onClick={onBuildYourOwn}
-                className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2"
+                className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 text-base font-semibold cursor-pointer"
               >
                 Build your own
               </Button>
             </div>
             <div className="flex-1"></div>
-            <div className="text-center z-10">
+            <div className="text-center z-10 pb-4">
               <button
                 onClick={onFindOutMore}
-                className="text-gray-900 dark:text-white underline hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="text-gray-900 dark:text-white underline hover:text-gray-700 dark:hover:text-gray-300 transition-colors text-base cursor-pointer"
               >
                 Find out more
               </button>
@@ -119,37 +104,27 @@ export function ModelCard({
   );
 }
 
-// Models Page Component
-export function ModelsPage() {
-  const handleBuildYourOwn = (modelName: string) => {
-    console.log(`Build your own ${modelName} clicked`);
-    // Add navigation or modal logic here
-  };
 
-  const handleFindOutMore = (modelName: string) => {
-    console.log(`Find out more about ${modelName} clicked`);
-    // Add navigation logic here
-  };
-
-  return (
-    <div className="min-h-screen py-20 px-4 bg-background">
-      <div className="container mx-auto">
-        <h1 className="text-5xl font-bold text-center mb-12">Our Models</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
-          {MODELS_DATA.map((model, index) => (
-            <ModelCard
-              key={index}
-              modelName={model.modelName}
-              year={model.year}
-              price={model.price}
-              imageDefault={model.imageDefault}
-              imageHover={model.imageHover}
-              onBuildYourOwn={() => handleBuildYourOwn(model.modelName)}
-              onFindOutMore={() => handleFindOutMore(model.modelName)}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+// export const MODELS_DATA = [
+//   {
+//     modelName: "Range Rover Velar",
+//     year: 2025,
+//     price: 60000,
+//     imageDefault: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80",
+//     imageHover: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80",
+//   },
+//   {
+//     modelName: "Range Rover Sport",
+//     year: 2025,
+//     price: 85000,
+//     imageDefault: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
+//     imageHover: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80",
+//   },
+//   {
+//     modelName: "Range Rover Evoque",
+//     year: 2025,
+//     price: 48000,
+//     imageDefault: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=80",
+//     imageHover: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
+//   },
+// ];
