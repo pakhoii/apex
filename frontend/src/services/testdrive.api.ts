@@ -23,3 +23,7 @@ export const getAvailableSlotsApi = (modelId?: number, date?: string) => {
 export const createSlotApi = (slotData: TestDriveSlotCreate) => {
     return http.post("/test-drive/slots", slotData).then(res => res.data);
 };
+
+export const getAllBookingsApi = () => {
+    return http.get("/test-drive/bookings").then(res => res.data);
+}

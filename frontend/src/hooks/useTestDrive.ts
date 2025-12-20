@@ -3,7 +3,8 @@ import {
     createBookingApi,
     getMyBookingsApi,
     getAvailableSlotsApi,
-    createSlotApi
+    createSlotApi,
+    getAllBookingsApi
 } from "@/services/testdrive.api";
 import type { BookingCreate, TestDriveSlotCreate } from "@/types/testdrive";
 
@@ -63,11 +64,25 @@ export const useTestDrive = () => {
         }
     };
 
+    const getAllBookings = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            return await getAllBookingsApi();
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         createBooking,
         fetchMyBookings,
         fetchAvailableSlots,
         createSlot,
+        getAllBookings,
         loading,
         error,
     };

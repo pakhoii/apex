@@ -20,6 +20,13 @@ def create_booking(
     user_id = int(payload.get("sub"))
     return testdrive_service.create_booking(db=db, user_id=user_id, booking_data=booking_data)
 
+@router.get("/bookings", response_model=List[BookingOut])
+def get_all_bookings(
+    payload: dict = Depends(require_admin),
+    db: Session = Depends(get_db)
+):
+    return testdrive_service.get_all_bookings(db=db)
+
 @router.get("/bookings/me", response_model=List[BookingOut])
 def get_my_bookings(
     payload: dict = Depends(require_any_logged_in_user),
