@@ -19,8 +19,6 @@ export default function App() {
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/models" element={<ModelsPage />} />
                 <Route path="/about" element={<AboutPage />} />
-                <Route path="/compare/:id1/:id2" element={<ComparePage />} />
-                <Route path="/test-drive" element={<TestDrive modelId={1} name={"Hello"} imageUrl={""} />} />
 
                 {/* ===== CART ROUTE ===== */}
                 <Route path="/my-cart" element={<MyCart />} />
@@ -34,6 +32,11 @@ export default function App() {
                         </ProtectedRoutes>
                     }
                 />
+
+                <Route path="/test-drive/:modelId" element={<TestDrive />} />
+
+                <Route path="/compare/:id1/:id2" element={<ComparePage />} />
+                
 
                 {/* ===== FALLBACK ===== */}
                 <Route path="*" element={<Navigate to="/" replace />} />
