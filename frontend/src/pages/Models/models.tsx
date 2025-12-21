@@ -256,10 +256,13 @@ export default function ModelsPage() {
                                         </div>
                                         <div className="models-car-details">
                                             <div className="models-car-brand-badge">{brandMap[car.brand_id]}</div>
-                                            <button className="models-learn-more-btn">
-                                                <span>Learn More</span>
-                                                <ArrowRight size={24} />
-                                            </button>
+                                            
+                                            <a href={`/models/${car.id}`}>
+                                                <button className="models-learn-more-btn">
+                                                    <span>Learn More</span>
+                                                    <ArrowRight size={24} />
+                                                </button>
+                                            </a>   
                                         </div>
                                     </div>
                                 ))}
