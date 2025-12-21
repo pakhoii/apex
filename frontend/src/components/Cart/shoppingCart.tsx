@@ -122,7 +122,9 @@ export function ShoppingCartComponent() {
                             <ShoppingCart className="cart-empty-icon" />
                             <h2 className="cart-empty-title">Your cart is empty</h2>
                             <p className="cart-empty-text">Add some vehicles to get started</p>
-                            <Button>Continue Shopping</Button>
+                            <a href="/models">
+                                <Button>Continue Shopping</Button>
+                            </a>
                         </Card>
                     ) : (
                         cartItems.map((item) => (
