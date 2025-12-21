@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# Frontend Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Structure
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend/
+├── .gitignore               # Specifies intentionally untracked files to ignore.
+├── components.json          # Configuration for components in the project.
+├── eslint.config.js         # ESLint configuration for linting JavaScript/TypeScript code.
+├── index.html               # Entry HTML file for the application.
+├── package.json             # Contains project metadata and dependencies.
+├── postcss.config.ts        # Configuration for PostCSS, used with Tailwind CSS.
+├── README.md                # Documentation for the frontend project.
+├── tailwind.config.ts       # Tailwind CSS configuration file.
+├── tsconfig.app.json        # TypeScript configuration for the application.
+├── tsconfig.json            # Base TypeScript configuration file.
+├── tsconfig.node.json       # TypeScript configuration for Node.js.
+├── vite.config.ts           # Vite configuration file for the development server and build.
+├── public/                  # Static assets served directly by the server.
+│   ├── fonts/               # Fonts used in the application.
+│   ├── images/              # Image assets.
+│   ├── logo/                # Logo assets.
+│   └── video/               # Video assets.
+├── src/                     # Source code for the application.
+│   ├── App.css              # Global CSS for the application.
+│   ├── App.tsx              # Root component of the application.
+│   ├── index.css            # Base CSS file.
+│   ├── main.tsx             # Entry point for the React application.
+│   ├── assets/              # Additional assets used in the application.
+│   ├── components/          # Reusable UI components.
+│   │   ├── Auth/            # Components for authentication (login, register).
+│   │   ├── CarDetail/       # Components for car details and comparison.
+│   │   ├── Cart/            # Components for shopping cart functionality.
+│   │   ├── Checkout/        # Components for the checkout process.
+│   │   ├── Dashboard/       # Components for user/admin dashboards.
+│   │   ├── Footer/          # Footer component.
+│   │   ├── ModelsGallery/   # Components for displaying car models.
+│   │   ├── Navbar/          # Navigation bar component.
+│   │   ├── TestDriveForm/   # Components for test drive booking forms.
+│   │   └── ui/              # Generic UI components (buttons, forms, etc.).
+│   ├── hooks/               # Custom React hooks for shared logic.
+│   ├── layouts/             # Layout components for structuring pages.
+│   ├── lib/                 # Utility functions and libraries.
+│   ├── pages/               # Page components for routing.
+│   │   ├── About/           # About page.
+│   │   ├── Auth/            # Authentication pages.
+│   │   ├── Checkout/        # Checkout page.
+│   │   ├── Compare/         # Car comparison page.
+│   │   ├── Dashboard/       # Dashboard page.
+│   │   ├── Landing/         # Landing page.
+│   │   ├── Models/          # Car models page.
+│   │   ├── MyCart/          # User's cart page.
+│   │   └── TestDrive/       # Test drive booking page.
+│   ├── routes/              # Route definitions and protected routes.
+│   ├── services/            # API service files for backend communication.
+│   └── types/               # TypeScript type definitions.
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## How to run the frontend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Change directory to the frontend folder. Type these commands to run:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+npm install
+npm run dev
 ```
