@@ -11,19 +11,18 @@ import "./dashboard.css";
 const statusColors: Record<OrderStatus, string> = {
     pending: "status-pending",
     confirmed: "status-confirmed",
-    processing: "status-processing",
-    shipped: "status-shipped",
+    delivering: "status-delivering",
     delivered: "status-delivered",
     cancelled: "status-cancelled",
     refunded: "status-refunded",
 };
 
-const statusActions: Record<OrderStatus, OrderAction[]> = {
-    pending: ["confirm", "cancel"],
-    confirmed: ["process", "cancel"],
-    processing: ["ship", "cancel"],
-    shipped: ["deliver"],
-    delivered: ["refund"],
+// Admin can only perform admin actions, not user actions
+const adminStatusActions: Record<OrderStatus, OrderAction[]> = {
+    pending: ["admin_confirm", "cancel"],
+    confirmed: ["admin_ship", "cancel"],
+    delivering: [], // user_confirm_delivery is user-only action
+    delivered: [],
     cancelled: [],
     refunded: [],
 };
@@ -67,12 +66,10 @@ export default function AdminOrders() {
 
     const handleAction = async (orderId: number, action: OrderAction) => {
         const actionLabels: Record<OrderAction, string> = {
-            confirm: "confirm",
-            process: "process",
-            ship: "ship",
-            deliver: "mark as delivered",
+            admin_confirm: "confirm",
+            admin_ship: "ship",
+            user_confirm_delivery: "mark as delivered",
             cancel: "cancel",
-            refund: "refund",
         };
         
         if (!confirm(`Are you sure you want to ${actionLabels[action]} this order?`)) return;
@@ -102,7 +99,7 @@ export default function AdminOrders() {
         : orders.filter(o => o.status === filterStatus);
 
     const allStatuses: (OrderStatus | "all")[] = [
-        "all", "pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "refunded"
+        "all", "pending", "confirmed", "delivering", "delivered", "cancelled", "refunded"
     ];
 
     return (
@@ -180,18 +177,18 @@ export default function AdminOrders() {
                                 </div>
                             </div>
 
-                            {statusActions[order.status].length > 0 && (
+                            {adminStatusActions[order.status].length > 0 && (
                                 <div className="order-actions">
-                                    {statusActions[order.status].map((action) => (
+                                    {adminStatusActions[order.status].map((action) => (
                                         <Button
                                             key={action}
-                                            variant={action === "cancel" || action === "refund" ? "destructive" : "default"}
+                                            variant={action === "cancel" ? "destructive" : "default"}
                                             size="sm"
                                             onClick={() => handleAction(order.id, action)}
                                             disabled={loading}
                                         >
                                             <ArrowRight size={14} />
-                                            {action.charAt(0).toUpperCase() + action.slice(1)}
+                                            {action.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
                                         </Button>
                                     ))}
                                 </div>

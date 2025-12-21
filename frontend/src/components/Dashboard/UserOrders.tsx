@@ -4,22 +4,21 @@ import { useModel } from "@/hooks/useModel";
 import { useOrder } from "@/hooks/useOrder";
 import type { ModelOut } from "@/types/model";
 import type { OrderOut, OrderStatus } from "@/types/order";
-import { Calendar, MapPin, Package, X } from "lucide-react";
+import { Calendar, Check, MapPin, Package, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./dashboard.css";
 
 const statusColors: Record<OrderStatus, string> = {
     pending: "status-pending",
     confirmed: "status-confirmed",
-    processing: "status-processing",
-    shipped: "status-shipped",
+    delivering: "status-delivering",
     delivered: "status-delivered",
     cancelled: "status-cancelled",
     refunded: "status-refunded",
 };
 
 export default function UserOrders() {
-    const { fetchMyOrders, cancelOrder, loading } = useOrder();
+    const { fetchMyOrders, cancelOrder, confirmDelivery, loading } = useOrder();
     const { fetchModelsDetails } = useModel();
     const [orders, setOrders] = useState<OrderOut[]>([]);
     const [modelNames, setModelNames] = useState<Record<number, string>>({});
@@ -61,6 +60,16 @@ export default function UserOrders() {
             loadOrders();
         } catch (err) {
             console.error("Failed to cancel order:", err);
+        }
+    };
+
+    const handleConfirmDelivery = async (orderId: number) => {
+        if (!confirm("Have you received your order? This action will mark it as delivered.")) return;
+        try {
+            await confirmDelivery(orderId);
+            loadOrders();
+        } catch (err) {
+            console.error("Failed to confirm delivery:", err);
         }
     };
 
@@ -133,16 +142,34 @@ export default function UserOrders() {
                                 </div>
                             </div>
                             
-                            {order.status === "pending" && (
-                                <Button 
-                                    variant="destructive" 
-                                    className="cancel-btn"
-                                    onClick={() => handleCancelOrder(order.id)}
-                                >
-                                    <X size={16} />
-                                    Cancel Order
-                                </Button>
-                            )}
+                            <div className="order-actions user-order-actions">
+                                {/* User can cancel pending or confirmed orders */}
+                                {(order.status === "pending" || order.status === "confirmed") && (
+                                    <Button 
+                                        variant="destructive" 
+                                        size="sm"
+                                        onClick={() => handleCancelOrder(order.id)}
+                                        disabled={loading}
+                                    >
+                                        <X size={16} />
+                                        Cancel Order
+                                    </Button>
+                                )}
+                                
+                                {/* User confirms delivery when order is delivering */}
+                                {order.status === "delivering" && (
+                                    <Button 
+                                        variant="default"
+                                        size="sm"
+                                        className="confirm-delivery-btn"
+                                        onClick={() => handleConfirmDelivery(order.id)}
+                                        disabled={loading}
+                                    >
+                                        <Check size={16} />
+                                        Confirm Received
+                                    </Button>
+                                )}
+                            </div>
                         </Card>
                     ))}
                 </div>

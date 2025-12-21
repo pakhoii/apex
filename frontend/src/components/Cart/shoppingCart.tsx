@@ -5,6 +5,7 @@ import { useModel } from "@/hooks/useModel";
 import type { CartItem } from "@/types/cart";
 import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./cart.css";
 import CartItemComponent from "./cartItem";
 
@@ -17,6 +18,7 @@ export function ShoppingCartComponent() {
 
     const { fetchModelsDetails } = useModel();
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getCartItems = async () => {
@@ -106,9 +108,18 @@ export function ShoppingCartComponent() {
         setCartItems((items) => items.filter((item) => item.id !== id))
         removeItemFromCart(Number(id));
     }
+const totalPrice = cartItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
 
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
+    const handleProceedToCheckout = () => {
+        navigate("/checkout", {
+            state: {
+                cartItems: cartItems,
+                totalPrice: totalPrice,
+            },
+        });
+    };
 
+    console.log(cartItems.length);
     console.log(cartItems.length);
 
     return (
@@ -122,7 +133,9 @@ export function ShoppingCartComponent() {
                             <ShoppingCart className="cart-empty-icon" />
                             <h2 className="cart-empty-title">Your cart is empty</h2>
                             <p className="cart-empty-text">Add some vehicles to get started</p>
-                            <Button>Continue Shopping</Button>
+                            <a href="/models">
+                                <Button>Continue Shopping</Button>
+                            </a>
                         </Card>
                     ) : (
                         cartItems.map((item) => (
@@ -175,7 +188,10 @@ export function ShoppingCartComponent() {
                                         </span>
                                     </div>
 
-                                    <Button className="cart-checkout-button">
+                                    <Button 
+                                        className="cart-checkout-button"
+                                        onClick={handleProceedToCheckout}
+                                    >
                                         Proceed to Checkout
                                     </Button>
 

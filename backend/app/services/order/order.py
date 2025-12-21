@@ -81,6 +81,22 @@ class OrderService:
             # db.rollback() -> Caller should handle rollback
             raise e
     
+    def user_confirm_delivery(self, db: Session, order_id: int, user_id: int) -> dict:
+        """Allow user to confirm delivery of their own order"""
+        order = crud_order.get(db, id=order_id)
+        if not order:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
+        
+        # Verify the order belongs to the user
+        if order.user_id != user_id:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You can only confirm delivery of your own orders")
+        
+        # Use the existing transition method with user_confirm_delivery action
+        return self.transition(
+            db=db, order_id=order_id,
+            action=OrderAction.USER_CONFIRM_DELIVERY, actor_id=user_id
+        )
+    
     def transition( self, db: Session, order_id: int, 
                     # background_tasks: BackgroundTasks,
                     action: OrderAction, actor_id: int) -> dict:
