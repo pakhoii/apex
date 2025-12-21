@@ -1,5 +1,6 @@
 import {
     cancelOrderApi,
+    confirmDeliveryApi,
     createOrderApi,
     getAllOrdersApi,
     getMyOrdersApi,
@@ -51,6 +52,19 @@ export const useOrder = () => {
         }
     };
 
+    const confirmDelivery = async (orderId: number) => {
+        try {
+            setLoading(true);
+            setError(null);
+            return await confirmDeliveryApi(orderId);
+        } catch (err: any) {
+            setError(err.message);
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const fetchMyOrders = async (skip: number = 0, limit: number = 10): Promise<OrderOut[]> => {
         try {
             setLoading(true);
@@ -81,6 +95,7 @@ export const useOrder = () => {
         createOrder,
         transitionOrderState,
         cancelOrder,
+        confirmDelivery,
         fetchMyOrders,
         fetchAllOrders,
         loading,

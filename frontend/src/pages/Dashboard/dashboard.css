@@ -243,13 +243,8 @@
     background: transparent;
 }
 
-.status-processing {
+.status-delivering {
     color: #60A5FA;
-    background: transparent;
-}
-
-.status-shipped {
-    color: #A78BFA;
     background: transparent;
 }
 
@@ -328,6 +323,23 @@
 
 .order-actions {
     @apply flex gap-3 flex-wrap;
+}
+
+/* User Order Actions */
+.user-order-actions {
+    @apply pt-6;
+    border-top: 1px solid var(--apex-color-border);
+}
+
+.confirm-delivery-btn {
+    @apply px-6 transition-all duration-300;
+    background: var(--apex-color-accent) !important;
+    color: var(--apex-color-primary) !important;
+}
+
+.confirm-delivery-btn:hover:not(:disabled) {
+    background: #B89843 !important;
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--apex-color-accent), transparent 60%);
 }
 
 /* ============================

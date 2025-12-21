@@ -13,6 +13,11 @@ export const cancelOrderApi = (request: CancelOrderRequest) => {
     return http.post("/orders/cancel", request).then(res => res.data);
 };
 
+// User confirms delivery of their order
+export const confirmDeliveryApi = (orderId: number) => {
+    return http.patch(`/orders/${orderId}/confirm-delivery`).then(res => res.data);
+};
+
 // Get current user's orders
 export const getMyOrdersApi = (skip: number = 0, limit: number = 10): Promise<OrderOut[]> => {
     return http.get("/orders/my", { params: { skip, limit } }).then(res => res.data);

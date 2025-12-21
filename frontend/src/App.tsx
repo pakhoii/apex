@@ -4,12 +4,13 @@ import Auth from "@/pages/Auth/auth";
 import Landing from "@/pages/Landing/landing";
 import ProtectedRoutes from "@/routes/protectedRoute";
 import AboutPage from "./pages/About/about";
+import CheckoutPage from "./pages/Checkout/checkout";
 import ComparePage from "./pages/Compare/compare";
 import DashboardPage from "./pages/Dashboard/dashboard";
+import ModelDetailsPage from "./pages/Models/modelDetails";
 import ModelsPage from "./pages/Models/models";
 import MyCart from "./pages/MyCart/myCart";
 import TestDrive from "./pages/TestDrive/testDrive";
-import ModelDetailsPage from "./pages/Models/modelDetails";
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
                 <Route path="/models" element={<ModelsPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/my-cart" element={<MyCart />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/test-drive/:modelId" element={<TestDrive />} />
                 <Route path="/compare/:id1/:id2" element={<ComparePage />} />
                 <Route path="/models/:modelId" element={<ModelDetailsPage />} />

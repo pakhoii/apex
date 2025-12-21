@@ -1,19 +1,16 @@
 export type OrderStatus =
     | "pending"
     | "confirmed"
-    | "processing"
-    | "shipped"
+    | "delivering"
     | "delivered"
     | "cancelled"
     | "refunded";
 
 export type OrderAction =
-    | "confirm"
-    | "process"
-    | "ship"
-    | "deliver"
-    | "cancel"
-    | "refund";
+    | "admin_confirm"
+    | "admin_ship"
+    | "user_confirm_delivery"
+    | "cancel";
 
 export interface OrderItemCreate {
     model_id: number;
