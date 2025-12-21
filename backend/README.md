@@ -122,6 +122,29 @@ source .venv/bin/activate
 
 ---
 
+## Environment Configuration
+
+### Setup .env file
+Copy the example environment file and configure it:
+
+```bash
+cp .env.example .env
+```
+
+### Configure the following values in `.env`:
+
+| Variable | Description |
+|----------|-------------|
+| `SECRET_KEY` | Generate a random key: `openssl rand -hex 32` |
+| `MAIL_USERNAME` | Your Gmail address |
+| `MAIL_PASSWORD` | [Gmail App Password](https://support.google.com/accounts/answer/185833) |
+| `MAIL_FROM` | Your Gmail address (same as MAIL_USERNAME) |
+| `OTP_SECRET_KEY` | Generate a random key: `openssl rand -hex 32` |
+
+> **Note:** The application will run without `.env` file using default values, but email functionality will not work until you configure the mail settings.
+
+---
+
 ## Running the Backend
 
 ### Prerequisites
