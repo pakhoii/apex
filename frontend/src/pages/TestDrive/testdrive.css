@@ -1,0 +1,46 @@
+/* stylelint-disable at-rule-no-unknown */
+@import "../../index.css";
+
+/* Main Container */
+.test-drive-page {
+    @apply min-h-screen pt-20;
+    background-color: var(--apex-color-primary);
+    color: var(--apex-color-text);
+}
+
+/* Header Section */
+.test-drive-page .header {
+    @apply py-16 text-center
+}
+
+.test-drive-page .header h1 {
+    @apply text-5xl md:text-6xl font-bold mb-4;
+    background: linear-gradient(to right, #F59E0B, var(--apex-color-accent), #ca8a04);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.test-drive-page .header p {
+    @apply text-lg max-w-2xl mx-auto px-4 mb-6;
+    color: var(--apex-color-text-light);
+}
+
+.test-drive-page .header hr {
+    @apply w-1/4 mx-auto border-t-2;
+    border-color: var(--apex-color-border);
+}
+
+/* Form Container */
+.test-drive-page .form-container {
+    @apply max-w-2xl mx-auto py-12 px-4;
+}
+
+.model-info {
+    @apply flex flex-col items-center justify-center;
+}
+
+.model-image {
+    @apply w-100 h-auto rounded-lg shadow-lg 
+            mb-4 md:mb-0 md:mr-6;
+}

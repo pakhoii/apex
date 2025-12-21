@@ -1,0 +1,220 @@
+/* stylelint-disable at-rule-no-unknown */
+@import "../../index.css" reference;
+
+/* ========== Checkout Item Card ========== */
+.checkout-item-card {
+    @apply overflow-hidden mb-3 rounded-lg transition-all;
+    background-color: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+}
+
+.checkout-item-content {
+    @apply flex items-center gap-4 p-4;
+}
+
+.checkout-item-image-container {
+    @apply relative w-24 h-16 shrink-0 rounded-md overflow-hidden;
+    background-color: var(--apex-color-primary);
+}
+
+.checkout-item-image {
+    @apply w-full h-full object-cover;
+}
+
+.checkout-item-details {
+    @apply flex-1 min-w-0;
+}
+
+.checkout-item-name {
+    @apply text-base font-semibold truncate;
+    color: var(--apex-color-text);
+}
+
+.checkout-item-price {
+    @apply text-sm mt-1;
+    color: var(--apex-color-text-light);
+}
+
+.checkout-item-total {
+    @apply text-right shrink-0;
+}
+
+.checkout-item-total-value {
+    @apply text-lg font-bold;
+    color: var(--apex-color-accent);
+}
+
+/* ========== Checkout Form ========== */
+.checkout-form-container {
+    @apply flex flex-col gap-6;
+}
+
+.checkout-form-card {
+    @apply overflow-hidden rounded-xl;
+    background-color: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+}
+
+.checkout-form-section {
+    @apply p-6;
+}
+
+.checkout-form-title {
+    @apply text-xl font-bold mb-6;
+    color: var(--apex-color-accent);
+}
+
+.checkout-form-field {
+    @apply flex flex-col gap-2;
+}
+
+.checkout-label {
+    @apply text-sm font-medium;
+    color: var(--apex-color-text-light);
+}
+
+.checkout-input {
+    @apply h-12 px-4 text-base rounded-lg transition-all;
+    background-color: var(--apex-color-primary);
+    border: 1px solid var(--apex-color-border);
+    color: var(--apex-color-text);
+}
+
+.checkout-input:focus {
+    border-color: var(--apex-color-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--apex-color-accent), transparent 80%);
+}
+
+.checkout-input::placeholder {
+    color: var(--apex-color-text-light);
+}
+
+/* Payment Methods */
+.checkout-payment-methods {
+    @apply grid grid-cols-2 gap-3;
+}
+
+@media (max-width: 640px) {
+    .checkout-payment-methods {
+        @apply grid-cols-1;
+    }
+}
+
+.checkout-payment-option {
+    @apply flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all;
+    background-color: var(--apex-color-primary);
+    border: 2px solid var(--apex-color-border);
+    color: var(--apex-color-text);
+}
+
+.checkout-payment-option:hover {
+    border-color: color-mix(in srgb, var(--apex-color-accent), transparent 50%);
+}
+
+.checkout-payment-option.selected {
+    border-color: var(--apex-color-accent);
+    background-color: color-mix(in srgb, var(--apex-color-accent), transparent 90%);
+}
+
+.checkout-payment-icon {
+    @apply flex items-center justify-center;
+    color: var(--apex-color-accent);
+}
+
+.checkout-payment-label {
+    @apply text-sm font-medium;
+}
+
+/* ========== Checkout Summary ========== */
+.checkout-summary-card {
+    @apply sticky rounded-xl overflow-hidden;
+    top: 100px;
+    background-color: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+}
+
+.checkout-summary-content {
+    @apply p-6 space-y-5;
+}
+
+.checkout-summary-title {
+    @apply text-xl font-bold;
+    color: var(--apex-color-text);
+}
+
+.checkout-summary-items-count {
+    @apply text-sm pb-4;
+    color: var(--apex-color-text-light);
+    border-bottom: 1px solid var(--apex-color-border);
+}
+
+.checkout-summary-breakdown {
+    @apply space-y-3 py-4;
+    border-bottom: 1px solid var(--apex-color-border);
+}
+
+.checkout-summary-row {
+    @apply flex justify-between items-center text-sm;
+}
+
+.checkout-summary-label {
+    color: var(--apex-color-text-light);
+}
+
+.checkout-summary-value {
+    @apply font-medium;
+    color: var(--apex-color-text);
+}
+
+.checkout-free {
+    color: var(--apex-color-success);
+}
+
+.checkout-summary-total-section {
+    @apply py-4;
+}
+
+.checkout-summary-total-row {
+    @apply flex justify-between items-center;
+}
+
+.checkout-summary-total-label {
+    @apply text-lg font-semibold;
+    color: var(--apex-color-text);
+}
+
+.checkout-summary-total-value {
+    @apply text-2xl font-bold;
+    color: var(--apex-color-accent);
+}
+
+.checkout-place-order-btn {
+    @apply w-full h-12 text-base font-semibold rounded-lg transition-all;
+    background-color: var(--apex-color-accent) !important;
+    color: var(--apex-color-primary) !important;
+}
+
+.checkout-place-order-btn:hover:not(:disabled) {
+    background-color: #B89843 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--apex-color-accent), transparent 60%);
+}
+
+.checkout-place-order-btn:disabled {
+    @apply opacity-70 cursor-not-allowed;
+}
+
+/* Trust Features */
+.checkout-trust-features {
+    @apply flex flex-col gap-2 pt-4;
+    border-top: 1px solid var(--apex-color-border);
+}
+
+.checkout-trust-item {
+    @apply flex items-center gap-2 text-xs;
+    color: var(--apex-color-text-light);
+}
+
+.checkout-trust-icon {
+    color: var(--apex-color-success);
+}

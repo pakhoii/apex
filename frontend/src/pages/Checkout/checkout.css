@@ -1,0 +1,121 @@
+@import "../../index.css";
+
+.checkout-page {
+    @apply min-h-screen pt-24 pb-16 px-4;
+    background-color: var(--apex-color-primary);
+    color: var(--apex-color-text);
+}
+
+/* ========== Header ========== */
+.checkout-header {
+    @apply max-w-6xl mx-auto mb-10 text-center;
+}
+
+.checkout-back-btn {
+    @apply inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-lg 
+           text-sm font-medium transition-all;
+    background-color: transparent;
+    color: var(--apex-color-text-light);
+    border: 1px solid var(--apex-color-border);
+}
+
+.checkout-back-btn:hover {
+    color: var(--apex-color-accent);
+    border-color: var(--apex-color-accent);
+}
+
+.checkout-title {
+    @apply text-4xl md:text-5xl font-bold mb-3;
+    background: linear-gradient(to right, #F59E0B, var(--apex-color-accent), #ca8a04);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.checkout-subtitle {
+    @apply text-base;
+    color: var(--apex-color-text-light);
+}
+
+/* ========== Error Message ========== */
+.checkout-error {
+    @apply max-w-6xl mx-auto mb-6 p-4 rounded-lg text-center;
+    background-color: color-mix(in srgb, var(--apex-color-error), transparent 85%);
+    border: 1px solid var(--apex-color-error);
+    color: var(--apex-color-error);
+}
+
+/* ========== Main Content ========== */
+.checkout-content {
+    @apply max-w-6xl mx-auto grid gap-8;
+    grid-template-columns: 1fr 380px;
+}
+
+@media (max-width: 1024px) {
+    .checkout-content {
+        @apply grid-cols-1;
+    }
+}
+
+.checkout-main {
+    @apply flex flex-col gap-8;
+}
+
+.checkout-sidebar {
+    @apply relative;
+}
+
+/* ========== Items Section ========== */
+.checkout-items-section {
+    @apply rounded-xl p-6;
+    background-color: var(--apex-color-secondary);
+    border: 1px solid var(--apex-color-border);
+}
+
+.checkout-section-title {
+    @apply text-xl font-bold mb-5;
+    color: var(--apex-color-accent);
+}
+
+.checkout-items-list {
+    @apply flex flex-col;
+}
+
+/* ========== Empty State ========== */
+.checkout-empty {
+    @apply flex flex-col items-center justify-center text-center py-20;
+}
+
+.checkout-empty-icon {
+    @apply mb-6;
+    color: var(--apex-color-accent);
+}
+
+.checkout-empty-title {
+    @apply text-2xl font-bold mb-2;
+    color: var(--apex-color-text);
+}
+
+.checkout-empty-text {
+    @apply text-base mb-8;
+    color: var(--apex-color-text-light);
+}
+
+/* ========== Responsive Adjustments ========== */
+@media (max-width: 768px) {
+    .checkout-page {
+        @apply pt-20 px-3;
+    }
+
+    .checkout-header {
+        @apply mb-6;
+    }
+
+    .checkout-title {
+        @apply text-3xl;
+    }
+
+    .checkout-items-section {
+        @apply p-4;
+    }
+}

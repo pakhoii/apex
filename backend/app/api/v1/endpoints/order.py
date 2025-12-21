@@ -6,8 +6,30 @@ from app.schemas.order import OrderCreate, OrderOut, OrderTransitionRequest
 from app.services.order.order import order_service
 from app.schemas.order import CancelOrderRequest, CancelOrderResponse
 from app.services.order.order_cancel_service import order_cancel_service
+from typing import List
 
 router = APIRouter(prefix="/orders", tags=["orders"])
+
+# Get all orders - Admin only
+@router.get("/", response_model=List[OrderOut])
+def get_all_orders(
+    db: Session = Depends(get_db),
+    current_admin_payload: dict = Depends(require_admin),
+    skip: int = 0,
+    limit: int = 10
+):
+    return order_service.get_orders(db=db, skip=skip, limit=limit)
+
+# Get my orders - Any logged-in user
+@router.get("/my", response_model=List[OrderOut])
+def get_my_orders(
+    db: Session = Depends(get_db),
+    current_user_payload: dict = Depends(require_any_logged_in_user),
+    skip: int = 0,
+    limit: int = 10
+):
+    user_id = int(current_user_payload.get("sub"))
+    return order_service.get_orders_by_user(db=db, user_id=user_id, skip=skip, limit=limit)
 
 @router.post("/", response_model=OrderOut)
 def create_new_order(
@@ -44,3 +66,16 @@ def cancel_order(req: CancelOrderRequest,
     return order_cancel_service.cancel_order(db, req.order_id)
 
     #  Need to improve: pass in user_id and check if the order belongs to the user
+
+
+# User confirms delivery of their order
+@router.patch("/{order_id}/confirm-delivery", response_model=dict)
+def user_confirm_delivery(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user_payload: dict = Depends(require_any_logged_in_user)
+):
+    user_id = int(current_user_payload.get("sub"))
+    return order_service.user_confirm_delivery(
+        db=db, order_id=order_id, user_id=user_id
+    )

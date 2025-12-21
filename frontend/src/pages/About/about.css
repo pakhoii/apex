@@ -1,0 +1,216 @@
+@import "../../index.css";
+
+@layer components {
+    .about-main {
+        @apply min-h-screen;
+        background-color: var(--apex-color-primary);
+        /* Base background black/dark */
+        color: var(--apex-color-text);
+        /* Base text white */
+    }
+
+    .about-container {
+        @apply container mx-auto px-4 py-20 max-w-7xl;
+    }
+
+    /* Hero Section */
+    .about-hero-section {
+        @apply text-center mb-32;
+    }
+
+    .about-hero-divider-container {
+        @apply inline-block mb-6;
+    }
+
+    .about-hero-divider {
+        @apply h-1 w-20 mb-6;
+        background: linear-gradient(to right, transparent, var(--apex-color-accent), transparent);
+    }
+
+    .about-hero-title {
+        @apply text-6xl md:text-7xl font-bold mb-8 text-balance;
+        color: var(--apex-color-text) !important;
+    }
+
+    .about-hero-desc {
+        @apply text-xl md:text-2xl max-w-3xl mx-auto text-pretty leading-relaxed;
+        color: var(--apex-color-light);
+        /* Light gray Text */
+    }
+
+    /* Introduction Section */
+    .about-intro-section {
+        @apply mb-32;
+    }
+
+    .about-intro-grid {
+        @apply grid md:grid-cols-2 gap-16 items-center max-w-7xl mx-auto;
+    }
+
+    .about-intro-bg-effect {
+        @apply absolute inset-0 blur-3xl;
+        background: linear-gradient(to right, color-mix(in srgb, var(--apex-color-accent), transparent 90%), color-mix(in srgb, var(--apex-color-accent), transparent 95%), transparent);
+        /* Gold tint */
+    }
+
+    .about-intro-image {
+        @apply w-full h-auto opacity-95 hover:opacity-100 transition-opacity duration-700;
+        mix-blend-mode: lighten;
+    }
+
+    .about-section-subtitle {
+        @apply text-4xl md:text-5xl font-bold mb-8 text-balance;
+        color: var(--apex-color-text) !important;
+    }
+
+    .about-text-content {
+        @apply space-y-6 text-lg leading-relaxed;
+        color: var(--apex-color-light);
+    }
+
+    /* Team Members */
+    .about-team-section {
+        @apply mb-32;
+    }
+
+    .about-team-header {
+        @apply text-center mb-16;
+    }
+
+    .about-team-title {
+        @apply text-4xl md:text-5xl font-bold mb-6;
+        color: var(--apex-color-text) !important;
+    }
+
+    .about-team-divider {
+        @apply h-1 w-20 mx-auto;
+        background-color: var(--apex-color-accent);
+    }
+
+    .about-team-grid {
+        @apply grid md:grid-cols-3 gap-8;
+    }
+
+    .about-team-card {
+        @apply border-none shadow-none text-left p-0;
+        background-color: transparent !important;
+    }
+
+    .about-member-img-container {
+        @apply relative h-[500px] rounded-md overflow-hidden mb-6 border;
+        border-color: var(--apex-color-border);
+        background-color: var(--apex-color-primary) !important;
+        /* Ensure background is dark */
+    }
+
+    .about-member-img {
+        @apply object-cover w-full h-full transition-transform duration-700;
+    }
+
+    .about-member-overlay {
+        @apply absolute inset-0 opacity-80 transition-opacity duration-500;
+        background: linear-gradient(to top, black, rgba(0, 0, 0, 0.4), transparent);
+    }
+
+    .about-member-info {
+        @apply absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 transition-transform duration-500;
+    }
+
+    .about-member-role-line {
+        @apply h-0.5 w-12 mb-3 transform scale-x-0 transition-transform duration-500;
+        background-color: var(--apex-color-accent);
+    }
+
+    .about-member-name {
+        @apply text-2xl font-bold mb-2;
+        color: var(--apex-color-text) !important;
+    }
+
+    .about-member-role {
+        @apply font-semibold text-sm uppercase tracking-wider mb-3;
+        color: var(--apex-color-accent);
+    }
+
+    .about-member-desc {
+        @apply leading-relaxed;
+        color: var(--apex-color-text-light);
+    }
+
+    /* Values */
+    .about-values-section {
+        @apply relative;
+    }
+
+    .about-values-bg {
+        @apply absolute inset-0 pointer-events-none;
+        background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--apex-color-accent), transparent 95%), transparent);
+    }
+
+    .about-values-header {
+        @apply relative text-center mb-16;
+    }
+
+    .about-values-grid {
+        @apply grid md:grid-cols-3 gap-8 relative;
+    }
+
+    .about-value-card {
+        @apply border p-8 rounded-md transition-all duration-500;
+        background: linear-gradient(to bottom, var(--apex-color-secondary), var(--apex-color-primary));
+        border-color: var(--apex-color-border);
+    }
+
+    .about-value-card:hover {
+        border-color: color-mix(in srgb, var(--apex-color-accent), transparent 50%);
+        /* Gold with opacity */
+    }
+
+    .about-value-icon-box {
+        @apply w-20 h-20 rounded-md flex items-center justify-center mx-auto mb-6 transition-transform duration-500 shadow-lg;
+        background: linear-gradient(to bottom right, var(--apex-color-accent), color-mix(in srgb, var(--apex-color-accent), black 10%));
+        /* Slight gradient on gold */
+        box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--apex-color-accent), transparent 80%);
+    }
+
+    .about-value-title {
+        @apply text-2xl font-bold mb-4 text-center transition-colors duration-300;
+        color: var(--apex-color-text) !important;
+    }
+
+    .about-value-card:hover .about-value-title {
+        color: var(--apex-color-accent);
+    }
+
+    .about-value-desc {
+        @apply text-center leading-relaxed;
+        color: var(--apex-color-text-light);
+    }
+
+    /* Utility text colors */
+    .text-gold {
+        background: linear-gradient(to right, #F59E0B, var(--apex-color-accent), #ca8a04);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .group:hover .about-member-img {
+        @apply scale-110;
+    }
+
+    .group:hover .about-member-overlay {
+        @apply opacity-90;
+    }
+
+    .group:hover .about-member-info {
+        @apply translate-y-0;
+    }
+
+    .group:hover .about-member-role-line {
+        @apply scale-x-100;
+    }
+
+    .group:hover .about-value-icon-box {
+        @apply scale-110;
+    }
+}

@@ -82,5 +82,8 @@ class TestDriveService:
             slot.is_available = slot.id not in booked_slot_ids
             
         return active_slots
+    
+    def get_all_bookings(self, db: Session) -> List[TestDriveBooking]:
+        return crud_testdrive_booking.get_multi(db)
 
 testdrive_service = TestDriveService()

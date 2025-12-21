@@ -1,0 +1,62 @@
+@import "../../index.css";
+
+/* Prevent body shift when sheet is open */
+body:has([data-state="open"]) {
+    padding-right: 0 !important;
+}
+
+.landing-page {
+    background-color: var(--apex-color-primary)
+}
+
+.landing-section-container {
+    @apply flex flex-col items-center justify-center 
+            min-h-screen h-screen;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-section-container .landing-section-img {
+    @apply absolute w-full h-full object-cover;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.landing-section-info {
+    @apply relative flex flex-col 
+            items-center justify-center text-center px-4;
+    color: var(--apex-color-text);
+    z-index: 1;
+}
+
+.landing-section-info .landing-title {
+    @apply text-4xl md:text-6xl font-extrabold;
+    color: var(--apex-color-text);
+}
+
+.landing-section-info .landing-slogan {
+    @apply text-lg md:text-2xl m-4;
+}
+
+.landing-section-info .landing-discover-btn {
+    background-color: var(--apex-color-text);
+    color: var(--apex-color-primary);
+}
+
+.landing-section-info .landing-discover-btn:hover {
+    background-color: var(--apex-color-highlight);
+}
+
+/* Lazy Load Animations */
+.landing-fade-out {
+    opacity: 0;
+    /* transform: translateY(30px); */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.landing-fade-in {
+    opacity: 1;
+    /* transform: translateY(0); */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}

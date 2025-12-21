@@ -1,0 +1,14 @@
+@import "../../index.css";
+
+.my-cart-page {
+    @apply w-full flex flex-col items-center mt-30;
+}
+
+.title {
+    @apply text-4xl mb-5;
+}
+
+hr {
+    @apply w-9/12 border-t-2;
+    border-color: #e4e5e7;
+}
