@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 import "./dashboard.css";
 
 const statusColors: Record<TestDriveStatus, string> = {
-    pending: "status-pending",
-    confirmed: "status-confirmed",
-    completed: "status-delivered",
-    cancelled: "status-cancelled",
+    SCHEDULED: "status-confirmed",
+    COMPLETED: "status-delivered",
+    CANCELLED: "status-cancelled",
 };
 
 export default function UserTestDriveBookings() {
@@ -80,6 +79,7 @@ export default function UserTestDriveBookings() {
                                     <span className={`booking-status ${statusColors[booking.status]}`}>
                                         {booking.status}
                                     </span>
+                                    {/* {console.log(booking.status)} */}
                                 </div>
                             </div>
                             

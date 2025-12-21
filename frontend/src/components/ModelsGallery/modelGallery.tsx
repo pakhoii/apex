@@ -51,10 +51,12 @@ export default function ModelGallery({ models = [] }: GalleryProps) {
                     {currentModel.name}
                 </h1>
 
-                <Button className={`gallery-button ${isTransitioning ? 'button-fade-out' : 'button-fade-in'}`}>
-                    Find Out More
-                    <MoveRightIcon size={16} />
-                </Button>
+                <a href={`/models`}>
+                    <Button className={`gallery-button ${isTransitioning ? 'button-fade-out' : 'button-fade-in'}`}>
+                        Find Out More
+                        <MoveRightIcon size={16} />
+                    </Button>
+                </a>
             </div>
 
             {/* Indicators */}

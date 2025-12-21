@@ -313,3 +313,7 @@
         @apply opacity-100 translate-x-0;
     }
 }
+
+.model-details-page {
+    @apply p-20;
+}

@@ -1,8 +1,7 @@
 export type TestDriveStatus =
-    | "pending"
-    | "confirmed"
-    | "completed"
-    | "cancelled";
+    "SCHEDULED" |
+    "COMPLETED" |
+    "CANCELLED";
 
 export interface TestDriveSlotOut {
     id: number;

@@ -1,15 +1,56 @@
-import React from 'react';
+import { useBrand } from '@/hooks/useBrand';
+import { useCart } from '@/hooks/useCart';
+import { useModel } from '@/hooks/useModel';
+import type {
+    ModelDetailsProps,
+    ModelOut
+} from "@/types/model";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
+import CompareChoosing from './compareChoosing';
+
 import './carDetail.css';
 
-const CarDetail: React.FC = () => {
+interface ModelDetailsWithBrand extends ModelOut {
+    brand: string;
+}
+
+const CarDetail: React.FC<ModelDetailsProps> = ({ modelId }) => {
+    const [model, setModel] = useState<ModelDetailsWithBrand | null>(null);
+    const [compareDialogOpen, setCompareDialogOpen] = useState(false);
+    const { fetchModelsDetails, loading, error } = useModel();
+    const { fetchBrandById } = useBrand();
+    const { addItemToCart } = useCart();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loadModel = async () => {
+            try {
+                const data = await fetchModelsDetails(modelId);
+                // console.log(data)
+                const brandData = await fetchBrandById(data.brand_id);
+                const modelWithBrand: ModelDetailsWithBrand = {
+                    ...data,
+                    brand: brandData.name,
+                };
+                setModel(modelWithBrand);
+            }
+            catch (err) {
+                console.error("Failed to fetch model details:", err);
+            }
+        };
+
+        loadModel();
+    }, [modelId]);
+
     return (
         <div className="car-detail-container">
             {/* Hero Image */}
             <img
-                src="/images/bmw-m440i.png"
-                alt="BMW M440i xDrive"
+                src={model?.image_url || "/images/porsche-911-turbo-s-black-background-amoled-pitch-black-3840x2880-7730.jpg"}
+                alt={model?.name || "Car Image"}
                 className="car-detail-hero-image"
             />
 
@@ -18,8 +59,8 @@ const CarDetail: React.FC = () => {
                 <div className="car-detail-main-col">
                     {/* Info Card */}
                     <Card className="car-detail-info-card border-none shadow-none gap-2">
-                        <h1 className="car-detail-title">BMW M440i xDrive</h1>
-                        <p className="car-detail-price">$67,500</p>
+                        <h1 className="car-detail-title">{model?.name}</h1>
+                        <p className="car-detail-price">${model?.price}</p>
                     </Card>
 
                     {/* Specification Section */}
@@ -36,15 +77,15 @@ const CarDetail: React.FC = () => {
                                 <tbody>
                                     <tr>
                                         <td>Name</td>
-                                        <td>BMW M440i xDrive</td>
+                                        <td>{model?.name}</td>
                                     </tr>
                                     <tr>
                                         <td>Year</td>
-                                        <td>2025</td>
+                                        <td>{model?.year}</td>
                                     </tr>
                                     <tr>
                                         <td>Brand</td>
-                                        <td>BMW</td>
+                                        <td>{model?.brand}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -58,8 +99,18 @@ const CarDetail: React.FC = () => {
                         size="lg"
                         className="car-detail-btn car-detail-btn-primary w-full text-base"
                         onClick={() => {
-                            // TODO: Implement Add to Cart API call here
-                            console.log("Add to cart clicked");
+                            const access_token = localStorage.getItem("access_token");
+                            if (!access_token) {
+                                alert("Please log in to add items to your cart.");
+                                return;
+                            }
+                            try {
+                                addItemToCart({model_id : modelId, quantity: 1});
+                            } catch (error) {
+                                console.error("Failed to add item to cart:", error);
+                            }
+
+                            alert("Item added to cart!");
                         }}
                     >
                         Add To Cart
@@ -69,8 +120,7 @@ const CarDetail: React.FC = () => {
                         size="lg"
                         className="car-detail-btn car-detail-btn-outline w-full text-base"
                         onClick={() => {
-                            // TODO: Implement Schedule Test Drive API call here
-                            console.log("Schedule test drive clicked");
+                            navigate(`/test-drive/${modelId}`);
                         }}
                     >
                         Schedule Test Drive
@@ -80,19 +130,24 @@ const CarDetail: React.FC = () => {
                         size="lg"
                         className="car-detail-btn car-detail-btn-outline w-full text-base"
                         onClick={() => {
-                            // TODO: Implement Compare API call here
-                            console.log("Compare clicked");
+                            setCompareDialogOpen(true);
                         }}
                     >
                         Compare
                     </Button>
+                    <CompareChoosing
+                        open={compareDialogOpen}
+                        onOpenChange={setCompareDialogOpen}
+                        currentModelId={modelId}
+                        currentModelName={model?.name}
+                    />
                     <Button
                         variant="default"
                         size="lg"
                         className="car-detail-btn car-detail-btn-danger w-full text-base"
                         onClick={() => {
                             // TODO: Implement Add to Wishlist API call here
-                            console.log("Add to wishlist clicked");
+                            alert("Added to Wishlist!");
                         }}
                     >
                         Add To Wishlist

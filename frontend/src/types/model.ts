@@ -64,3 +64,7 @@ export interface GalleryProps {
 export interface CompareProps {
     modelIds: number[];
 }
+
+export interface ModelDetailsProps {
+    modelId: number;
+}

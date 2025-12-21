@@ -62,9 +62,11 @@ export default function Landing() {
                     <div className="landing-section-info">
                         <h1 className="landing-title">APEX</h1>
                         <p className="landing-slogan">Driven by Quality, Defined by Trust</p>
-                        <Button className="landing-discover-btn" size="lg">
-                            Discover Now
-                        </Button>
+                        <a href="/about">
+                            <Button className="landing-discover-btn" size="lg">
+                                Discover Now
+                            </Button>
+                        </a>
                     </div>
                 </div>
 
@@ -89,9 +91,11 @@ export default function Landing() {
                     <div className="landing-section-info">
                         <h1 className="landing-title">More About Us</h1>
                         <div className="m-4"></div>
-                        <Button className="landing-discover-btn" size="lg">
-                            Discover Now
-                        </Button>
+                        <a href="/about">
+                            <Button className="landing-discover-btn" size="lg">
+                                Discover Now
+                            </Button>
+                        </a>
                     </div>
                 </div>
             </div>
