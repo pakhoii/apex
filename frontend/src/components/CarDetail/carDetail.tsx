@@ -109,6 +109,8 @@ const CarDetail: React.FC<ModelDetailsProps> = ({ modelId }) => {
                             } catch (error) {
                                 console.error("Failed to add item to cart:", error);
                             }
+
+                            alert("Item added to cart!");
                         }}
                     >
                         Add To Cart

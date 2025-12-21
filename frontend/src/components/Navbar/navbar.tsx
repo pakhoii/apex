@@ -10,7 +10,7 @@ const NAV_ITEMS = {
   "CONTACT": "/contact",
   "DASHBOARD": "/dashboard",
   "WISHLIST": "/wishlist",
-  "CART": "/cart",
+  "CART": "/my-cart",
 //   "BOOK TEST DRIVE": "/test-drive",
 };
 
