@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     details VARCHAR(255),
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (actor_id) REFERENCES users(id)
+);
 
 CREATE TABLE IF NOT EXISTS orders (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS orders (
     order_date DATETIME NOT NULL,
     status VARCHAR(50) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
+);
 
 CREATE TABLE IF NOT EXISTS order_items (
     order_id INTEGER NOT NULL,
@@ -53,6 +55,7 @@ CREATE TABLE IF NOT EXISTS order_items (
     PRIMARY KEY (order_id, model_id),
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (model_id) REFERENCES models(id) 
+);
 
 CREATE TABLE IF NOT EXISTS payments (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
